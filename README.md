@@ -3,16 +3,7 @@ SweetFiction
 
 This is our attempt to provide a Open Source Fanfiction CMS. Since it is build onto CakePHP, it provides the app/ directory and additionally a test suite in tests/ for BDD using a standalone cucumber installation. 
 
-
-CakePHP
-=======
-
-[![CakePHP](http://cakephp.org/img/cake-logo.png)](http://www.cakephp.org)
-
-CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC.
-Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
-
-Some Handy Links
+Some Handy Links for CakePHP
 ----------------
 
 [CakePHP](http://www.cakephp.org) - The rapid development PHP framework
@@ -39,7 +30,8 @@ Get Support!
 [Q & A](http://ask.cakephp.org/) - Ask questions here, all questions welcome
 
 [Lighthouse](http://cakephp.lighthouseapp.com/) - Got issues? Please tell us!
-
+<!--
 [![Bake Status](https://secure.travis-ci.org/cakephp/cakephp.png?branch=master)](http://travis-ci.org/cakephp/cakephp)
 
 ![Cake Power](https://raw.github.com/cakephp/cakephp/master/lib/Cake/Console/Templates/skel/webroot/img/cake.power.gif)
+-->
