@@ -1,0 +1,70 @@
+Geschichten:
+	Fandom*:
+		Bereich der Fanfiction, z.B. HP, Twiglight, ... 
+		Geschichten ohne Fandom werden als Originale gewertet
+	Universe*:
+		Basis der Fanfiction, z.B. Book, Series, Movie, Game, Graphical (Mange/Comic), Music
+		Die Universen können gemischt werden - z.B. 1. Buch und 2. Film ...
+		Die Liste der Charaktere setzt sich aus den Charakteren aller Universen zusammen und wird über das Fandom verwaltet 
+	Gemeinschaftsstories:
+		Werden über Gemeinschaftsaccounts verwaltet - zu Anfang werden dass normale Nutzeraccount mit bekanntem Passwort sein, später soll der Zugang vom Autorenaccount möglich sein
+	Genre:
+		Mehrfachauswahl
+	Warning:
+		Mehrfachauswahl
+	Age Restrictions*:
+		Einfache Auswahl
+	Category*:
+		Prosa
+		Poesie - ermöglicht unterschiedliche Regelsätze z.B. für die Mindestwortanzahl
+	Complete*:
+	Wish publishing:
+		Datum, an der die Geschichte online gehen soll - sofern die Schlussredaktion schon kontrolliert hat
+	Title*
+	Cover 
+	Summary
+	Foreword
+	Afterword
+	
+	Die Einteilung nach Einteiler/Mehrteiler wird durch das Complete-Flag ermöglicht. Eine beendete Story mit einem Kapitel ist ein Einteiler, alles weitere wird als (angefangener) Mehrteiler behandelt. 
+	
+Kapitel:
+	Title
+	Foreword
+	Text*
+	Afterword
+	
+Review:
+	Global (Systemweit) und vom Autor einstellbar (Global vor Autor)
+		Auswahl:  Anonym erlaubt, Registiert erlaubt, Keine Reviews abgesehen vom Autor selbst
+	Reviews werden als Gespräch geführt, d.h. jeder zugelassene Teilnehmer kann einen Beitrag als "Review" hinzufügen
+	
+Alle mit * markierten Beiträge sind Pflicht - Ausnahme: Fandom ist *quasi* Pflicht (leer = Original). 
+Alle Beiträge (Story, Kapitel, Reviews) die durch den Nutzer erstellt werden, sollten meldbar sein.
+
+Schlussredaktion:
+	Lesen, Bearbeiten von Geschichten
+	Zulassen/Ablehnen von Geschichten mit entsprechender Information an den Autor
+	Anschreiben des Autors über seine Email-Adresse
+	Notizen für die Geschichten
+	Dringlichkeitsindikator auf Grundlage des Alters
+	Zuordnung eines Redakteurs pro Geschichte
+	Status der Geschichte ("neu", "in Bearbeitung", "Autor kontaktiert", ...)
+	Automatische Freischaltung für Autoren
+
+Nutzergruppen:
+	Gäste (unangemeldete Nutzer)
+		Lesen und ggf. Schreiben von anonymen Reviews
+	Autoren (registrierte Nutzer)
+		Lesen, Veröffentlichen von Geschichten, ggf. Schreiben von Reviews, Löschen eigener Stories, Einschränken der Reviews auf Storybasis, Bearbeiten des eigenen Nutzerprofils
+
+Rollen:
+	Redakteur,
+	Moderator,
+	Administrator
+	
+Erweiterungen für später:
+	News, Interviews (evlt. einfache News - im Blog-Stil) - Öffentlichkeitsarbeit
+	Wettbewerbe
+	Zitate (ähnlich dem Zitat des Moments - aus den Universen aber auch aus den Fanfics und den Originalen)
+	Geschichte des Moments (am besten Fandom bezogen, auf der Hauptseite lediglich Originale als GDM)
