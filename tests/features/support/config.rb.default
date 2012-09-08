@@ -1,0 +1,4 @@
+require 'capybara' 
+
+Capybara.app_host = 'http://test.localhost/sweetfiction'
+ 

@@ -4,9 +4,10 @@ Feature: Open the home page
 
 Scenario: Visit the homepage
     Given I am on the home page
-    Then I should see "Anmelden"
-    And I should see "Navigation"
-    And I should see "Willkommen im HPFFA"
+    Then I should see "Register"
+    And I should see "Menu"
+    And I should see "Welcome"
+    And I should see "Users"
     
-@javascript
-Scenario: Sample javascript test
+#@javascript
+#Scenario: Sample javascript test

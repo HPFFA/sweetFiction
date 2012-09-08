@@ -1,0 +1,14 @@
+#! /bin/bash
+
+case "$1" in
+save)
+lib/Cake/Console/cake schema generate
+;;
+load)
+lib/Cake/Console/cake schema create
+;;
+*)
+echo "Usage: $0 save|load" >&2
+exit 3
+;;
+esac

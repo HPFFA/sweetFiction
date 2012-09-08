@@ -5,6 +5,10 @@
 /vendors
 /build
 /lib
+/tests/features/support/config.rb
 /dist
 .DS_Store
 /tags
+.htaccess
+app/.htaccess
+app/webroot/.htaccess

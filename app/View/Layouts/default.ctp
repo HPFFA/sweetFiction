@@ -41,12 +41,12 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		<div id="header">
 			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
 		</div>
-		<div id="navigation">
-			<?php echo __('Navigation') ?>
-			<?php echo __('Anmelden') ?>
-		</div>
 		<div id="content">
-
+			<div id="navigation">
+				<?php echo __('Menu') ?>
+				<?php echo __('Register') ?>
+				<?php echo $this->Html->link(__('Users'), array('controller' => 'users', 'action' => 'index')); ?>
+			</div>
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>

@@ -34,14 +34,6 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
-Then /^let me see the page$/ do
-	ask('does that look right?')
-end 
-
-Then /^show me the page$/ do
-  save_and_open_page
-end
-
 def trigger_change(field)
 	page.execute_script('$("'+field+'").focusout()');
 end

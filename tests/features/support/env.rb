@@ -1,4 +1,12 @@
-begin require 'rspec/expectations'; rescue LoadError; require 'spec/expectations'; end
+begin 
+	require 'rspec/expectations'; 
+	rescue LoadError; 
+	require 'spec/expectations'; 
+end
+# hack to include files relative to this one
+$LOAD_PATH << File.dirname(__FILE__)
+
+require 'config'
 require 'capybara' 
 require 'capybara/dsl' 
 require 'capybara/cucumber'
@@ -23,5 +31,7 @@ Capybara.register_driver :selenium_chrome do |app|
 	Capybara::Selenium::Driver.new(app, :browser => :chrome) 
 end 
 
-Capybara.app_host = 'http://test.eeebang/~check/sweetfiction' 
+Capybara.run_server = false
+
+#Capybara.app_host = Config.application_base_path + Config.application_path 
 World(Capybara) 

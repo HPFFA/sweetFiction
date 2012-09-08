@@ -20,7 +20,7 @@ if (Configure::read('debug') == 0):
 endif;
 App::uses('Debugger', 'Utility');
 ?>
-<h1><?php echo __('Willkommen im HPFFA') ?></h1>
+<h1><?php echo __('Welcome') ?></h1>
 <?php
 if (Configure::read('debug') > 0):
 	Debugger::checkSecurityKeys();
