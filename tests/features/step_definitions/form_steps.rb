@@ -43,12 +43,10 @@ end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
   fill_in(field, :with => value)
-  trigger_change(field)
 end
 
 When /^(?:|I )fill in "([^"]*)" with:$/ do |field, value|
   fill_in(field, :with => value)
-  trigger_change(field)
 end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
@@ -57,12 +55,10 @@ end
 
 When /^(?:|I )check "([^"]*)"$/ do |field|
   check(field)
-  #trigger_check(field)
 end
 
 When /^(?:|I )uncheck "([^"]*)"$/ do |field|
   uncheck(field)
-  #trigger_check(field)
 end
 
 When /^(?:|I )choose "([^"]*)"$/ do |field|

@@ -7,7 +7,6 @@ end
 
 Given /^I have entered "([^"]*)" into the "([^"]*)" field$/ do |text, field|
   fill_in field, :with => text
-  trigger_change(field)
 end
 
 When /^I click the "([^"]*)" button$/ do |button_text|

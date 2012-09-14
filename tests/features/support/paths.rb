@@ -1,14 +1,16 @@
-require 'capybara' 
+require 'capybara'
 
 
 module NavigationHelpers
 
-	def application_paths(page_name)
-		case page_name
-		when /home page/
+    def application_paths(page_name)
+        case page_name
+        when /Home/
         '/'
-    when /users/
+    when /Users/
         '/users'
+    when /Register/
+        '/authentication/register'
     else
       begin
         page_name =~ /the (.*) page/
@@ -19,7 +21,7 @@ module NavigationHelpers
           "Now, go and add a mapping in #{__FILE__}"
       end
     end
-	end
+    end
   # Maps a name to a path. Used by the
   #
   #   When /^I go to (.+)$/ do |page_name|
@@ -27,7 +29,7 @@ module NavigationHelpers
   # step definition in web_steps.rb
   #
   def path_to(page_name)
-		return Capybara.app_host + application_paths(page_name)
-	end
+        return Capybara.app_host + application_paths(page_name)
+    end
 end
 World(NavigationHelpers)
