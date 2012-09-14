@@ -1,12 +1,22 @@
 <?php
 
-App::uses('Component', 'Controller');
+App::uses('AuthComponent', 'Controller/Component');
 
-class AuthenticationComponent extends Component
+/**
+ * AuthenticationComponent extends the behavior of AuthComponent
+ * with modifications for using cookies for permanent sessions
+ */
+class AuthenticationComponent extends AuthComponent
 {
-    var $components = array('Auth', 'Cookie', 'Session');
+    var $components = array(
+        'Cookie',
+        'Session',
+        'Acl'
+    );
+
     var $controller = null;
     var $uses = array("User");
+
     /**
     * Cookie retention period.
     *
@@ -29,42 +39,39 @@ class AuthenticationComponent extends Component
         }
     }
 
-    public function login(CakeRequest $request)
-    {
-        if ($this->Auth->login())
-        {
-            if ($request->data['Session']['keep_logged_in'] == '1')
-            {
-                $this->remember($this->Auth->user());
+    public function tryToLogin(CakeRequest $request) {
+        if ($this->login($request)) {
+            if ($request->data['Session']['keep_logged_in'] == '1') {
+                $this->remember($this->user());
             }
-            $this->controller->set("User", $this->Auth->user());
-            $this->controller->redirect($this->Auth->redirect());
+            $this->controller->set("User", $this->user());
+            $this->controller->redirect($this->redirect());
         }
         $this->Session->setFlash(__('Invalid username or password'), 'default', array(), 'auth');
     }
 
-    public function logout()
-    {
+    public function logout() {
         $this->forget();
-        $this->controller->redirect($this->Auth->logout());
+        $this->controller->redirect($this->logout());
     }
 
     public function remember($user) {
         $cookie = array();
-        $cookie[$this->Auth->fields['username']] = $user['name'];
-        $cookie[$this->Auth->fields['password']] = $user['password'];
+        $cookie[$this->fields['username']] = $user['name'];
+        $cookie[$this->fields['password']] = $user['password'];
         $this->Cookie->write($this->cookieName, $cookie, true, $this->period);
     }
 
     public function tryToResume() {
         $cookie = $this->Cookie->read($this->cookieName);
 
-        if (!is_array($cookie) || $this->Auth->user())
+        if (!is_array($cookie) || $this->user())
             return;
 
-        if ($this->Auth->login($cookie)) {
+        if ($this->login($cookie)) {
             $this->Cookie->write($this->cookieName, $cookie, true, $this->period);
-            $this->controller->set("User", $this->Auth->user());
+
+            $this->controller->set("User", $this->user());
         } else {
             $this->forget();
         }

@@ -8,10 +8,8 @@ App::uses('User', 'Model');
  */
 class AuthenticationController extends AppController {
 
-    public $components = array('Authentication');
-
     public function beforeFilter() {
-        $this->Auth->allow('register', 'login');
+        $this->Authentication->allow('register', 'login');
         parent::beforeFilter();
     }
 
@@ -24,7 +22,7 @@ class AuthenticationController extends AppController {
 
     public function login() {
         if ($this->request->is('post')) {
-            $this->Authentication->login($this->request);
+            $this->Authentication->tryToLogin($this->request);
         }
         unset($this->request->data['User']['password']);
     }
