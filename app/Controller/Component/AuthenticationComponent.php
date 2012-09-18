@@ -35,15 +35,16 @@ class AuthenticationComponent extends AuthComponent
             $this->Session->setFlash(__('The author has been registered'));
             $this->controller->redirect(array('controller' => 'pages', 'action' => 'display', 'home'));
         } else {
-            $this->Session->setFlash(__('The author could not be registered. Please, try again.'));
+            $this->Session->setFlash(__('The author could not be registered. Please, try again.'), 'error', array(), 'auth');
         }
     }
 
     public function tryToLogin(CakeRequest $request) {
-        if ($this->login($request->data['User'])) {
+        if ($this->login()) {
             if ($request->data['Session']['keep_logged_in'] == '1') {
                 $this->remember($this->user());
             }
+            $this->Session->setFlash(__('Welcome %s', $this->user('name')), 'default', array(), 'auth');
             $this->controller->redirect($this->redirect());
         }
         $this->Session->setFlash(__('Invalid username or password'), 'default', array(), 'auth');

@@ -59,7 +59,6 @@ class AppController extends Controller {
     public function beforeFilter(){
         $this->Authentication->tryToResume();
         $this->Authentication->allow('index',  'display');
-       // debug($this->Authentication);
     }
 
 }

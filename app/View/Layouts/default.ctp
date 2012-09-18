@@ -43,18 +43,13 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
         </div>
         <div id="content">
             <div id="navigation">
-                <?php echo $this->Html->link(__('Register'), array('controller' => 'authentication', 'action' => 'register')); ?>
                 <?php echo $this->Html->link(__('Users'), array('controller' => 'users', 'action' => 'index')); ?>
-                <?php
-                    if (AuthenticationComponent::user() == null)
-                    {
-                        echo $this->Html->link(__('Login'), array('controller' => 'authentication', 'action' => 'login'));
-                    }
-                    else
-                    {
-                        echo $this->Html->link(__('Logout %s', AuthenticationComponent::user('name')), array('controller' => 'authentication', 'action' => 'logout'));
-                    }
-                ?>
+                <?php if (AuthenticationComponent::user() == null): ?>
+                    <?php echo $this->Html->link(__('Login'), array('controller' => 'authentication', 'action' => 'login')); ?>
+                    <?php echo $this->Html->link(__('Register'), array('controller' => 'authentication', 'action' => 'register')); ?>
+                <?php else: ?>
+                    <?php echo $this->Html->link(__('Logout %s', AuthenticationComponent::user('name')), array('controller' => 'authentication', 'action' => 'logout')); ?>
+                <?php endif; ?>
             </div>
             <?php echo $this->Session->flash(); ?>
             <?php echo $this->Session->flash('auth'); ?>

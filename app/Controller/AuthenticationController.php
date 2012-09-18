@@ -9,8 +9,8 @@ App::uses('User', 'Model');
 class AuthenticationController extends AppController {
 
     public function beforeFilter() {
-        $this->Authentication->allow('register', 'login');
         parent::beforeFilter();
+        $this->Authentication->allow('register', 'login');
     }
 
     public function register() {
