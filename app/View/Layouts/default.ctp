@@ -45,10 +45,19 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
             <div id="navigation">
                 <?php echo $this->Html->link(__('Register'), array('controller' => 'authentication', 'action' => 'register')); ?>
                 <?php echo $this->Html->link(__('Users'), array('controller' => 'users', 'action' => 'index')); ?>
-                <?php echo $this->Html->link(__('Login'), array('controller' => 'authentication', 'action' => 'login')); ?>
+                <?php
+                    if (AuthenticationComponent::user() == null)
+                    {
+                        echo $this->Html->link(__('Login'), array('controller' => 'authentication', 'action' => 'login'));
+                    }
+                    else
+                    {
+                        echo $this->Html->link(__('Logout %s', AuthenticationComponent::user('name')), array('controller' => 'authentication', 'action' => 'logout'));
+                    }
+                ?>
             </div>
             <?php echo $this->Session->flash(); ?>
-
+            <?php echo $this->Session->flash('auth'); ?>
             <?php echo $this->fetch('content'); ?>
         </div>
         <div id="footer">

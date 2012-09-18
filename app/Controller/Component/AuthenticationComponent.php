@@ -40,11 +40,10 @@ class AuthenticationComponent extends AuthComponent
     }
 
     public function tryToLogin(CakeRequest $request) {
-        if ($this->login($request)) {
+        if ($this->login($request->data['User'])) {
             if ($request->data['Session']['keep_logged_in'] == '1') {
                 $this->remember($this->user());
             }
-            $this->controller->set("User", $this->user());
             $this->controller->redirect($this->redirect());
         }
         $this->Session->setFlash(__('Invalid username or password'), 'default', array(), 'auth');
@@ -52,7 +51,7 @@ class AuthenticationComponent extends AuthComponent
 
     public function logout() {
         $this->forget();
-        $this->controller->redirect($this->logout());
+        $this->controller->redirect(parent::logout());
     }
 
     public function remember($user) {

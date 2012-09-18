@@ -40,36 +40,47 @@ class DebugController extends AppController {
         $this->create(
             $this->Group,
             array(
-                array('Group' => array('name' => 'User')),  // 1
-                array('Group' => array('name' => 'Adminstrator')) // 2
+                array('Group' => array('id' => '1', 'name' => 'User')),
+                array('Group' => array('id' => '2', 'name' => 'Adminstrator'))
             )
         );
+    }
+
+    private function setAccessControl(){
+        $group = $this->User->Group;
+        $group->id = 1;
+        $this->Acl->allow($group, 'controllers');
+
+        $group->id = 2;
+        $this->Acl->deny($group, 'controllers');
+        $this->Acl->allow($group, 'controllers/Pages');
     }
 
     private function initializeAccessControlLists(){
         $this->create(
             $this->Acl->Aco,
             array(
-                array('parent_id' => null, 'alias' => 'controllers')
+                array('parent_id' => null, 'alias' => 'controllers') // root entry
             )
         );
+        $this->setAccessControl();
     }
 
     private function initializeUser(){
         $users = array(
                 array('User' => array(
                         'name' => 'Super Mario',
-                        'group_id' => '2',
+                        'group_id' => '1',
                         'email' => 'super_mario@example.com',
                         'password' => 'super_mario')),
                 array('User' => array(
                         'name' => 'Luigi',
-                        'group_id' => '1',
+                        'group_id' => '2',
                         'email' => 'luigi@example.com',
                         'password' => 'luigi')),
                 array('User' => array(
                         'name' => 'Princess Peach',
-                        'group_id' => '1',
+                        'group_id' => '2',
                         'email' => 'princess_peach@example.com',
                         'password' => 'princess_peach'))
             );
