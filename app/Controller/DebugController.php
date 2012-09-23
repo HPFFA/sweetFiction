@@ -7,7 +7,6 @@ App::uses('ConnectionManager', 'Model');
 class DebugController extends AppController {
 
     public $name = 'Debug';
-    public $components = array('Acl');
 
     public $uses = array('Group', 'User');
 
@@ -46,26 +45,6 @@ class DebugController extends AppController {
         );
     }
 
-    private function setAccessControl(){
-        $group = $this->User->Group;
-        $group->id = 1;
-        $this->Acl->allow($group, 'controllers');
-
-        $group->id = 2;
-        $this->Acl->deny($group, 'controllers');
-        $this->Acl->allow($group, 'controllers/Pages');
-    }
-
-    private function initializeAccessControlLists(){
-        $this->create(
-            $this->Acl->Aco,
-            array(
-                array('parent_id' => null, 'alias' => 'controllers') // root entry
-            )
-        );
-        $this->setAccessControl();
-    }
-
     private function initializeUser(){
         $users = array(
                 array('User' => array(
@@ -96,7 +75,6 @@ class DebugController extends AppController {
     public function initialize(){
         $this->clear(false);
         $this->initializeGroups();
-        $this->initializeAccessControlLists();
         $this->initializeUser();
         $this->finish(__('Created fixtures'));
     }

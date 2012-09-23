@@ -7,12 +7,7 @@ App::uses('AppModel', 'Model');
  */
 class User extends AppModel {
 
-    public function bindNode($user) {
-        return array(
-            'model' => 'Group',
-            'foreign_key' => $user['User']['group_id']
-        );
-    }
+    public $name = 'User';
 
 /**
  * Use table
@@ -112,8 +107,6 @@ class User extends AppModel {
         ),
     );
 
-    //The Associations below have been created with all possible keys, those that are not needed can be removed
-
     /**
      * belongsTo associations
      *
@@ -126,6 +119,53 @@ class User extends AppModel {
             'conditions' => '',
             'fields' => '',
             'order' => ''
+        )
+    );
+
+    /**
+ * hasOne associations
+ *
+ * @var array
+ */
+    public $hasOne = array(
+        'UserSetting' => array(
+            'className' => 'UserSetting',
+            'foreignKey' => 'user_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        ),
+        'UserContact' => array(
+            'className' => 'UserContact',
+            'foreignKey' => 'user_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        ),
+        'UserProfile' => array(
+            'className' => 'UserProfile',
+            'foreignKey' => 'user_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
         )
     );
 

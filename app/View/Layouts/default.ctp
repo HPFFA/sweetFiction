@@ -39,16 +39,23 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <body>
     <div id="container">
         <div id="header">
-            <h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
+            <h1><?php
+                $username = __('Guest');
+                if ($this->Auth->currentUser())
+                {
+                    $username = $this->Auth->currentUser('name');
+                }
+                echo __('Welcome %s', $username); ?></h1>
         </div>
         <div id="content">
             <div id="navigation">
                 <?php echo $this->Html->link(__('Users'), array('controller' => 'users', 'action' => 'index')); ?>
-                <?php if (AuthenticationComponent::user() == null): ?>
+                <?php if ($this->Auth->currentUser() == null): ?>
                     <?php echo $this->Html->link(__('Login'), array('controller' => 'authentication', 'action' => 'login')); ?>
                     <?php echo $this->Html->link(__('Register'), array('controller' => 'authentication', 'action' => 'register')); ?>
                 <?php else: ?>
-                    <?php echo $this->Html->link(__('Logout %s', AuthenticationComponent::user('name')), array('controller' => 'authentication', 'action' => 'logout')); ?>
+                    <?php echo $this->Html->link(__('Profile'), array('controller' => 'users', 'action' => 'view', $this->Auth->currentUser('id'))); ?>
+                    <?php echo $this->Html->link(__('Logout'), array('controller' => 'authentication', 'action' => 'logout')); ?>
                 <?php endif; ?>
             </div>
             <?php echo $this->Session->flash(); ?>

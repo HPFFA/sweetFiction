@@ -9,7 +9,7 @@
     <?php
     foreach ($users as $user): ?>
     <tr>
-        <td><?php echo h($user['User']['name']); ?>&nbsp;</td>
+        <td><?php echo $this->Html->link(h($user['User']['name']), array('action' => 'view', $user['User']['id'])); ?>&nbsp;</td>
         <td>
             <?php echo $this->Html->link($user['Group']['name'], array('controller' => 'groups', 'action' => 'view', $user['Group']['id'])); ?>
         </td>

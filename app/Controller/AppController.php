@@ -21,6 +21,8 @@
  */
 
 App::uses('Controller', 'Controller');
+App::uses('Model', 'User');
+
 
 /**
  * Application Controller
@@ -35,7 +37,9 @@ class AppController extends Controller {
 
     public $components = array(
         'Session',
-        'Authentication' => array(
+        'Acl',
+        'Authentication',
+        'Auth' => array(
             'authenticate' => array(
                 'Form' => array(
                     'fields' => array(
@@ -51,9 +55,19 @@ class AppController extends Controller {
             ),
             'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home'),
-            'authorize' => array('Actions' => array('actionPath' => 'Controller'))
+            'authorize' => 'Controller'
+            //'authorize' => array('Actions', array('actions_path' => 'controllers'))
         ),
     );
+
+    public $uses = array('User');
+
+    public $helper = array('Auth');
+
+    public function isAuthorized($user) {
+        // todo build permission based system - acl are hard to handle for some weird reason
+        return !empty($user);
+    }
 
 
     public function beforeFilter(){

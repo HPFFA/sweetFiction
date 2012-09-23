@@ -2,13 +2,40 @@
 <?php echo $this->Form->create('User'); ?>
     <fieldset>
         <legend><?php echo __('Edit User'); ?></legend>
-    <?php
-        echo $this->Form->input('group_id');
-        echo $this->Form->input('name');
-        echo $this->Form->input('email');
-        echo $this->Form->input('password');
-        echo $this->Form->input('confirmation', array('type' => 'password'));
-    ?>
+        <?php
+            echo $this->Form->input('group_id');
+            echo $this->Form->input('name');
+            echo $this->Form->input('email');
+            echo $this->Form->input('password');
+            echo $this->Form->input('confirmation', array('type' => 'password'));
+        ?>
+    </fieldset>
+    <fieldset>
+        <legend><?php echo __('Profile'); ?></legend>
+        <?php
+            echo $this->Form->input('UserProfile.real_name');
+            echo $this->Form->input('UserProfile.birthday');
+            echo $this->Form->input('UserProfile.biography');
+        ?>
+    </fieldset>
+    <fieldset>
+        <legend><?php echo __('Contact'); ?></legend>
+        <?php
+            echo $this->Form->input('UserContact.homepage');
+            echo $this->Form->input('UserContact.public_email');
+            echo $this->Form->input('UserContact.icq');
+            echo $this->Form->input('UserContact.yahoo');
+            echo $this->Form->input('UserContact.msn');
+            echo $this->Form->input('UserContact.skype');
+            echo $this->Form->input('UserContact.aol');
+        ?>
+    </fieldset>
+    <fieldset>
+        <legend><?php echo __('Settings'); ?></legend>
+        <?php
+            echo $this->Form->input('UserSetting.notify_for_favorites');
+            echo $this->Form->input('UserContact.notify_for_reviews');
+        ?>
     </fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
 </div>
