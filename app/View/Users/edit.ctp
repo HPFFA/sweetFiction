@@ -3,11 +3,18 @@
     <fieldset>
         <legend><?php echo __('Edit User'); ?></legend>
         <?php
-            echo $this->Form->input('group_id');
             echo $this->Form->input('name');
             echo $this->Form->input('email');
             echo $this->Form->input('password');
             echo $this->Form->input('confirmation', array('type' => 'password'));
+
+            $selected = array();
+            if (array_key_exists('GroupAssociations', $this->request->data)){
+                foreach ($this->request->data['GroupAssociations'] as $association){
+                    $selected[] = $association['id'];
+                }
+            }
+            echo $this->Form->input('groupAssociation', array('options' => $groups, 'selected' => $selected, 'type' => 'select', 'multiple' => 'checkbox'));
         ?>
     </fieldset>
     <fieldset>
@@ -33,8 +40,8 @@
     <fieldset>
         <legend><?php echo __('Settings'); ?></legend>
         <?php
-            echo $this->Form->input('UserSetting.notify_for_favorites');
-            echo $this->Form->input('UserContact.notify_for_reviews');
+            echo $this->Form->input('UserSetting.notify_for_favorites', array('type' => 'checkbox'));
+            echo $this->Form->input('UserContact.notify_for_reviews', array('type' => 'checkbox'));
         ?>
     </fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

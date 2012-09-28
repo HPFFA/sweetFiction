@@ -8,9 +8,7 @@ Scenario: Login
             | Name          | Princess Peach              |
             | Email         | princess_peach@example.com  |
             | Password      | TopSecretPrincess           |
-    Then show me the page
+            | Confirmation  | TopSecretPrincess           |
     And I press "Submit"
-    Then show me the page
     When I am on the "Users" page
     Then I should see "Princess Peach"
-    And I should see "princess_peach@example.com"

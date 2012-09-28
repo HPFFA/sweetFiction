@@ -38,7 +38,7 @@ class AppController extends Controller {
     public $components = array(
         'Session',
         'Acl',
-        'Authentication',
+        'Cookie',
         'Auth' => array(
             'authenticate' => array(
                 'Form' => array(
@@ -56,7 +56,6 @@ class AppController extends Controller {
             'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'pages', 'action' => 'display', 'home'),
             'authorize' => 'Controller'
-            //'authorize' => array('Actions', array('actions_path' => 'controllers'))
         ),
     );
 
@@ -64,15 +63,56 @@ class AppController extends Controller {
 
     public $helper = array('Auth');
 
+    /**
+     * Cookie retention period.
+     *
+     * @var string
+     */
+    var $period = '+1 month';
+    var $cookieName = 'SweetFictionUser';
+
+
     public function isAuthorized($user) {
         // todo build permission based system - acl are hard to handle for some weird reason
-        return !empty($user);
+        //return !empty($user);
+        return true;
     }
 
 
     public function beforeFilter(){
-        $this->Authentication->tryToResume();
-        $this->Authentication->allow('index',  'display');
+        $this->tryToResume();
+        //$this->Authentication->allow('index',  'display', 'view');
+        $this->Auth->allow('*');
+    }
+
+
+
+    public function enableCookieLogin($user) {
+        $cookie = array();
+        $cookie[$this->fields['username']] = $user['name'];
+        $cookie[$this->fields['password']] = $user['password'];
+        $this->Cookie->write($this->cookieName, $cookie, true, $this->period);
+    }
+
+    public function tryToResume() {
+        $cookie = $this->Cookie->read($this->cookieName);
+
+        if (!is_array($cookie) || $this->Auth->user())
+            return;
+
+        if ($this->Auth->login($cookie)) {
+            //$this->Cookie->write($this->cookieName, $cookie, true, $this->period);
+            $this->enableCookieLogin($cookie);
+
+            $this->controller->set("User", $this->Auth->user());
+        } else {
+            $this->disableCookieLogin();
+            $this->Auth->logout();
+        }
+    }
+
+    public function disableCookieLogin() {
+        $this->Cookie->destroy();
     }
 
 }

@@ -1,6 +1,14 @@
 <div class="user view">
     <h2><?php  echo $user['User']['name'];  ?></h2>
     <dl>
+        <dt><?php echo __('Groups'); ?></dt>
+        <dd>
+            <?php foreach ($groups as $group): ?>
+                <?php echo $this->Html->link($group['Group']['name'], array('controller' => 'groups', 'action' => 'view', $group['Group']['id'])); ?></td>
+                &nbsp;
+            <?php endforeach; ?>
+            &nbsp;
+        </dd>
         <dt><?php echo __('Real Name'); ?></dt>
         <dd>
             <?php echo h($user['UserProfile']['real_name']); ?>

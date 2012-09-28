@@ -5,9 +5,8 @@ Feature: Open the home page
 Scenario: Visit the homepage
     Given I am on the home page
     Then I should see "Register"
-    And I should see "Menu"
     And I should see "Welcome"
     And I should see "Users"
-    
+
 #@javascript
 #Scenario: Sample javascript test

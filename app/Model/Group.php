@@ -3,7 +3,7 @@ App::uses('AppModel', 'Model');
 /**
  * Group Model
  *
- * @property User $User
+ * @property User $Users
  */
 class Group extends AppModel {
 
@@ -27,24 +27,14 @@ class Group extends AppModel {
  * @var array
  */
     public $validate = array(
-        'id' => array(
+        'name' => array(
             'alphanumeric' => array(
                 'rule' => array('alphanumeric'),
                 //'message' => 'Your custom message here',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),
-        ),
-        'name' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
                 //'message' => 'Your custom message here',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),
         ),
     );
@@ -52,23 +42,14 @@ class Group extends AppModel {
     //The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /**
- * hasMany associations
+ * hasAndBelongsToMany associations
  *
  * @var array
  */
     public $hasMany = array(
-        'User' => array(
-            'className' => 'User',
+        'UserAssociations' => array(
+            'className' => 'UserGroupAssociation',
             'foreignKey' => 'group_id',
-            'dependent' => false,
-            'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'exclusive' => '',
-            'finderQuery' => '',
-            'counterQuery' => ''
         )
     );
 

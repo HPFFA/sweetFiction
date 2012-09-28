@@ -7,8 +7,6 @@ App::uses('AppModel', 'Model');
  */
 class User extends AppModel {
 
-    public $name = 'User';
-
 /**
  * Use table
  *
@@ -29,100 +27,48 @@ class User extends AppModel {
  * @var array
  */
     public $validate = array(
-        'id' => array(
-            'alphanumeric' => array(
-                'rule' => array('alphanumeric'),
-                //'message' => 'Your custom message here',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
-            ),
-        ),
-        'group_id' => array(
-            'alphanumeric' => array(
-                'rule' => array('alphanumeric'),
-                //'message' => 'Your custom message here',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
-            ),
-        ),
         'name' => array(
+            'alphanumeric' => array(
+                'rule' => array('extendedAlphanumericValidation'),
+                //'message' => 'Your custom message here',
+            ),
             'notempty' => array(
                 'rule' => array('notempty'),
-                'message' => 'A user needs to have a nick name',
-                'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+                //'message' => 'Your custom message here',
             ),
-            //'maxlength' => array(
-                //'rule' => array('maxlength'),
-                //'message' => 'You can choose only names with up to 64 characters',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
-            //),
-            //'minlength' => array(
-                //'rule' => array('minlength'),
-                //'message' => 'Your name should have at least 3 characters',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
-            //),
         ),
         'email' => array(
             'email' => array(
                 'rule' => array('email'),
-                'message' => 'A valid email is needed',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+                //'message' => 'Your custom message here',
             ),
-        ),
-        'password_hash' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
                 //'message' => 'Your custom message here',
-                //'allowEmpty' => false,
-                //'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),
         ),
-        'state' => array(
-            'inlist' => array(
-                'rule' => array('inlist'),
+        'password' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
                 //'message' => 'Your custom message here',
-                //'allowEmpty' => false,
-                'required' => false,
-                //'last' => false, // Stop validation after this rule
-                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+                'on' => 'create'
             ),
         ),
     );
 
-    /**
-     * belongsTo associations
-     *
-     * @var array
-     */
-    public $belongsTo = array(
-        'Group' => array(
-            'className' => 'Group',
-            'foreignKey' => 'group_id',
-            'conditions' => '',
-            'fields' => '',
-            'order' => ''
+/**
+ * hasAndBelongsToMany associations
+ *
+ * @var array
+ */
+    public $hasMany = array(
+        'GroupAssociations' => array(
+            'className' => 'UserGroupAssociation',
+            'foreignKey' => 'user_id',
         )
     );
 
-    /**
+/**
  * hasOne associations
  *
  * @var array
@@ -133,41 +79,27 @@ class User extends AppModel {
             'foreignKey' => 'user_id',
             'dependent' => false,
             'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'exclusive' => '',
-            'finderQuery' => '',
-            'counterQuery' => ''
         ),
         'UserContact' => array(
             'className' => 'UserContact',
             'foreignKey' => 'user_id',
             'dependent' => false,
             'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'exclusive' => '',
-            'finderQuery' => '',
-            'counterQuery' => ''
         ),
         'UserProfile' => array(
             'className' => 'UserProfile',
             'foreignKey' => 'user_id',
             'dependent' => false,
             'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'exclusive' => '',
-            'finderQuery' => '',
-            'counterQuery' => ''
         )
     );
+
+    public function extendedAlphanumericValidation($check) {
+        // $data array is passed using the form field name as the key
+        // have to extract the value to make the function generic
+        $value = trim(array_values($check)[0]);
+        return preg_match('|^[0-9a-zA-Z_-\s]*$|', $value);
+    }
 
     public static function securePassword(& $data)
     {

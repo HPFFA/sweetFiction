@@ -7,10 +7,15 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
+    public $uses = array('User', 'Group');
+
     public function beforeFilter(){
         parent::beforeFilter();
-        $this->Authentication->deny('edit');
+        $this->Auth->allow('register', 'index', 'view');
     }
+
+
+
 
 /**
  * index method
@@ -22,16 +27,17 @@ class UsersController extends AppController {
         $this->set('users', $this->paginate());
     }
 
-    private function restoreSubmodelIds($id){
-        $userData = $this->User->read(null, $id);
-        $this->request->data['User']['id'] = $id;
-        $this->request->data['UserProfile']['id'] = $userData['UserProfile']['id'];
-        $this->request->data['UserProfile']['user-id'] = $userData['UserProfile']['user_id'];
-        $this->request->data['UserContact']['id'] = $userData['UserContact']['id'];
-        $this->request->data['UserContact']['user_id'] = $userData['UserContact']['user_id'];
-        $this->request->data['UserSetting']['id'] = $userData['UserSetting']['id'];
-        $this->request->data['UserSetting']['user_id'] = $userData['UserSetting']['user_id'];
+    private function restoreSubmodelIds($user){
+
+        $this->request->data['User']['id'] = $user['User']['id'];
+        $this->request->data['UserProfile']['id'] = $user['UserProfile']['id'];
+        $this->request->data['UserProfile']['user-id'] = $user['UserProfile']['user_id'];
+        $this->request->data['UserContact']['id'] = $user['UserContact']['id'];
+        $this->request->data['UserContact']['user_id'] = $user['UserContact']['user_id'];
+        $this->request->data['UserSetting']['id'] = $user['UserSetting']['id'];
+        $this->request->data['UserSetting']['user_id'] = $user['UserSetting']['user_id'];
     }
+
 
 /**
  * edit method
@@ -42,15 +48,16 @@ class UsersController extends AppController {
  */
     public function edit($id = null) {
         $this->User->id = $id;
+        $user = $this->User->read(null, $id);
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user'));
         }
         if ($this->request->is('post') || $this->request->is('put')) {
-            $this->restoreSubmodelIds($id);
+            $this->restoreSubmodelIds($user);
             if ($this->User->saveAssociated($this->request->data)) {
 
                 $this->Session->setFlash(__('The user has been updated'));
-                $this->redirect(array('action' => 'index'));
+                $this->redirect(array('action' => 'view', $id));
             } else {
                 $this->Session->setFlash(__('The user could not be updated. Please try again.'));
             }
@@ -58,7 +65,7 @@ class UsersController extends AppController {
             $this->request->data = $this->User->read(null, $id);
         }
         unset($this->request->data['User']['password']);
-        $groups = $this->User->Group->find('list');
+        $groups = $this->Group->find('list');
         $this->set(compact('groups'));
     }
 
@@ -74,7 +81,14 @@ class UsersController extends AppController {
         if (!$this->User->exists()) {
             throw new NotFoundException(__('Invalid user profile'));
         }
-        $this->set('user', $this->User->read(null, $id));
+        $user = $this->User->read(null, $id);
+        $this->set('user', $user);
+        $groups = array();
+        foreach ($user['GroupAssociations'] as $association){
+            $groups[] = $this->Group->read(null, $association['group_id']);
+        }
+        $this->set('groups', $groups);
+
     }
 
 /**

@@ -8,11 +8,11 @@ class DebugController extends AppController {
 
     public $name = 'Debug';
 
-    public $uses = array('Group', 'User');
+    public $uses = array('Group', 'User', 'UserGroupAssociation');
 
     public function beforeFilter(){
         $this->guard();
-        $this->Authentication->allow('*');
+        $this->Auth->allow('*');
     }
 
     private function guard()  {
@@ -32,41 +32,51 @@ class DebugController extends AppController {
         foreach ($data as $item) {
             $object->create();
             $object->save($item);
+            //debug($object->validationErrors);
         }
     }
 
-    private function initializeGroups(){
+    private function initializeUser(){
         $this->create(
             $this->Group,
             array(
-                array('Group' => array('id' => '1', 'name' => 'User')),
-                array('Group' => array('id' => '2', 'name' => 'Adminstrator'))
+                array('Group' => array('id' => '1', 'name' => 'Administrator')),
+                array('Group' => array('id' => '2', 'name' => 'Editor')),
+                array('Group' => array('id' => '3', 'name' => 'Author')),
+                array('Group' => array('id' => '4', 'name' => 'Reader')),
             )
         );
-    }
-
-    private function initializeUser(){
         $users = array(
                 array('User' => array(
+                        'id' => '1',
                         'name' => 'Super Mario',
-                        'group_id' => '1',
                         'email' => 'super_mario@example.com',
-                        'password' => 'super_mario')),
+                        'password' => 'super_mario',
+                        'state' => 'active')),
                 array('User' => array(
+                        'id' => '2',
                         'name' => 'Luigi',
-                        'group_id' => '2',
                         'email' => 'luigi@example.com',
-                        'password' => 'luigi')),
+                        'password' => 'luigi',
+                        'state' => 'active')),
                 array('User' => array(
+                        'id' => '3',
                         'name' => 'Princess Peach',
-                        'group_id' => '2',
                         'email' => 'princess_peach@example.com',
-                        'password' => 'princess_peach'))
+                        'password' => 'princess_peach',
+                        'state' => 'active'))
             );
         for ($i = 0; $i < sizeof($users); $i++){
             $users[$i]['User']['confirmation'] = $users[$i]['User']['password'];
         }
         $this->create($this->User, $users);
+        $this->create($this->UserGroupAssociation, array(
+                array('UserGroupAssociation' => array('user_id' => '1', 'group_id' => '1')),
+                array('UserGroupAssociation' => array('user_id' => '2', 'group_id' => '4')),
+                array('UserGroupAssociation' => array('user_id' => '3', 'group_id' => '2')),
+                array('UserGroupAssociation' => array('user_id' => '3', 'group_id' => '3')),
+            )
+        );
     }
 
 /**
@@ -74,7 +84,6 @@ class DebugController extends AppController {
  */
     public function initialize(){
         $this->clear(false);
-        $this->initializeGroups();
         $this->initializeUser();
         $this->finish(__('Created fixtures'));
     }

@@ -14,7 +14,8 @@ class UserTest extends CakeTestCase {
  */
 	public $fixtures = array(
 		'app.user',
-		'app.group'
+		'app.group',
+		'app.user_group_association'
 	);
 
 /**
