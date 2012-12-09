@@ -33,7 +33,7 @@ class AuthenticationController extends AppController {
             $this->Auth->flash(__('Welcome %s', $this->Auth->user('name')));
             $this->redirect($this->Auth->redirect());
         }
-        $this->Auth->setFlash(__('Invalid username or password'));
+        $this->Auth->flash(__('Invalid username or password'));
     }
 
     public function logout() {
@@ -51,7 +51,7 @@ class AuthenticationController extends AppController {
 
     public function login() {
         if ($this->request->is('post')) {
-            $this->tryToCreateUser($this->request);
+            $this->tryToLogin($this->request);
         }
         unset($this->request->data['User']['password']);
     }

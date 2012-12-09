@@ -97,8 +97,9 @@ class User extends AppModel {
     public function extendedAlphanumericValidation($check) {
         // $data array is passed using the form field name as the key
         // have to extract the value to make the function generic
-        $value = trim(array_values($check)[0]);
-        return preg_match('|^[0-9a-zA-Z_-\s]*$|', $value);
+        //$value = trim(array_values($check)[0]);
+        //return preg_match('|^[0-9a-zA-Z_-\s]*$|', $value);
+        return true;
     }
 
     public static function securePassword(& $data)
