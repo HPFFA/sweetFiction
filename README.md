@@ -1,7 +1,19 @@
 SweetFiction
 =======
 
-This is our attempt to provide a Open Source Fanfiction CMS. Since it is build onto CakePHP, it provides the app/ directory and additionally a test suite in tests/ for BDD using a standalone cucumber installation. 
+This is our attempt to provide a Open Source Fanfiction CMS. Since it is build onto CakePHP, it provides the app/ directory and additionally a test suite in tests/ for BDD using Behat.
+
+Some Links for developing
+----------------
+
+[Behat](http://docs.behat.org) - Behavior driven development
+
+[Bdd Plugin](https://github.com/sizuhiko/Bdd) - Behat and Spec integration for CakePHP
+
+[Bdd Example](https://github.com/sizuhiko/BddExampleApp) - An small example for orientation
+
+[PHPUnit Assertions](http://www.phpunit.de/manual/3.4/en/appendixes.assertions.html)
+
 
 Some Handy Links for CakePHP
 ----------------
@@ -18,8 +30,6 @@ Some Handy Links for CakePHP
 
 [CakePHP TV](http://tv.cakephp.org) - Screen casts from events and video tutorials
 
-[The Cake Software Foundation](http://cakefoundation.org/) - promoting development related to CakePHP
-
 Get Support!
 ------------
 
@@ -30,7 +40,3 @@ Get Support!
 [Q & A](http://ask.cakephp.org/) - Ask questions here, all questions welcome
 
 [Lighthouse](http://cakephp.lighthouseapp.com/) - Got issues? Please tell us!
-
-[![Bake Status](https://secure.travis-ci.org/cakephp/cakephp.png?branch=master)](http://travis-ci.org/cakephp/cakephp)
-
-![Cake Power](https://raw.github.com/cakephp/cakephp/master/lib/Cake/Console/Templates/skel/webroot/img/cake.power.gif)
