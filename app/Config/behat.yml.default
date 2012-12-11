@@ -1,0 +1,13 @@
+default:
+  paths:
+    features: ../Test/Features
+  extensions:
+    Behat\MinkExtension\Extension:
+      base_url:  'http://test.localhost/sweetfiction/'
+      goutte:
+        guzzle_parameters:
+          request.params:
+            redirect.disable: true
+      selenium: ~
+      javascript_session: selenium
+

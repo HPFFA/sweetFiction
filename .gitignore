@@ -1,5 +1,7 @@
 /app/Config/database.php
 /app/Config/email.php
+/app/Config/behat.yml
+/app/Config/bootstrap.php
 /app/tmp
 /lib/Cake/Console/Templates/skel/tmp/
 /plugins
