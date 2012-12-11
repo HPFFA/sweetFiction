@@ -1,8 +1,7 @@
 @authentication
 Feature: Authentication of users
     
-    Background
-    Scenario: Login in an existing user
+    Background:
         Given there is a "User":
             | name  | email         | password | confirmation |
             | Peach | p@example.com | test     | test         |
@@ -11,7 +10,7 @@ Feature: Authentication of users
         Given I am on the "homeage"
         And I follow "Register"
         Then I should be on the "registration page"
-
+    
     Scenario: Register a "User"
         Given I am on the "registration page"
         When I fill in "Name" with "Luigi" 
@@ -21,8 +20,8 @@ Feature: Authentication of users
         And I press "Submit"
         Then the "#authMessage" element should contain "The author has been registered"
         And there should be a "User":
-            | name  | email         | password |
-            | Luigi | l@example.com | test     |
+            | name  | email         | 
+            | Luigi | l@example.com | 
         And I should be on the "homepage"
 
     Scenario: Go to login page
@@ -36,7 +35,6 @@ Feature: Authentication of users
         And I fill in "Password" with "test"
         And I press "Login"
         Then the "#authMessage" element should contain "Welcome Peach"
-        Then show me the page
 
     Scenario Outline: Denial of login with wrong creditials
         When I am on the "login page"

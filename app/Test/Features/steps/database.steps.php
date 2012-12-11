@@ -17,14 +17,14 @@ $steps->Then('/^there should be a "([^"]*)":$/', function($world, $model, $table
     $modelInstance = $world->getModel($model);
     foreach ($hash as $modelData)
     {
-        $modelInstances = $modelInstance->find('all', $modelData);
         $collected = array();
         foreach ($modelData as $key => $value)
         {
             $collected[] = $key.': "'.$value.'"';
         }
-        assertEquals(1, sizeof($modelInstances), 
-            'The the specified user does not exist: '.implode(",", $collected)
+        $numberOfInstances = $modelInstance->find('count', array('conditions' => $modelData));
+        assertEquals(1, $numberOfInstances, 
+            'The the specified instance of "'.$model.'" does not exist: '.implode(", ", $collected)
         );
     }
 });
