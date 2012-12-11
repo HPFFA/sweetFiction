@@ -2,7 +2,9 @@
 
 use Behat\Behat\Context\ClosuredContextInterface;
 use Behat\MinkExtension\Context\MinkContext;
-
+use Behat\Behat\Context\Step\Given,
+    Behat\Behat\Context\Step\When,
+    Behat\Behat\Context\Step\Then;
 use Behat\CommonContexts\MinkRedirectContext;
 
 if (file_exists(__DIR__ . '/../support/bootstrap.php')) {
@@ -22,6 +24,30 @@ class FeatureContext extends MinkContext implements ClosuredContextInterface
         }
         $this->useContext('MinkRedirectContext', new MinkRedirectContext());
     }
+
+    /**
+     * Opens specified page.
+     *
+     * @Given /^(?:|I )am on (the)? "(?P<page>[^"]+)"$/
+     * @When /^(?:|I )go to (the)? "(?P<page>[^"]+)"$/
+     */
+    public function visit($page)
+    {
+        parent::visit($page);
+    }
+
+    /**
+     * Checks, that current page PATH is equal to specified.
+     *
+     * @Then /^(?:|I )should be on (the)? "(?P<page>[^"]+)"$/
+     */
+    public function assertPageAddress($page)
+    {
+        parent::assertPageAddress($page);
+    }
+
+   
+
 
     public function getStepDefinitionResources()
     {
@@ -56,11 +82,21 @@ class FeatureContext extends MinkContext implements ClosuredContextInterface
         $model = ClassRegistry::init(array('class' => $name, 'ds' => 'test'));
         return $model;
     }
-    public function truncateModel($name) {
-        $model = ClassRegistry::init(array('class' => $name, 'ds' => 'test'));
-        $table = $model->table;
-        $db = ConnectionManager::getDataSource('test_suite');
-        $db->truncate($table);
-    }
 
+    /**
+     * @BeforeScenario
+     */
+    public static function cleanDatabase() {
+        $models = App::objects('model');
+        $db = ConnectionManager::getDataSource('test_suite');
+        foreach ($models as $model)
+        {
+            if ($model != 'AppModel')
+            {
+                $modelClass = ClassRegistry::init(array('class' => $model, 'ds' => 'test'));
+                $db->truncate($modelClass->table);
+            }
+
+        }
+    }
 }
