@@ -24,7 +24,6 @@ Feature: Authentication of users
             | Luigi | l@example.com | 
         And I should be on the "homepage"
 
-    @wip
     Scenario Outline: Denial of registering an user with wrong credentials
         Given I am on the "registration page"
         When I fill in "Name" with "<name>"
@@ -50,7 +49,8 @@ Feature: Authentication of users
             |       | e@example.com | test     | test         | The name cannot be empty.                              |
             | Guest |               | test     | test         | The email cannot be empty.                             |
             | Guest | e@example.com |          |              | The password cannot be empty.                          |
-            | T_    | t@example.com | test     | test         | Your name must start and end with a number or letter and have a minimal length of 3. |
+            | Guest | e@example.com | 123      | 123          | The password should be at least four characters long.  |
+            | T_    | t@example.com | test     | test         | Your name must start and end with a number or letter and must have a length of three. |
 
     Scenario: Go to login page
         When I am on the "homepage"

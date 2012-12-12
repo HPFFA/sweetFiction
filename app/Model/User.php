@@ -35,7 +35,7 @@ class User extends AppModel {
             ),
             'alphanumeric' => array(
                 'rule' => 'extendedAlphanumericValidation',
-                'message' => 'Your name must start and end with a number or letter and have a minimal length of 3.',
+                'message' => 'Your name must start and end with a number or letter and must have a length of three.',
             ),
             'unique' => array(
                 'rule' => array('isUnique'),
@@ -60,6 +60,11 @@ class User extends AppModel {
             'notempty' => array(
                 'rule' => array('notempty'),
                 'message' => 'The password cannot be empty.',
+                'on' => 'create'
+            ),
+            'length' => array(
+                'rule' => array('minLength', 4),
+                'message' => 'The password should be at least four characters long.',
                 'on' => 'create'
             ),
             'confiration' => array(
