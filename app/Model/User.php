@@ -29,33 +29,58 @@ class User extends AppModel {
  */
     public $validate = array(
         'name' => array(
-            'alphanumeric' => array(
-                'rule' => array('extendedAlphanumericValidation'),
-                //'message' => 'Your custom message here',
-            ),
             'notempty' => array(
                 'rule' => array('notempty'),
-                //'message' => 'Your custom message here',
+                'message' => 'The name cannot be empty.',
+            ),
+            'alphanumeric' => array(
+                'rule' => 'extendedAlphanumericValidation',
+                'message' => 'Your name must start and end with a number or letter and have a minimal length of 3.',
+            ),
+            'unique' => array(
+                'rule' => array('isUnique'),
+                'message' => 'The name is already in use.',
             ),
         ),
         'email' => array(
-            'email' => array(
-                'rule' => array('email'),
-                //'message' => 'Your custom message here',
-            ),
             'notempty' => array(
                 'rule' => array('notempty'),
-                //'message' => 'Your custom message here',
+                'message' => 'The email cannot be empty.',
+            ),
+            'email' => array(
+                'rule' => array('email'),
+                'message' => 'The provided email seems not to be valid, try another.',
+            ),
+            'unique' => array(
+                'rule' => array('isUnique'),
+                'message' => 'The email is already in use.',
             ),
         ),
         'password' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
-                //'message' => 'Your custom message here',
+                'message' => 'The password cannot be empty.',
                 'on' => 'create'
             ),
+            'confiration' => array(
+                'rule' => 'checkPasswordConfirmationMatch',
+                'message' => 'The password and confirmation does not match.'
+            ), 
+
         ),
     );
+
+    public function checkPasswordConfirmationMatch($check) {
+        return $this->data['User']['password'] == $this->data['User']['confirmation'];
+    }
+
+    public function extendedAlphanumericValidation($check) {
+        // $data array is passed using the form field name as the key
+        // have to extract the value to make the function generic
+        $data = array_values($check);
+        $value = trim($data[0]);
+        return preg_match('/^[0-9a-zA-Z][0-9a-zA-Z_-\s]+[0-9a-zA-Z]$/', $value);
+    }
 
 /**
  * hasAndBelongsToMany associations
@@ -94,14 +119,6 @@ class User extends AppModel {
             'conditions' => '',
         )
     );
-
-    public function extendedAlphanumericValidation($check) {
-        // $data array is passed using the form field name as the key
-        // have to extract the value to make the function generic
-        //$value = trim(array_values($check)[0]);
-        //return preg_match('|^[0-9a-zA-Z_-\s]*$|', $value);
-        return true;
-    }
 
     public static function securePassword(& $data)
     {

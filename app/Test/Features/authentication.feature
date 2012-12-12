@@ -24,6 +24,34 @@ Feature: Authentication of users
             | Luigi | l@example.com | 
         And I should be on the "homepage"
 
+    @wip
+    Scenario Outline: Denial of registering an user with wrong credentials
+        Given I am on the "registration page"
+        When I fill in "Name" with "<name>"
+        And I fill in "Email" with "<email>"
+        And I fill in "Password" with "<password>"
+        And I fill in "Confirmation" with "<confirmation>"
+        And I press "Submit"
+        Then the "#authMessage" element should contain "The author could not be registered. Please, try again."
+        And I should see "<message>"
+        And I should be on the "registration page"
+        And the "Name" field should contain "<name>"
+        And the "Email" field should contain "<email>"
+        And the "Password" field should contain ""
+        And the "Confirmation" field should contain ""
+
+        Examples:
+            | name  | email         | password | confirmation | message                                                |
+            |       |               |          |              | The author could not be registered. Please, try again. |
+            | Guest | g@example.com | wrong    | gnorw        | The password and confirmation does not match.          |
+            | Peach | w@example.com | test     | test         | The name is already in use.                            |
+            | Guest | p@example.com | test     | test         | The email is already in use.                           |
+            | Guest | invali        | test     | test         | The provided email seems not to be valid, try another. |
+            |       | e@example.com | test     | test         | The name cannot be empty.                              |
+            | Guest |               | test     | test         | The email cannot be empty.                             |
+            | Guest | e@example.com |          |              | The password cannot be empty.                          |
+            | T_    | t@example.com | test     | test         | Your name must start and end with a number or letter and have a minimal length of 3. |
+
     Scenario: Go to login page
         When I am on the "homepage"
         And I follow "Login"
