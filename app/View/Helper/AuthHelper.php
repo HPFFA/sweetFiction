@@ -64,8 +64,11 @@ class AuthHelper extends AppHelper {
         }
     }
 
-    public function currentUser($property = null){
+    public function user($property = null){
         return AuthComponent::user($property);
     }
 
+    public function currentUser($property = null){
+        return AuthComponent::user($property);
+    }
 }

@@ -77,6 +77,22 @@ class FeatureContext extends MinkContext implements ClosuredContextInterface
         }
     }
 
+    private function getReducedScopeOf($selector)
+    {
+        $selectorType = "css";
+        $node = $this->getSession()->getPage()->find($selectorType, $selector);
+        
+        if (null === $node) {
+            throw new ElementNotFoundException($this->getSession(), 'element', $selectorType, $selector);
+        }
+        return $node;
+    }
+
+    public function clickLinkInScope($link, $scope)
+    {
+        $node = $this->getReducedScopeOf($scope);        
+        $node->clickLink($this->fixStepArgument($link));
+    }
 
     public function getModel($name) {
         $model = ClassRegistry::init(array('class' => $name, 'ds' => 'test'));

@@ -23,7 +23,6 @@
 App::uses('Controller', 'Controller');
 App::uses('Model', 'User');
 
-
 /**
  * Application Controller
  *
@@ -80,6 +79,7 @@ class AppController extends Controller {
 
 
     public function beforeFilter(){
+        //$this->set('auth', $this->Auth);
         $this->tryToResume();
         //$this->Authentication->allow('index',  'display', 'view');
         $this->Auth->allow('*');

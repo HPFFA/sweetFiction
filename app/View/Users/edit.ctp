@@ -21,7 +21,10 @@
         <legend><?php echo __('Profile'); ?></legend>
         <?php
             echo $this->Form->input('UserProfile.real_name');
-            echo $this->Form->input('UserProfile.birthday');
+            echo $this->Form->input('UserProfile.birthday', 
+                array('dateFormat' => 'DMY',
+                    'minYear' => 1900,
+                    'maxYear' => date('Y')));
             echo $this->Form->input('UserProfile.biography');
         ?>
     </fieldset>
