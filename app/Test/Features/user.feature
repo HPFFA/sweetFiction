@@ -97,7 +97,6 @@ Feature: The management of user
         And I should be able to log in as "Luigi" with "changed"
         And I should not be able to log in as "Peach" with "test"
     
-    @fail
     Scenario: Edit the user's own profile without changing the password or user's name
         When I am logged in as "Peach" with "test"
         And I am on the "user profile 1 edit page"
@@ -119,6 +118,8 @@ Feature: The management of user
         Then the "#flashMessage" element should contain "The user could not be updated. Please try again."
         And I should be on the "user profile 1 edit page"
         And the ".error-message" element should contain "The password and confirmation does not match."
+        And the "Password" field should contain ""
+        And the "Confirmation" field should contain ""
         And I should be able to log in as "Peach" with "test"
 
     Scenario Outline: Edit the user's credentials to invalid ones
@@ -131,6 +132,8 @@ Feature: The management of user
         And I press "Submit"
         Then I should see "The user could not be updated. Please try again."
         And the ".error-message" element should contain "<message>"
+        And the "Password" field should contain ""
+        And the "Confirmation" field should contain ""
 
         Examples:
             | field | value         | message                                                                               |

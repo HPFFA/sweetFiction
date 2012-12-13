@@ -57,7 +57,7 @@ class User extends AppModel {
             ),
         ),
         'password' => array(
-            'notempty' => array(
+            'notempty_creation' => array(
                 'rule' => array('notempty'),
                 'message' => 'The password cannot be empty.',
                 'on' => 'create'
@@ -130,7 +130,7 @@ class User extends AppModel {
         $fields = array('password', 'confirmation');
         foreach ($fields as $field)
         {
-            if (isset($data[$field]))
+            if (!empty($data[$field]))
             {
                 $data[$field] = AuthComponent::password($data[$field]);
             }
@@ -141,11 +141,16 @@ class User extends AppModel {
         // only a alias as reference to $this->data[$this->alias] to unclutter the code
         self::securePassword($this->data[$this->alias]);
         $data = & $this->data[$this->alias];
+        $valid = true;
         if (isset($data['password'])) {
             // a password reset was requested - ensure matching confirmation
-            return
-                isset($data['confirmation'])
-                && $data['password'] == $data['confirmation'];
+            $valid = isset($data['confirmation'])
+                        && $data['password'] == $data['confirmation'];
+        }
+        if (!$valid || (empty($data['password']) || empty($data['confirmation'])))
+        {
+            unset($data['password']);
+            unset($data['confirmation']);
         }
         return true;
     }
