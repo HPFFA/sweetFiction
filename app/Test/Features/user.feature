@@ -29,16 +29,17 @@ Feature: The management of user
             | user_id | real_name | birthday   | biography               |
             | 2       | Luigi C.  | 1987-07-02 | Nothing to say here ... |
         When I am on the "user profile 2"
-        Then the "#user_homepage" element should contain "localhost"
-        And the "#user_email" element should contain "l@localhost.com"
-        And the "#user_icq" element should contain "2324"
-        And the "#user_yahoo" element should contain "377"
-        And the "#user_msn" element should contain "check@example.com"
-        And the "#user_skype" element should contain "lusky"
-        And the "#user_aol" element should contain "24"
-        And the "#user_real_name" element should contain "Luigi C."
-        And the "#user_birthday" element should contain "1987-07-02"
-        And the "#user_biography" element should contain "Nothing to say here ..."
+        And the following elements should contain given values:
+            | #user_homepage    | localhost                     |
+            | #user_email       | l@localhost.com               |
+            | #user_icq         | 2324                          |
+            | #user_yahoo       | 377                           |
+            | #user_msn         | check@example.com             |   
+            | #user_skype       | lusky                         |
+            | #user_aol         | 24                            |
+            | #user_real_name   | Luigi C.                      |
+            | #user_birthday    | 1987-07-02                    |
+            | #user_biography   | Nothing to say here ...       |
         And I should not see "Edit"
         Given I am logged in as "Peach" with "test"
         And I am on the "user profile 2"
@@ -51,39 +52,42 @@ Feature: The management of user
         And  I am on the "user profile 1"
         And I follow "Edit"
         Then I should be on the "user profile 1 edit page"
-    
+        
     Scenario: Edit the user's own profile
         When I am logged in as "Peach" with "test"
         And I am on the "user profile 1 edit page"
-        When I fill in "Name" with "Luigi"
-        And I fill in "Email" with "l@example.com"
-        And I fill in "Password" with "changed"
-        And I fill in "Confirmation" with "changed"
-        And I fill in "Real Name" with "Luigi C."
+        
+        When I fill in the following:
+            | Email         | l@example.com                 |
+            | Name          | Luigi                         |
+            | Password      | changed                       |
+            | Confirmation  | changed                       |
+            | Real Name     | Luigi C.                      |
+            | Biography     | Nothing special about me ...  |
+            | Homepage      | localhost/~check              |
+            | Public Email  | l@localhost.com               |
+            | Icq           | 2324                          |
+            | Yahoo         | 377                           |
+            | Msn           | check@example.com             |
+            | Skype         | lusky                         |
+            | Aol           | 24                            |
         And I select "July" from "UserProfileBirthdayMonth"
         And I select "02" from "UserProfileBirthdayDay"
         And I select "1987" from "UserProfileBirthdayYear"
-        And I fill in "Biography" with "Nothing special about me ..."
-        And I fill in "Homepage" with "localhost/~check"
-        And I fill in "Public Email" with "l@localhost.com"
-        And I fill in "Icq" with "2324"
-        And I fill in "Yahoo" with "377"
-        And I fill in "Msn" with "check@example.com"
-        And I fill in "Skype" with "lusky"
-        And I fill in "Aol" with "24"
         And I press "Submit"
         Then the "#flashMessage" element should contain "The user has been updated"
         And I am on the "user profile 1"
-        And the "#user_homepage" element should contain "localhost"
-        And the "#user_email" element should contain "l@localhost.com"
-        And the "#user_icq" element should contain "2324"
-        And the "#user_yahoo" element should contain "377"
-        And the "#user_msn" element should contain "check@example.com"
-        And the "#user_skype" element should contain "lusky"
-        And the "#user_aol" element should contain "24"
-        And the "#user_real_name" element should contain "Luigi C."
-        And the "#user_birthday" element should contain "1987-07-02"
-        And the "#user_biography" element should contain "Nothing special about me ..."
+        And the following elements should contain given values:
+            | #user_homepage    | localhost                     |
+            | #user_email       | l@localhost.com               |
+            | #user_icq         | 2324                          |
+            | #user_yahoo       | 377                           |
+            | #user_msn         | check@example.com             |   
+            | #user_skype       | lusky                         |
+            | #user_aol         | 24                            |
+            | #user_real_name   | Luigi C.                      |
+            | #user_birthday    | 1987-07-02                    |
+            | #user_biography   | Nothing special about me ...  |
 
     Scenario: Check login credentials after password and username change
         When I am logged in as "Peach" with "test"
@@ -152,7 +156,7 @@ Feature: The management of user
         Then I should not be allowed to go to "user profile 1 edit page"
         But I should be allowed to go to "user profile 2 edit page"
 
-    @wip @javascript
+    @javascript
     Scenario: Delete of own user account
         When I am logged in as "Peach" with "test"
         And I am on the "user profile 1 edit page"
@@ -164,12 +168,12 @@ Feature: The management of user
             | name  | email         | 
             | Peach | p@example.com | 
 
-    #@wip
-    #Scenario: Deny deletion of other user's account
-    #    Given there is a "User":
-    #        | id | name  | email         | password | confirmation | 
-    #        | 2  | Luigi | l@example.com | test     | test         |
-    #    When I am logged in as "Luigi" with "test"
-    #    When I send a POST request to "/users/delete/2" with values: 
-    #        | id |
-    #        | 1  |
+    @wip
+    Scenario: Deny deletion of other user's account
+        Given there is a "User":
+            | id | name  | email         | password | confirmation | 
+            | 2  | Luigi | l@example.com | test     | test         |
+        When I am logged in as "Luigi" with "test"
+        When I send a POST request to "/users/delete/2" with values: 
+            | id |
+            | 1  |
