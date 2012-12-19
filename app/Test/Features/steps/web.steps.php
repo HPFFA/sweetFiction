@@ -5,5 +5,7 @@ $steps->Given('/^I follow "([^"]*)" within "([^"]*)"$/', function($world, $link,
     $world->clickLinkInScope($link, $selector);
 });
 
-
+$steps->Given('/^I confirm my action$/', function($world) {
+    $world->getSession()->getDriver()->getWebDriverSession()->accept_alert();
+});
 ?>

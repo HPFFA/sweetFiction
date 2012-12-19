@@ -144,3 +144,32 @@ Feature: The management of user
             | Email | invalid       | The provided email seems not to be valid, try another.                                |
             | Email |               | The email cannot be empty.                                                            |
 
+    Scenario: Deny edit of other user's profiles
+        Given there is a "User":
+            | id | name  | email         | password | confirmation | 
+            | 2  | Luigi | l@example.com | test     | test         |
+        When I am logged in as "Luigi" with "test"
+        Then I should not be allowed to go to "user profile 1 edit page"
+        But I should be allowed to go to "user profile 2 edit page"
+
+    @wip @javascript
+    Scenario: Delete of own user account
+        When I am logged in as "Peach" with "test"
+        And I am on the "user profile 1 edit page"
+        And I follow "Delete"
+        And I confirm my action
+        Then the "#flashMessage" element should contain "User deleted"
+        Then  I should not be logged in
+        And there should be no "User":
+            | name  | email         | 
+            | Peach | p@example.com | 
+
+    #@wip
+    #Scenario: Deny deletion of other user's account
+    #    Given there is a "User":
+    #        | id | name  | email         | password | confirmation | 
+    #        | 2  | Luigi | l@example.com | test     | test         |
+    #    When I am logged in as "Luigi" with "test"
+    #    When I send a POST request to "/users/delete/2" with values: 
+    #        | id |
+    #        | 1  |

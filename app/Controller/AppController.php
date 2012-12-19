@@ -114,5 +114,9 @@ class AppController extends Controller {
     public function disableCookieLogin() {
         $this->Cookie->destroy();
     }
+    
+    public function isOwner() {
+        return false;
+    }
 
 }

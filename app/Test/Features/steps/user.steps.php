@@ -58,4 +58,13 @@ $steps->Then('/^I should not be able to log in as "([^"]*)" with "([^"]*)"$/', f
 });
 
 
+$steps->Then('/^I should not be logged in$/', function($world) {
+    return array(
+        new Then('I should not see "Logout"'),
+        new Then('I should see Welcome Guest'),
+    );
+});
+
+
+
 ?>

@@ -14,7 +14,17 @@ class UsersController extends AppController {
         $this->Auth->allow('register', 'index', 'view');
     }
 
-
+    function isAuthorized(){
+        $userAllowedAction = array('edit', 'delete');
+        if (in_array($this->request->params['action'], $userAllowedAction)) {
+            $this->User->id = $this->request->params['pass']['0'];
+            if ($this->Auth->user('id') != $this->User->id)
+            {
+                throw new ForbiddenException();
+            }
+        }
+        return true;
+     }
 
 
 /**
@@ -112,6 +122,7 @@ class UsersController extends AppController {
             $this->redirect(array('action' => 'index'));
         }
         $this->Session->setFlash(__('User was not deleted'));
+        $this->Auth->logout();
         $this->redirect(array('action' => 'index'));
     }
 }
