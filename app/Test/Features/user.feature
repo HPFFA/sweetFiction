@@ -168,12 +168,17 @@ Feature: The management of user
             | name  | email         | 
             | Peach | p@example.com | 
 
-    @wip
     Scenario: Deny deletion of other user's account
         Given there is a "User":
             | id | name  | email         | password | confirmation | 
             | 2  | Luigi | l@example.com | test     | test         |
         When I am logged in as "Luigi" with "test"
-        When I send a POST request to "/users/delete/2" with values: 
+        When I send a POST request to "/users/delete/1" with: 
             | id |
             | 1  |
+        Then show me the page
+        Then I should not see "User deleted"
+        But I should see "Forbidden"
+        And there should be a "User":
+            | name  | email         | 
+            | Peach | p@example.com | 

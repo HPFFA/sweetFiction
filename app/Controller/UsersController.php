@@ -14,7 +14,7 @@ class UsersController extends AppController {
         $this->Auth->allow('register', 'index', 'view');
     }
 
-    function isAuthorized(){
+    function isAuthorized() {
         $userAllowedAction = array('edit', 'delete');
         if (in_array($this->request->params['action'], $userAllowedAction)) {
             $this->User->id = $this->request->params['pass']['0'];

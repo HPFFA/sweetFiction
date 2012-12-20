@@ -21,4 +21,9 @@ $steps->Given('/^the following elements should contain given values:$/', functio
     return $validation;
 });
 
+$steps->When('/^I send a (POST|PUT|DELETE) request to "([^"]*)" with:$/', function($world, $method, $page, $table) {
+    $world->getSession()->getDriver()->getClient()->request($method, $world->locatePath($page), current($table->getHash()));
+});
+
+
 ?>
