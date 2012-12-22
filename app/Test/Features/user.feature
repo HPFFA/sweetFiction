@@ -176,7 +176,6 @@ Feature: The management of user
         When I send a POST request to "/users/delete/1" with: 
             | id |
             | 1  |
-        Then show me the page
         Then I should not see "User deleted"
         But I should see "Forbidden"
         And there should be a "User":
