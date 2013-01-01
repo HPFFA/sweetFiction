@@ -55,6 +55,7 @@
         }
     ],    
     "require": {
+	"phpunit/phpunit": "3.7.*",
         "behat/mink-extension": "*",
         "pear-phpunit/Object_Freezer": "*",
         "pear-pear/Console_CommandLine": "*",
