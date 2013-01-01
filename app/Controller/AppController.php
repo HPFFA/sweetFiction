@@ -71,11 +71,11 @@ class AppController extends Controller {
     var $cookieName = 'SweetFictionUser';
 
 
-    public function isAuthorized($user) {
-        // todo build permission based system - acl are hard to handle for some weird reason
-        //return !empty($user);
-        return true;
-    }
+    // public function isAuthorized($user) {
+    //     // todo build permission based system - acl are hard to handle for some weird reason
+    //     //return !empty($user);
+    //     return true;
+    // }
 
 
     public function beforeFilter(){
