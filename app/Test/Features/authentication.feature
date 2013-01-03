@@ -7,9 +7,9 @@ Feature: Authentication of users
             | Peach | p@example.com | test     | test         |
 
     Scenario: Go to register page
-        Given I am on the "homeage"
+        Given I am on "/"
         And I follow "Register"
-        Then I should be on the "registration" page
+        Then I should be on "/authentication/register"
 
     Scenario: Register a "User"
         Given I am on the "registration" page
@@ -22,10 +22,10 @@ Feature: Authentication of users
         And there should be a "User":
             | name  | email         |
             | Luigi | l@example.com |
-        And I should be on the "homepage"
+        And I should be on "/"
 
     Scenario Outline: Denial of registering an user with wrong credentials
-        Given I am on the "registration" page
+        Given I am on "/authentication/register"
         When I fill in "Name" with "<name>"
         And I fill in "Email" with "<email>"
         And I fill in "Password" with "<password>"
@@ -33,7 +33,7 @@ Feature: Authentication of users
         And I press "Submit"
         Then the "#authMessage" element should contain "The author could not be registered. Please, try again."
         And I should see "<message>"
-        And I should be on the "registration" page
+        And I should be on "/authentication/register"
         And the "Name" field should contain "<name>"
         And the "Email" field should contain "<email>"
         And the "Password" field should contain ""
@@ -53,24 +53,24 @@ Feature: Authentication of users
             | T_    | t@example.com | test     | test         | Your name must start and end with a number or letter and must have a length of three. |
 
     Scenario: Go to login page
-        When I am on the "homepage"
+        When I am on "/"
         And I follow "Login"
-        Then I should be on the "login" page
+        Then I should be on "/authentication/login"
 
     Scenario: Login in an existing user
-        When I am on the "login" page
+        When I am on "/authentication/login"
         When I fill in "Name" with "Peach"
         And I fill in "Password" with "test"
         And I press "Login"
         Then the "#authMessage" element should contain "Welcome Peach"
 
     Scenario Outline: Denial of login with wrong creditials
-        When I am on the "login" page
+        When I am on "/authentication/login"
         When I fill in "Name" with "<name>"
         And I fill in "Password" with "<password>"
         And I press "Login"
         Then the "#authMessage" element should contain "<message>"
-        And I should be on the "login" page
+        And I should be on "/authentication/login"
         And the "Name" field should contain "<name>"
         And the "Password" field should contain ""
 

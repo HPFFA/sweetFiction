@@ -32,6 +32,22 @@
 			&nbsp;
 		</dd>
 	</dl>
+
+	<h3 ><?php echo __('Chapters'); ?></h3>
+	<table cellpadding = "0" cellspacing = "0">
+		<tr>
+			<th></th>
+			<th><?php echo __('Title'); ?></th>
+		</tr>
+		<?php
+			$i = 0;
+			foreach ($story['StoryChapter'] as $storyChapter): ?>
+			<tr id="story_chapter_<?php echo $storyChapter['id']; ?>">
+				<td><?php echo $storyChapter['chapter_number']; ?></td>
+				<td><?php echo $this->Html->link($storyChapter['title'], array('controller' => 'story_chapters', 'action' => 'view', $storyChapter['id'])); ?></td>
+			</tr>
+		<?php endforeach; ?>
+	</table>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
@@ -47,24 +63,6 @@
 	</ul>
 </div>
 <div class="related">
-	<h3><?php echo __('Related Story Chapters'); ?></h3>
-	<?php if (!empty($story['StoryChapter'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th></th>
-		<th><?php echo __('Title'); ?></th>
-	</tr>
-	<?php
-		$i = 0;
-		foreach ($story['StoryChapter'] as $storyChapter): ?>
-		<tr id="story_chapter_<?php echo $storyChapter['id']; ?>">
-			<td><?php echo $storyChapter['chapter_number']; ?></td>
-			<td><?php echo $this->Html->link($storyChapter['title'], array('controller' => 'story_chapters', 'action' => 'view', $storyChapter['id'])); ?></td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-
 	<div class="actions">
 		<ul>
 			<li><?php echo $this->Html->link(__('New Story Chapter'), array('controller' => 'story_chapters', 'action' => 'add')); ?> </li>

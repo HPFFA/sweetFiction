@@ -19,6 +19,8 @@
                 return 'users/edit/1';
             case 'user profile 2 edit':
                 return 'users/edit/2';
+            case 'new story':
+                return 'story/add';
             case 'story list':
                 return 'stories';
             case 'story detail 1':

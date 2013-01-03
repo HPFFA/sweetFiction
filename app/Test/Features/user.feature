@@ -7,16 +7,16 @@ Feature: The management of user
             | 1  | Peach | p@example.com | test     | test         |
 
     Scenario: The list of users
-        When I am on the "user list" page
+        When I am on "/users"
         Then I should see "Peach"
         When I log in as "Peach" with "test"
-        And I am on the "user list" page
+        And I am on "/users"
         Then I should see "Peach"
 
     Scenario: Go to the user profile
-        When I am on the "user list" page
+        When I am on "/users"
         And I follow "Peach" within "#list_user_1"
-        Then I should be on "user profile 1" page
+        Then I should be on "/users/view/1"
 
     Scenario: View a profile as guest
         Given there is a "User":
@@ -28,7 +28,7 @@ Feature: The management of user
         And there is a "UserProfile":
             | user_id | real_name | birthday   | biography               |
             | 2       | Luigi C.  | 1987-07-02 | Nothing to say here ... |
-        When I am on the "user profile 2"
+        When I am on "/users/view/2"
         And the following elements should contain given values:
             | #user_homepage    | localhost                     |
             | #user_email       | l@localhost.com               |
@@ -42,20 +42,20 @@ Feature: The management of user
             | #user_biography   | Nothing to say here ...       |
         And I should not see "Edit"
         Given I am logged in as "Peach" with "test"
-        And I am on the "user profile 2" page
+        And I am on "/users/view/2"
         Then I should not see "Edit"
-        When I am on the "user profile 1" page
+        When I am on "/users/view/1"
         Then I should see "Edit"
 
     Scenario: Access the user's own profile edit page
         When I am logged in as "Peach" with "test"
-        And  I am on the "user profile 1" page
+        And  I am on "/users/view/1"
         And I follow "Edit"
-        Then I should be on the "user profile 1 edit" page
+        Then I should be on "/users/edit/1"
 
     Scenario: Edit the user's own profile
         When I am logged in as "Peach" with "test"
-        And I am on the "user profile 1 edit" page
+        And I am on "/users/edit/1"
 
         When I fill in the following:
             | Email         | l@example.com                 |
@@ -76,7 +76,7 @@ Feature: The management of user
         And I select "1987" from "UserProfileBirthdayYear"
         And I press "Submit"
         Then the "#flashMessage" element should contain "The user has been updated"
-        And I am on the "user profile 1" page
+        And I am on "/users/view/1"
         And the following elements should contain given values:
             | #user_homepage    | localhost                     |
             | #user_email       | l@localhost.com               |
@@ -91,7 +91,7 @@ Feature: The management of user
 
     Scenario: Check login credentials after password and username change
         When I am logged in as "Peach" with "test"
-        And I am on the "user profile 1 edit" page
+        And I am on "/users/edit/1"
         When I fill in "Name" with "Luigi"
         And I fill in "Email" with "l@example.com"
         And I fill in "Password" with "changed"
@@ -103,7 +103,7 @@ Feature: The management of user
 
     Scenario: Edit the user's own profile without changing the password or user's name
         When I am logged in as "Peach" with "test"
-        And I am on the "user profile 1 edit" page
+        And I am on "/users/edit/1"
         And I fill in "Real Name" with "Luigi C."
         And I select "July" from "UserProfileBirthdayMonth"
         And I select "02" from "UserProfileBirthdayDay"
@@ -115,12 +115,12 @@ Feature: The management of user
 
     Scenario: Edit the user's own profile with unmatching information
         When I am logged in as "Peach" with "test"
-        And I am on the "user profile 1 edit" page
+        And I am on "/users/edit/1"
         And I fill in "Password" with "not"
         And I fill in "Confirmation" with "matching"
         And I press "Submit"
         Then the "#flashMessage" element should contain "The user could not be updated. Please try again."
-        And I should be on the "user profile 1 edit" page
+        And I should be on "/users/edit/1"
         And the ".error-message" element should contain "The password and confirmation does not match."
         And the "Password" field should contain ""
         And the "Confirmation" field should contain ""
@@ -131,7 +131,7 @@ Feature: The management of user
             | id | name  | email         | password | confirmation |
             | 2  | Luigi | l@example.com | test     | test         |
         When I am logged in as "Luigi" with "test"
-        And I am on the "user profile 2 edit" page
+        And I am on "/users/edit/2"
         And I fill in "<field>" with "<value>"
         And I press "Submit"
         Then I should see "The user could not be updated. Please try again."
@@ -153,13 +153,13 @@ Feature: The management of user
             | id | name  | email         | password | confirmation |
             | 2  | Luigi | l@example.com | test     | test         |
         When I am logged in as "Luigi" with "test"
-        Then I should not be allowed to go to "user profile 1 edit" page
-        But I should be allowed to go to "user profile 2 edit" page
+        Then I should not be allowed to go to "/users/edit/1"
+        But I should be allowed to go to "/users/edit/2"
 
     @javascript
     Scenario: Delete of own user account
         When I am logged in as "Peach" with "test"
-        And I am on the "user profile 1 edit" page
+        And I am on "/users/edit/1"
         And I follow "Delete"
         And I confirm my action
         Then the "#flashMessage" element should contain "User deleted"

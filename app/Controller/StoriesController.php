@@ -7,6 +7,23 @@ App::uses('AppController', 'Controller');
  */
 class StoriesController extends AppController {
 
+
+    public function beforeFilter(){
+        parent::beforeFilter();
+        $this->Auth->allow('index', 'view');
+    }
+
+	function isAuthorized() {
+        // $userAllowedAction = array('add', 'edit', 'delete');
+        // if (in_array($this->request->params['action'], $userAllowedAction)) {
+        //     if ($this->Auth->user('id') != $this->User->id)
+        //     {
+        //         throw new ForbiddenException();
+        //     }
+        // }
+        return true;
+     }
+
 /**
  * index method
  *

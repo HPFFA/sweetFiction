@@ -15,19 +15,23 @@ $steps->Given('/^there is a "([^"]*)":$/', function($world, $model, $table)
   }
 });
 
+function numberOfOccurrences($world, $model, $modelData)
+{
+  $collected = array();
+  foreach ($modelData as $key => $value)
+  {
+      $collected[] = $key.': "'.$value.'"';
+  }
+  return $world->getModel($model)->find('count', array('conditions' => $modelData));
+}
+
 function countModelOccurrences($world, $count, $model, $table) {
     $hash = $table->getHash();
-    $modelInstance = $world->getModel($model);
     foreach ($hash as $modelData)
     {
-        $collected = array();
-        foreach ($modelData as $key => $value)
-        {
-            $collected[] = $key.': "'.$value.'"';
-        }
-        $numberOfInstances = $modelInstance->find('count', array('conditions' => $modelData));
+        $numberOfInstances = numberOfOccurrences($world, $model, $modelData);
         assertEquals($count, $numberOfInstances, 
-            'The expected number of instances ('.$count.') of "'.$model.'" does not match: '.implode(", ", $collected)
+            'Found '.$numberOfInstances.' instead of '.$count.' expected instances of the "'.$model.'"'
         );
     }
 }
@@ -40,9 +44,15 @@ $steps->Then('/^there should be a "([^"]*)":$/', function($world, $model, $table
   countModelOccurrences($world, 1, $model, $table);
 });
 
-$steps->Given('/^there should be no "([^"]*)":$/', function($world, $model, $table) {
+$steps->Then('/^there should be no "([^"]*)":$/', function($world, $model, $table) {
     countModelOccurrences($world, 0, $model, $table);
 });
+
+$steps->Given('/^there should be no "([^"]*)"$/', function($world, $model) {
+    $numberOfInstances = numberOfOccurrences($world, $model, array());
+    assertEquals(0, $numberOfInstances, "Found ".$numberOfInstances.' '.$model.' instances, but expected 0');
+});
+
 
 
 ?>

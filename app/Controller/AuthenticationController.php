@@ -10,6 +10,10 @@ class AuthenticationController extends AppController {
 
     public $uses = array('User');
 
+    public function isAuthorized() {
+        return true;
+    }
+
     public function beforeFilter() {
         parent::beforeFilter();
         $this->Auth->allow('register', 'login');

@@ -65,6 +65,7 @@
     <div class="actions">
         <h3><?php echo __('Actions'); ?></h3>
         <ul>
+            <li><?php echo $this->Html->link(__('New Story'), array('controller' => 'stories', 'action' => 'add')); ?></li>
             <li><?php echo $this->Html->link(__('Edit'), array('action' => 'edit', h($user['User']['id']))); ?></li>
         </ul>
     </div>

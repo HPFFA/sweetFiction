@@ -39,19 +39,6 @@ class BaseContext extends MinkContext implements ClosuredContextInterface
         parent::visit($page);
     }
 
-    /**
-     * Checks, that current page PATH is equal to specified.
-     *
-     * @Then /^(?:|I )should be on (the)? "(?P<page>[^"]+)" (page)?$/
-     */
-    public function assertPageAddress($page)
-    {
-        parent::assertPageAddress($page);
-    }
-
-   
-
-
     public function getStepDefinitionResources()
     {
         return glob(__DIR__.'/../steps/*.php');
