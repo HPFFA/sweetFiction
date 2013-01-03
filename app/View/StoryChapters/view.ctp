@@ -1,5 +1,6 @@
 <div class="storyChapters view">
-<h2><?php  echo __('Story Chapter'); ?></h2>
+<h2 id="story_title"><?php echo $this->Html->link($storyChapter['Story']['title'], array('controller' => 'stories', 'action' => 'view', $storyChapter['Story']['id'])); ?></h2> 
+<h3><span id="chapter_number"><?php echo h($storyChapter['StoryChapter']['chapter_number']); ?></span>. <span id="chapter_title"><?php echo h($storyChapter['StoryChapter']['title']); ?></span></h3>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
 		<dd>
@@ -7,58 +8,28 @@
 			&nbsp;
 		</dd>
 		<dt><?php echo __('User'); ?></dt>
-		<dd>
+		<dd id="chapter_author">
 			<?php echo $this->Html->link($storyChapter['User']['name'], array('controller' => 'users', 'action' => 'view', $storyChapter['User']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Story'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($storyChapter['Story']['title'], array('controller' => 'stories', 'action' => 'view', $storyChapter['Story']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Chapter Number'); ?></dt>
-		<dd>
-			<?php echo h($storyChapter['StoryChapter']['chapter_number']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Title'); ?></dt>
-		<dd>
-			<?php echo h($storyChapter['StoryChapter']['title']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Remarks'); ?></dt>
-		<dd>
+		<dd id="chapter_remarks">
 			<?php echo h($storyChapter['StoryChapter']['remarks']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Prelogue'); ?></dt>
-		<dd>
-			<?php echo h($storyChapter['StoryChapter']['prelogue']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Epilogue'); ?></dt>
-		<dd>
-			<?php echo h($storyChapter['StoryChapter']['epilogue']); ?>
+		<dt><?php echo __('Prologue'); ?></dt>
+		<dd id="chapter_prologue">
+			<?php echo h($storyChapter['StoryChapter']['prologue']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Text'); ?></dt>
-		<dd>
+		<dd id="chapter_text">
 			<?php echo h($storyChapter['StoryChapter']['text']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
-			<?php echo h($storyChapter['StoryChapter']['created']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Updated'); ?></dt>
-		<dd>
-			<?php echo h($storyChapter['StoryChapter']['updated']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Deleted'); ?></dt>
-		<dd>
-			<?php echo h($storyChapter['StoryChapter']['deleted']); ?>
+		<dt><?php echo __('Epilogue'); ?></dt>
+		<dd id="chapter_epilogue">
+			<?php echo h($storyChapter['StoryChapter']['epilogue']); ?>
 			&nbsp;
 		</dd>
 	</dl>

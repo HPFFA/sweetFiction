@@ -21,7 +21,7 @@
 		<td>
 			<?php echo $this->Html->link($story['User']['name'], array('controller' => 'users', 'action' => 'view', $story['User']['id'])); ?>
 		</td>
-		<td><?php echo h($story['Story']['title']); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(h($story['Story']['title']), array('action' => 'view', $story['Story']['id'])); ?>&nbsp;</td>
 		<td><?php echo h($story['Story']['summary']); ?>&nbsp;</td>
 		<td><?php echo h($story['Story']['prologue']); ?>&nbsp;</td>
 		<td><?php echo h($story['Story']['epilogue']); ?>&nbsp;</td>

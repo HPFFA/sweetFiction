@@ -40,7 +40,7 @@ class UsersController extends AppController {
     private function restoreSubmodelIds($user){
         $this->request->data['User']['id'] = $user['User']['id'];
         $this->request->data['UserProfile']['id'] = $user['UserProfile']['id'];
-        $this->request->data['UserProfile']['user-id'] = $user['UserProfile']['user_id'];
+        $this->request->data['UserProfile']['user_id'] = $user['UserProfile']['user_id'];
         $this->request->data['UserContact']['id'] = $user['UserContact']['id'];
         $this->request->data['UserContact']['user_id'] = $user['UserContact']['user_id'];
         $this->request->data['UserSetting']['id'] = $user['UserSetting']['id'];

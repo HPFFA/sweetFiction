@@ -41,9 +41,6 @@ class StoryChapter extends AppModel {
 		'Story' => array(
 			'className' => 'Story',
 			'foreignKey' => 'story_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
 		)
 	);
 }

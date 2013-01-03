@@ -14,7 +14,7 @@ $steps->When('/^I log in as "([^"]*)" with "([^"]*)"$/', function($world, $name,
 
 $steps->When('/^I am logged in as "([^"]*)" with "([^"]*)"$/', function($world, $name, $password) {
     return array(
-        new When('I am on the "login page"'),
+        new When('I am on the "login" page'),
         new When('I fill in "Name" with "'.$name.'"'),
         new When('I fill in "Password" with "'.$password.'"'),
         new When('I press "Login"'));

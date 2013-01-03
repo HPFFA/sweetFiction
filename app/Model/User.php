@@ -108,19 +108,19 @@ class User extends AppModel {
         'UserSetting' => array(
             'className' => 'UserSetting',
             'foreignKey' => 'user_id',
-            'dependent' => false,
+            'dependent' => true,
             'conditions' => '',
         ),
         'UserContact' => array(
             'className' => 'UserContact',
             'foreignKey' => 'user_id',
-            'dependent' => false,
+            'dependent' => true,
             'conditions' => '',
         ),
         'UserProfile' => array(
             'className' => 'UserProfile',
             'foreignKey' => 'user_id',
-            'dependent' => false,
+            'dependent' => true,
             'conditions' => '',
         )
     );

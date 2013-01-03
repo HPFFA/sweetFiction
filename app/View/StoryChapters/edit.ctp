@@ -9,7 +9,7 @@
 		echo $this->Form->input('chapter_number');
 		echo $this->Form->input('title');
 		echo $this->Form->input('remarks');
-		echo $this->Form->input('prelogue');
+		echo $this->Form->input('prologue');
 		echo $this->Form->input('epilogue');
 		echo $this->Form->input('text');
 		echo $this->Form->input('deleted');

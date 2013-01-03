@@ -23,8 +23,6 @@ class Story extends AppModel {
 	public $displayField = 'title';
 
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * belongsTo associations
  *
@@ -45,21 +43,11 @@ class Story extends AppModel {
  *
  * @var array
  */
-	public $hasAndBelongsToMany = array(
+	public $hasMany = array(
 		'StoryChapter' => array(
 			'className' => 'StoryChapter',
-			'joinTable' => 'story_chapter',
 			'foreignKey' => 'story_id',
-			'associationForeignKey' => 'chapter_id',
-			'unique' => 'keepExisting',
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'finderQuery' => '',
-			'deleteQuery' => '',
-			'insertQuery' => ''
+			'order' => 'chapter_number'
 		)
 	);
 

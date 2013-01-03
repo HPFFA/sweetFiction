@@ -8,7 +8,7 @@
 			<th><?php echo $this->Paginator->sort('chapter_number'); ?></th>
 			<th><?php echo $this->Paginator->sort('title'); ?></th>
 			<th><?php echo $this->Paginator->sort('remarks'); ?></th>
-			<th><?php echo $this->Paginator->sort('prelogue'); ?></th>
+			<th><?php echo $this->Paginator->sort('prologue'); ?></th>
 			<th><?php echo $this->Paginator->sort('epilogue'); ?></th>
 			<th><?php echo $this->Paginator->sort('text'); ?></th>
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
@@ -29,7 +29,7 @@
 		<td><?php echo h($storyChapter['StoryChapter']['chapter_number']); ?>&nbsp;</td>
 		<td><?php echo h($storyChapter['StoryChapter']['title']); ?>&nbsp;</td>
 		<td><?php echo h($storyChapter['StoryChapter']['remarks']); ?>&nbsp;</td>
-		<td><?php echo h($storyChapter['StoryChapter']['prelogue']); ?>&nbsp;</td>
+		<td><?php echo h($storyChapter['StoryChapter']['prologue']); ?>&nbsp;</td>
 		<td><?php echo h($storyChapter['StoryChapter']['epilogue']); ?>&nbsp;</td>
 		<td><?php echo h($storyChapter['StoryChapter']['text']); ?>&nbsp;</td>
 		<td><?php echo h($storyChapter['StoryChapter']['created']); ?>&nbsp;</td>

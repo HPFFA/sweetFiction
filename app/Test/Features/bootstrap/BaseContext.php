@@ -31,8 +31,8 @@ class BaseContext extends MinkContext implements ClosuredContextInterface
     /**
      * Opens specified page.
      *
-     * @Given /^(?:|I )am on (the)? "(?P<page>[^"]+)"$/
-     * @When /^(?:|I )go to (the)? "(?P<page>[^"]+)"$/
+     * @Given /^(?:|I )am on (the)? "(?P<page>[^"]+)" (page)?$/
+     * @When /^(?:|I )go to (the)? "(?P<page>[^"]+)" (page)?$/
      */
     public function visit($page)
     {
@@ -42,7 +42,7 @@ class BaseContext extends MinkContext implements ClosuredContextInterface
     /**
      * Checks, that current page PATH is equal to specified.
      *
-     * @Then /^(?:|I )should be on (the)? "(?P<page>[^"]+)"$/
+     * @Then /^(?:|I )should be on (the)? "(?P<page>[^"]+)" (page)?$/
      */
     public function assertPageAddress($page)
     {
@@ -80,7 +80,7 @@ class BaseContext extends MinkContext implements ClosuredContextInterface
         }
     }
 
-    private function getReducedScopeOf($selector)
+    public function getReducedScopeOf($selector)
     {
         $selectorType = "css";
         $node = $this->getSession()->getPage()->find($selectorType, $selector);
@@ -91,15 +91,21 @@ class BaseContext extends MinkContext implements ClosuredContextInterface
         return $node;
     }
 
-    public function clickLinkInScope($link, $scope)
-    {
-        $node = $this->getReducedScopeOf($scope);        
-        $node->clickLink($this->fixStepArgument($link));
-    }
-
     public function getModel($name) {
         $model = ClassRegistry::init(array('class' => $name, 'ds' => 'test'));
         return $model;
+    }
+
+    /**
+     * Returns fixed step argument (with \\" replaced back to ").
+     *
+     * @param string $argument
+     *
+     * @return string
+     */
+    public function fixStepArgument($argument)
+    {
+        return parent::fixStepArgument($argument);
     }
 
     /**

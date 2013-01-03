@@ -5,8 +5,8 @@ use Behat\Behat\Context\Step\Given,
     Behat\Behat\Context\Step\When,
     Behat\Behat\Context\Step\Then;
 
-$steps->Given('/^I follow "([^"]*)" within "([^"]*)"$/', function($world, $link, $selector) {
-    $world->clickLinkInScope($link, $selector);
+$steps->Given('/^I follow "([^"]*)" within "([^"]*)"$/', function($world, $link, $scope) {
+    $world->getReducedScopeOf($scope)->clickLink($world->fixStepArgument($link));
 });
 
 $steps->Given('/^I confirm my action$/', function($world) {
@@ -25,5 +25,8 @@ $steps->When('/^I send a (POST|PUT|DELETE) request to "([^"]*)" with:$/', functi
     $world->getSession()->getDriver()->getClient()->request($method, $world->locatePath($page), current($table->getHash()));
 });
 
+$steps->When('/^I fill in "([^"]*)" within "([^"]*)" with "([^"]*)"$/', function($world, $field, $scope, $value) {
+    $world->getReducedScopeOf($scope)->fillField($world->fixStepArgument($field), $world->fixStepArgument($value));
+});
 
 ?>
