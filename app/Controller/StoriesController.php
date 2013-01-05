@@ -59,10 +59,10 @@ class StoriesController extends AppController {
 			$this->Story->create();
 			// since we use hasMany associations, the framework requires, that the nested data is inside an array
 			$this->request->data['Story']['user_id'] = $this->Auth->user('id');
-			$this->request->data['StoryChapter']['user_id'] = $this->Auth->user('id');
-			$this->request->data['StoryChapter']['chapter_number'] = 1;
-			$this->request->data['StoryChapter'] = array($this->request->data['StoryChapter']);
-			if ($this->Story->saveAssociated($this->request->data)) {
+			$this->request->data['StoryChapter'][0]['user_id'] = $this->Auth->user('id');
+			$this->request->data['StoryChapter'][0]['chapter_number'] = 1;
+			
+			if ($this->Story->saveAssociated($this->request->data, array('deep' => true))) {
 				$this->Session->setFlash(__('The story has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {

@@ -12,11 +12,11 @@
 	<fieldset id="chapter_form">
 		<legend><?php echo __('Chapter'); ?></legend>
 		<?php
-			echo $this->Form->input('StoryChapter.title');
-			echo $this->Form->input('StoryChapter.remarks');
-			echo $this->Form->input('StoryChapter.prologue');
-			echo $this->Form->input('StoryChapter.text');
-			echo $this->Form->input('StoryChapter.epilogue');
+			echo $this->Form->input('StoryChapter.0.title');
+			echo $this->Form->input('StoryChapter.0.remarks');
+			echo $this->Form->input('StoryChapter.0.prologue');
+			echo $this->Form->input('StoryChapter.0.text');
+			echo $this->Form->input('StoryChapter.0.epilogue');
 		?>
 	</fieldset>
 	<?php echo $this->Form->end(__('Submit')); ?>

@@ -14,7 +14,8 @@ Feature: Management of stories
         Then I should see an "#story_form" element
         And I should see an "#chapter_form" element
 
-    Scenario: Creating a story
+    @wip
+    Scenario: Creating a story as user
         Given I am logged in as "Peach" with "test"
         And I am on "/stories/add"
         When I fill in "Title" within "#story_form" with "The first story"
@@ -27,6 +28,7 @@ Feature: Management of stories
         And I fill in "Epilogue" within "#chapter_form" with "Something to say after the chapter ends ..."
         And I fill in "Text" within "#chapter_form" with "Some very short chapter text ..."
         And I press "Submit"
+        Then show me the page
         When I am on "/stories"
         Then I should see "The first story"
         When I follow "The first story"
@@ -47,8 +49,36 @@ Feature: Management of stories
         And the "#chapter_epilogue" element should contain "Something to say after the chapter ends ..."
         And the "#chapter_text" element should contain "Some very short chapter text ..."
 
+    Scenario: Denial of creating an incomplete story
+        When I am logged in as "Peach" with "test"
+        And I am on "/stories/add"
+        And I fill in "Summary" within "#story_form" with "..."
+        And I press "Submit"
+        And there should be no "Story"
+        And there should be no "StoryChapter"
+        Then I should be on "/stories/add"
+        And I should see "The story could not be saved. Please, try again."
+        And the ".error-message" element should contain "The title cannot be empty."
+        And the "Summary" field within "#story_form" should contain "..."
+
+    Scenario: Denial of creating an story without a chapter
+        When I am logged in as "Peach" with "test"
+        And I am on "/stories/add"
+        And I fill in "Title" within "#story_form" with "Valid, but should not be created"
+        And I fill in "Title" within "#chapter_form" with "Invalid, should prevent creation"
+        And I fill in "Prologue" within "#chapter_form" with "..."
+        And I press "Submit"
+        And there should be no "Story"
+        And there should be no "StoryChapter"
+        Then I should be on "/stories/add"
+        And I should see "The story could not be saved. Please, try again."
+        And the ".error-message" element should contain "The text cannot be empty."
+        And the "Title" field within "#story_form" should contain "Valid, but should not be created"
+        And the "Title" field within "#chapter_form" should contain "Invalid, should prevent creation"
+        And the "Prologue" field within "#chapter_form" should contain "..."
+
     Scenario: Denial of creating stories for guests
-        When I go to "stories/add"
+        When I go to "/stories/add"
         Then I should see "You are not authorized to access that location."
         When I send a POST request to "stories/add" with:
             | some_data  |

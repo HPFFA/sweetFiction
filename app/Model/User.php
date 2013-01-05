@@ -31,28 +31,34 @@ class User extends AppModel {
         'name' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
+                'required' => true,
                 'message' => 'The name cannot be empty.',
             ),
             'alphanumeric' => array(
                 'rule' => 'extendedAlphanumericValidation',
+                'required' => true,
                 'message' => 'Your name must start and end with a number or letter and must have a length of three.',
             ),
             'unique' => array(
                 'rule' => array('isUnique'),
+                'required' => true,
                 'message' => 'The name is already in use.',
             ),
         ),
         'email' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
+                'required' => true,
                 'message' => 'The email cannot be empty.',
             ),
             'email' => array(
                 'rule' => array('email'),
+                'required' => true,
                 'message' => 'The provided email seems not to be valid, try another.',
             ),
             'unique' => array(
                 'rule' => array('isUnique'),
+                'required' => true,
                 'message' => 'The email is already in use.',
             ),
         ),
@@ -88,7 +94,7 @@ class User extends AppModel {
     }
 
 /**
- * hasAndBelongsToMany associations
+ * hasMany associations
  *
  * @var array
  */
@@ -96,6 +102,14 @@ class User extends AppModel {
         'GroupAssociations' => array(
             'className' => 'UserGroupAssociation',
             'foreignKey' => 'user_id',
+        ),
+        'Story' => array(
+            'className' => 'Story',
+            'foreignKey' => 'user_id'
+        ),
+        'StoryChapter' => array(
+            'className' => 'StoryChapter',
+            'foreignKey' => 'user_id'
         )
     );
 

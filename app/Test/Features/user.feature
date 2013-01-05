@@ -156,17 +156,17 @@ Feature: The management of user
         Then I should not be allowed to go to "/users/edit/1"
         But I should be allowed to go to "/users/edit/2"
 
-    @javascript
-    Scenario: Delete of own user account
-        When I am logged in as "Peach" with "test"
-        And I am on "/users/edit/1"
-        And I follow "Delete"
-        And I confirm my action
-        Then the "#flashMessage" element should contain "User deleted"
-        Then  I should not be logged in
-        And there should be no "User":
-            | name  | email         |
-            | Peach | p@example.com |
+    #@javascript
+    #Scenario: Delete of own user account
+    #    When I am logged in as "Peach" with "test"
+    #    And I am on "/users/edit/1"
+    #    And I follow "Delete"
+    #    And I confirm my action
+    #    Then the "#flashMessage" element should contain "User deleted"
+    #    Then  I should not be logged in
+    #    And there should be no "User":
+    #        | name  | email         |
+    #        | Peach | p@example.com |
 
     Scenario: Deny deletion of other user's account
         Given there is a "User":

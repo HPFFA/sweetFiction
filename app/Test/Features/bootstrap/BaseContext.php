@@ -67,9 +67,14 @@ class BaseContext extends MinkContext implements ClosuredContextInterface
         }
     }
 
-    public function getReducedScopeOf($selector)
+    public function getReducedScopeOf($selector, $assert = false)
     {
         $selectorType = "css";
+        if ($assert)
+        {
+            $session = $this->assertSession();
+        }
+        $session = $this->getSession();
         $node = $this->getSession()->getPage()->find($selectorType, $selector);
         
         if (null === $node) {

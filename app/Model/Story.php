@@ -22,7 +22,6 @@ class Story extends AppModel {
  */
 	public $displayField = 'title';
 
-
 /**
  * belongsTo associations
  *
@@ -32,9 +31,6 @@ class Story extends AppModel {
 		'User' => array(
 			'className' => 'User',
 			'foreignKey' => 'user_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
 		)
 	);
 
@@ -50,5 +46,21 @@ class Story extends AppModel {
 			'order' => 'chapter_number'
 		)
 	);
+
+/**
+ * Validation rules
+ *
+ * @var array
+ */
+    public $validate = array(
+        'title' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required' => true,
+                'message' => 'The title cannot be empty.',
+            )
+        )
+    );
+
 
 }

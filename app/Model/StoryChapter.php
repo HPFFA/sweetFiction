@@ -22,9 +22,6 @@ class StoryChapter extends AppModel {
  */
 	public $displayField = 'title';
 
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * belongsTo associations
  *
@@ -33,14 +30,28 @@ class StoryChapter extends AppModel {
 	public $belongsTo = array(
 		'User' => array(
 			'className' => 'User',
-			'foreignKey' => 'user_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
+			'foreignKey' => 'user_id'
 		),
 		'Story' => array(
 			'className' => 'Story',
 			'foreignKey' => 'story_id',
 		)
 	);
+
+
+/**
+ * Validation rules
+ *
+ * @var array
+ */
+    public $validate = array(
+        'text' => array(
+            'notempty' => array(
+                'rule' => array('notempty'),
+                'required' => true,
+                'message' => 'The text cannot be empty.',
+            ),
+        ),
+
+    );
 }
