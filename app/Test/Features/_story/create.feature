@@ -1,5 +1,6 @@
 @story
-Feature: Management of stories
+Feature: Create stories
+    In order to publish fanfiction, the user wants to publish his/her story
 
     Background:
         Given there is a "User":
@@ -14,7 +15,6 @@ Feature: Management of stories
         Then I should see an "#story_form" element
         And I should see an "#chapter_form" element
 
-    @wip
     Scenario: Creating a story as user
         Given I am logged in as "Peach" with "test"
         And I am on "/stories/add"
@@ -28,7 +28,6 @@ Feature: Management of stories
         And I fill in "Epilogue" within "#chapter_form" with "Something to say after the chapter ends ..."
         And I fill in "Text" within "#chapter_form" with "Some very short chapter text ..."
         And I press "Submit"
-        Then show me the page
         When I am on "/stories"
         Then I should see "The first story"
         When I follow "The first story"
