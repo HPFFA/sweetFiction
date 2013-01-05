@@ -7,6 +7,7 @@
 			echo $this->Form->input('summary');
 			echo $this->Form->input('prologue');
 			echo $this->Form->input('epilogue');
+			echo $this->Form->input('completed');
 		?>
 	</fieldset>
 	<fieldset id="chapter_form">

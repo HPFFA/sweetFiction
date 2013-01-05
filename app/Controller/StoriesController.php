@@ -14,13 +14,14 @@ class StoriesController extends AppController {
     }
 
 	function isAuthorized() {
-        // $userAllowedAction = array('add', 'edit', 'delete');
-        // if (in_array($this->request->params['action'], $userAllowedAction)) {
-        //     if ($this->Auth->user('id') != $this->User->id)
-        //     {
-        //         throw new ForbiddenException();
-        //     }
-        // }
+		$userAllowedAction = array('edit', 'delete');
+		if (in_array($this->request->params['action'], $userAllowedAction)) {
+            $this->Story->id = $this->request->params['pass']['0'];
+            if ($this->Auth->user('id') != $this->Story->field('user_id'))
+            {
+                throw new ForbiddenException();
+            }
+        }
         return true;
      }
 
@@ -86,7 +87,7 @@ class StoriesController extends AppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Story->save($this->request->data)) {
 				$this->Session->setFlash(__('The story has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'view', $id));
 			} else {
 				$this->Session->setFlash(__('The story could not be saved. Please, try again.'));
 			}

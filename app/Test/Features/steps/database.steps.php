@@ -17,12 +17,13 @@ $steps->Given('/^there is a "([^"]*)":$/', function($world, $model, $table)
 
 function numberOfOccurrences($world, $model, $modelData)
 {
-  $collected = array();
+  $adjustedModelData = array();
+  # since we query a specific model we prefix the fields with the model name to make sure to query the right fields in joins
   foreach ($modelData as $key => $value)
   {
-      $collected[] = $key.': "'.$value.'"';
+    $adjustedModelData[$model.'.'.$key] = $value;
   }
-  return $world->getModel($model)->find('count', array('conditions' => $modelData));
+  return $world->getModel($model)->find('count', array('conditions' => $adjustedModelData));
 }
 
 function countModelOccurrences($world, $count, $model, $table) {

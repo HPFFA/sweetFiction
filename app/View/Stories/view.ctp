@@ -6,11 +6,13 @@
 			<?php echo $this->Html->link($story['User']['name'], array('controller' => 'users', 'action' => 'view', $story['User']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Completed'); ?></dt>
-		<dd id="story_completed">
-			<?php echo h($story['Story']['completed']); ?>
-			&nbsp;
-		</dd>
+		<?php if ($story['Story']['completed']): ?>
+			<dt><?php echo __('Completed'); ?></dt>
+			<dd id="story_completed">
+				<?php echo __("Completed"); ?>
+				&nbsp;
+			</dd>
+		<?php endif; ?>
 		<dt><?php echo __('Summary'); ?></dt>
 		<dd id="story_summary">
 			<?php echo h($story['Story']['summary']); ?>
