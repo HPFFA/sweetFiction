@@ -12,21 +12,21 @@ Feature: Deletion of stories
             | id | user_id | story_id | title              | text |
             | 1  | 1       | 1        | Predefined chapter | ...  |
 
-    #@javascript
-    #Scenario: Delete a story as owner
-    #    When I am logged in as "Peach" with "test"
-    #    And I am on "/stories/edit/1"
-    #    And I follow "Delete"
-    #    And I confirm my action
-    #    Then the "#flashMessage" element should contain "Story deleted"
-    #    And I should be on "/stories"
-    #    And there should be no "Story":
-    #        | title            |
-    #        | Predefined story |
-    #    And there should be no "StoryChapter":
-    #        | title              |
-    #        | Predefined chapter |
-    @wip
+    @javascript
+    Scenario: Delete a story as owner
+        When I am logged in as "Peach" with "test"
+        And I am on "/stories/edit/1"
+        And I follow "Delete"
+        And I confirm my action
+        Then the "#flashMessage" element should contain "Story deleted"
+        And I should be on "/stories"
+        And there should be no "Story":
+            | title            |
+            | Predefined story |
+        And there should be no "StoryChapter":
+            | title              |
+            | Predefined chapter |
+
     Scenario: Deny deletion of other story
         Given there is a "User":
             | id | name  | email         | password | confirmation |

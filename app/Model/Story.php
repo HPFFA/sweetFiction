@@ -43,7 +43,8 @@ class Story extends AppModel {
 		'StoryChapter' => array(
 			'className' => 'StoryChapter',
 			'foreignKey' => 'story_id',
-			'order' => 'chapter_number'
+			'order' => 'chapter_number',
+			'dependent' => true
 		)
 	);
 
@@ -61,6 +62,7 @@ class Story extends AppModel {
             )
         )
     );
+
 
 
 }
