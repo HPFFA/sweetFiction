@@ -57,7 +57,7 @@ class Story extends AppModel {
         'title' => array(
             'notempty' => array(
                 'rule' => array('notempty'),
-                'required' => true,
+                //'required' => true,
                 'message' => 'The title cannot be empty.',
             )
         )

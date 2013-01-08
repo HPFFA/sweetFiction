@@ -7,6 +7,8 @@ App::uses('AppController', 'Controller');
  */
 class StoryChaptersController extends AppController {
 
+    public $uses = array('Story', 'StoryChapter');
+
 /**
  * index method
  *
@@ -39,17 +41,24 @@ class StoryChaptersController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			$story_id = $this->request->params['id'];
+			$user_id = $this->Auth->user('id');
+			$highest_chapter_number = $this->StoryChapter->find('first', array(
+    				'conditions' => array('story_id' => $story_id), 
+    				'fields' => array('MAX(chapter_number) AS chapter_number')));
 			$this->StoryChapter->create();
-			if ($this->StoryChapter->save($this->request->data)) {
+			$this->request->data['Story']['id'] = $story_id;
+			$this->request->data['StoryChapter']['story_id'] = $story_id;
+			$this->request->data['StoryChapter']['user_id'] = $user_id;
+			$this->request->data['StoryChapter']['chapter_number'] = $highest_chapter_number[0]['chapter_number'] + 1;
+			if ($this->StoryChapter->saveAssociated($this->request->data)) {
 				$this->Session->setFlash(__('The story chapter has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('controller' => 'stories', 'action' => 'view', $this->request->params['id']));
 			} else {
 				$this->Session->setFlash(__('The story chapter could not be saved. Please, try again.'));
 			}
 		}
-		$users = $this->StoryChapter->User->find('list');
-		$stories = $this->StoryChapter->Story->find('list');
-		$this->set(compact('users', 'stories'));
+		$this->Story->read(null, $story_id);
 	}
 
 /**

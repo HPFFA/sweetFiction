@@ -1,17 +1,19 @@
 <div class="storyChapters form">
 <?php echo $this->Form->create('StoryChapter'); ?>
-	<fieldset>
+	<fieldset id="story_form">
+		<legend><?php echo __('Story'); ?></legend>
+		<?php
+			echo $this->Form->input('Story.completed', array('type' => 'checkbox'));
+		?>
+	</fieldset>
+	<fieldset id="chapter_form">
 		<legend><?php echo __('Add Story Chapter'); ?></legend>
 	<?php
-		echo $this->Form->input('user_id');
-		echo $this->Form->input('story_id');
-		echo $this->Form->input('chapter_number');
 		echo $this->Form->input('title');
 		echo $this->Form->input('remarks');
 		echo $this->Form->input('prologue');
-		echo $this->Form->input('epilogue');
 		echo $this->Form->input('text');
-		echo $this->Form->input('deleted');
+		echo $this->Form->input('epilogue');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

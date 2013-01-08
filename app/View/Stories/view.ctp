@@ -61,7 +61,7 @@
 		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Story Chapters'), array('controller' => 'story_chapters', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Story Chapter'), array('controller' => 'story_chapters', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Add Chapter'), array('controller' => 'stories', 'action' => 'edit', $story['Story']['id'], 'chapters', 'add' )); ?> </li>
 	</ul>
 </div>
 <div class="related">
