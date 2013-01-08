@@ -36,10 +36,12 @@
 	</dl>
 
 	<h3 ><?php echo __('Chapters'); ?></h3>
+	<?php echo $this->Html->link(__('Add Chapter'), array('controller' => 'stories', 'action' => 'edit', $story['Story']['id'], 'chapters', 'add' )); ?>
 	<table cellpadding = "0" cellspacing = "0">
 		<tr>
 			<th></th>
 			<th><?php echo __('Title'); ?></th>
+			<th><?php echo __('Actions'); ?></th>
 		</tr>
 		<?php
 			$i = 0;
@@ -47,6 +49,7 @@
 			<tr id="story_chapter_<?php echo $storyChapter['id']; ?>">
 				<td><?php echo $storyChapter['chapter_number']; ?></td>
 				<td><?php echo $this->Html->link($storyChapter['title'], array('controller' => 'story_chapters', 'action' => 'view', $storyChapter['id'])); ?></td>
+				<td><?php echo $this->Html->link(__('Edit'), array('controller' => 'stories', 'action' => 'edit', $story['Story']['id'], 'chapters', 'edit', $storyChapter['id'])); ?></td>
 			</tr>
 		<?php endforeach; ?>
 	</table>
@@ -61,13 +64,5 @@
 		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Story Chapters'), array('controller' => 'story_chapters', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Add Chapter'), array('controller' => 'stories', 'action' => 'edit', $story['Story']['id'], 'chapters', 'add' )); ?> </li>
 	</ul>
-</div>
-<div class="related">
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Story Chapter'), array('controller' => 'story_chapters', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
 </div>
