@@ -16,7 +16,7 @@ class StoryChaptersController extends AppController {
     }
 
     function isAuthorized() {
-		$userAllowedAction = array('edit', 'delete');
+		$userAllowedAction = array('add', 'edit', 'delete');
 		if (in_array($this->request->params['action'], $userAllowedAction)) {
             $this->Story->id = $this->request->params['pass']['0'];
             if ($this->Auth->user('id') != $this->Story->field('user_id'))

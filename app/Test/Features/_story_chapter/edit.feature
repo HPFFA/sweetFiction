@@ -89,3 +89,41 @@ Feature: Edit a chapter of a story
         And there should be a "Story":
             | id |
             | 2  |
+
+    Scenario: Denial of editing to an incomplete chapter
+        Given I am logged in as "Peach" with "test"
+        And I am on "/stories/edit/1/chapters/add"
+        When I check "Completed"
+        And I fill in "Text" with ""
+        And I fill in "Remarks" with "..."
+        And I press "Submit"
+        Then I should be on "/stories/edit/1/chapters/add"
+        And I should see "The chapter could not be saved. Please, try again."
+        And the ".error-message" element should contain "The text cannot be empty."
+        And the "Remarks" field within "#chapter_form" should contain "..."
+        And there should be no "StoryChapter":
+            | text |
+            |      |
+
+    Scenario: Denial of editing chapters for guests
+        And I am on "/stories/edit/1/chapters/edit/1"
+        Then I should see "You are not authorized to access that location."
+        When I send a POST request to "/stories/edit/1/chapters/edit/1" with:
+            | some_data  |
+            | irrelevant |
+        Then I should see "You are not authorized to access that location."
+        And there should be a "Story"
+        And there should be 3 "StoryChapter"
+
+    Scenario: Denial of editing chapters for non-owners
+        Given there is a "User":
+            | id | name  | email         | password | confirmation |
+            | 2  | Luigi | l@example.com | test     | test         |
+        And I am logged in as "Luigi" with "test"
+        Then I should not be allowed to go to "/stories/edit/1/chapters/edit/1"
+        When I send a POST request to "/stories/edit/1/chapters/edit/1" with:
+            | some_data  |
+            | irrelevant |
+        Then the response status code should be 403
+        And there should be a "Story"
+        And there should be 3 "StoryChapter"

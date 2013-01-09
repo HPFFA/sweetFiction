@@ -56,12 +56,25 @@ Feature: Add chapter to existing story
             | remarks |
             | ...     |
 
-    Scenario: Denial of creating stories for guests
+    Scenario: Denial of creating chapters for guests
         And I am on "/stories/edit/1/chapters/add"
         Then I should see "You are not authorized to access that location."
         When I send a POST request to "/stories/edit/1/chapters/add" with:
             | some_data  |
             | irrelevant |
         Then I should see "You are not authorized to access that location."
+        And there should be a "Story"
+        And there should be a "StoryChapter"
+
+    Scenario: Denial of creating chapters for non-owners
+        Given there is a "User":
+            | id | name  | email         | password | confirmation |
+            | 2  | Luigi | l@example.com | test     | test         |
+        And I am logged in as "Luigi" with "test"
+        Then I should not be allowed to go to "/stories/edit/1/chapters/add"
+        When I send a POST request to "/stories/edit/1/chapters/add" with:
+            | some_data  |
+            | irrelevant |
+        Then the response status code should be 403
         And there should be a "Story"
         And there should be a "StoryChapter"
