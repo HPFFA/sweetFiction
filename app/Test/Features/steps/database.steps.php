@@ -45,11 +45,16 @@ $steps->Then('/^there should be a "([^"]*)":$/', function($world, $model, $table
   countModelOccurrences($world, 1, $model, $table);
 });
 
+$steps->Then('/^there should be a "([^"]*)"$/', function($world, $model) {
+  $numberOfInstances = numberOfOccurrences($world, $model, array());
+  assertEquals(1, $numberOfInstances, "Found ".$numberOfInstances.' '.$model.' instances, but expected one');
+});
+
 $steps->Then('/^there should be no "([^"]*)":$/', function($world, $model, $table) {
     countModelOccurrences($world, 0, $model, $table);
 });
 
-$steps->Given('/^there should be no "([^"]*)"$/', function($world, $model) {
+$steps->Then('/^there should be no "([^"]*)"$/', function($world, $model) {
     $numberOfInstances = numberOfOccurrences($world, $model, array());
     assertEquals(0, $numberOfInstances, "Found ".$numberOfInstances.' '.$model.' instances, but expected 0');
 });

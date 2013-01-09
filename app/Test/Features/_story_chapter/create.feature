@@ -41,3 +41,27 @@ Feature: Add chapter to existing story
         And the "#chapter_prologue" element should contain "New prologue"
         And the "#chapter_epilogue" element should contain "New epilogue"
         And the "#chapter_text" element should contain "..."
+
+    Scenario: Denial of creating an incomplete chapter
+        Given I am logged in as "Peach" with "test"
+        And I am on "/stories/edit/1/chapters/add"
+        When I check "Completed"
+        And I fill in "Remarks" with "..."
+        And I press "Submit"
+        Then I should be on "/stories/edit/1/chapters/add"
+        And I should see "The chapter could not be saved. Please, try again."
+        And the ".error-message" element should contain "The text cannot be empty."
+        And the "Remarks" field within "#chapter_form" should contain "..."
+        And there should be no "StoryChapter":
+            | remarks |
+            | ...     |
+
+    Scenario: Denial of creating stories for guests
+        And I am on "/stories/edit/1/chapters/add"
+        Then I should see "You are not authorized to access that location."
+        When I send a POST request to "/stories/edit/1/chapters/add" with:
+            | some_data  |
+            | irrelevant |
+        Then I should see "You are not authorized to access that location."
+        And there should be a "Story"
+        And there should be a "StoryChapter"

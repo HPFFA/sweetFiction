@@ -9,6 +9,24 @@ class StoryChaptersController extends AppController {
 
     public $uses = array('Story', 'StoryChapter');
 
+
+    public function beforeFilter(){
+        parent::beforeFilter();
+        $this->Auth->deny();
+    }
+
+    function isAuthorized() {
+		$userAllowedAction = array('edit', 'delete');
+		if (in_array($this->request->params['action'], $userAllowedAction)) {
+            $this->Story->id = $this->request->params['pass']['0'];
+            if ($this->Auth->user('id') != $this->Story->field('user_id'))
+            {
+                throw new ForbiddenException();
+            }
+        }
+        return true;
+     }
+
 /**
  * index method
  *
@@ -29,7 +47,7 @@ class StoryChaptersController extends AppController {
 	public function view($id = null) {
 		$this->StoryChapter->id = $id;
 		if (!$this->StoryChapter->exists()) {
-			throw new NotFoundException(__('Invalid story chapter'));
+			throw new NotFoundException(__('Invalid chapter'));
 		}
 		$this->set('storyChapter', $this->StoryChapter->read(null, $id));
 	}
@@ -56,10 +74,10 @@ class StoryChaptersController extends AppController {
 			$this->request->data['StoryChapter']['user_id'] = $user_id;
 			$this->request->data['StoryChapter']['chapter_number'] = $highest_chapter_number[0]['chapter_number'] + 1;
 			if ($this->StoryChapter->saveAssociated($this->request->data)) {
-				$this->Session->setFlash(__('The story chapter has been saved'));
+				$this->Session->setFlash(__('The chapter has been saved'));
 				$this->redirect(array('controller' => 'stories', 'action' => 'view', $story_id));
 			} else {
-				$this->Session->setFlash(__('The story chapter could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The chapter could not be saved. Please, try again.'));
 			}
 		}
 		$this->Story->read(null, $story_id);
@@ -77,7 +95,7 @@ class StoryChaptersController extends AppController {
 		$this->StoryChapter->id = $chapter_id;
 		if (!$this->StoryChapter->exists() 
 			|| $story_id != $this->StoryChapter->read('story_id', $chapter_id)['StoryChapter']['story_id']) {
-			throw new NotFoundException(__('Invalid story chapter'));
+			throw new NotFoundException(__('Invalid chapter'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			$this->request->data['Story']['id'] = $story_id;
@@ -88,10 +106,10 @@ class StoryChaptersController extends AppController {
 				$this->request->data['Story']['completed'] = 0;
 			}
 			if ($this->StoryChapter->saveAssociated($this->request->data)) {
-				$this->Session->setFlash(__('The story chapter has been saved'));
+				$this->Session->setFlash(__('The chapter has been saved'));
 				$this->redirect(array('controller' => 'stories', 'action' => 'view', $story_id));
 			} else {
-				$this->Session->setFlash(__('The story chapter could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The chapter could not be saved. Please, try again.'));
 			}
 		} else {
 			$this->request->data = $this->StoryChapter->read(null, $chapter_id);
@@ -114,13 +132,13 @@ class StoryChaptersController extends AppController {
 		}
 		$this->StoryChapter->id = $id;
 		if (!$this->StoryChapter->exists()) {
-			throw new NotFoundException(__('Invalid story chapter'));
+			throw new NotFoundException(__('Invalid chapter'));
 		}
 		if ($this->StoryChapter->delete()) {
-			$this->Session->setFlash(__('Story chapter deleted'));
+			$this->Session->setFlash(__('Chapter deleted'));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Story chapter was not deleted'));
+		$this->Session->setFlash(__('Chapter was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
 }

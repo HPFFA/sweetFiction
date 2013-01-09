@@ -58,8 +58,8 @@ Feature: Edit a chapter of a story
             | id | user_id | story_id | chapter_number | title            | text                     |
             | 4  | 1       | 2        | 1              | Another chapter  | Some text for the first  |
         Given I am logged in as "Peach" with "test"
-        And I am on "/stories/edit/2/chapters/edit/4"
-        Then I should see "Invalid story chapter"
+        And I am on "/stories/edit/2/chapters/edit/1"
+        Then I should see "Invalid chapter"
 
     Scenario: Edit a chapter of a completed story
         Given there is a "Story":
