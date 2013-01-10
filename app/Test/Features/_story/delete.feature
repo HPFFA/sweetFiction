@@ -16,7 +16,7 @@ Feature: Deletion of stories
     Scenario: Delete a story as owner
         When I am logged in as "Peach" with "test"
         And I am on "/stories/edit/1"
-        And I follow "Delete"
+        And I follow "Delete Story"
         And I confirm my action
         Then the "#flashMessage" element should contain "Story deleted"
         And I should be on "/stories"

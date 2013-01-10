@@ -229,7 +229,7 @@ class StoriesController extends AppController {
 			}
 		} else if ($this->StoryChapter->delete()) {
 			$this->Session->setFlash(__('Chapter deleted'));
-			$this->redirect(array('controller' => 'stories', 'action' => 'view', $story_id));
+			$this->redirect(array('controller' => 'stories', 'action' => 'edit', $story_id));
 		}
 		$this->Session->setFlash(__('Chapter was not deleted'));
 		$this->redirect(array('action' => 'index'));

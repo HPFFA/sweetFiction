@@ -16,11 +16,11 @@ Feature: Deletion of chapters
     @javascript
     Scenario: Delete a chapter as owner
         When I am logged in as "Peach" with "test"
-        And I am on "/stories/view/1"
+        And I am on "/stories/edit/1"
         And I follow "Delete" within "#story_chapter_2"
         And I confirm my action
         Then the "#flashMessage" element should contain "Chapter deleted"
-        And I should be on "/stories/view/1"
+        And I should be on "/stories/edit/1"
         And there should be a "Story"
         And there should be a "StoryChapter":
             | title         |
@@ -32,11 +32,11 @@ Feature: Deletion of chapters
     @javascript
     Scenario: Delete the chapter as owner will drop the story too
         When I am logged in as "Peach" with "test"
-        And I am on "/stories/view/1"
+        And I am on "/stories/edit/1"
         And I follow "Delete" within "#story_chapter_1"
         And I confirm my action
         Then the "#flashMessage" element should contain "Chapter deleted"
-        And I should be on "/stories/view/1"
+        And I should be on "/stories/edit/1"
         And I follow "Delete" within "#story_chapter_2"
         And I confirm my action
         Then the "#flashMessage" element should contain "Story with last chapter deleted"

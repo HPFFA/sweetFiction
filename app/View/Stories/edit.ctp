@@ -11,15 +11,31 @@
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
+	<h3 ><?php echo __('Chapters'); ?></h3>
+	<table cellpadding = "0" cellspacing = "0">
+		<tr>
+			<th></th>
+			<th><?php echo __('Title'); ?></th>
+			<th><?php echo __('Actions'); ?></th>
+		</tr>
+		<?php
+			$i = 0;
+			foreach ($this->request->data['StoryChapter'] as $storyChapter): ?>
+			<tr id="story_chapter_<?php echo $storyChapter['id']; ?>">
+				<td><?php echo $storyChapter['chapter_number']; ?></td>
+				<td><?php echo $this->Html->link($storyChapter['title'], array('controller' => 'stories', 'action' => 'view', $storyChapter['story_id'], 'chapters', 'view', $storyChapter['id'])); ?></td>
+				<td><?php echo $this->Html->link(__('Edit'), array('controller' => 'stories', 'action' => 'edit', $storyChapter['story_id'], 'chapters', 'edit', $storyChapter['id'])); ?>&nbsp;
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'stories', 'action' => 'edit', $storyChapter['story_id'], 'chapters', 'delete', $storyChapter['id']), null, __('Are you sure you want to delete # %s with its story?', $storyChapter['id'])); ?>
+
+			</tr>
+		<?php endforeach; ?>
+	</table>
+
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Story.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Story.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Stories'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Story Chapters'), array('controller' => 'story_chapters', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Story Chapter'), array('controller' => 'story_chapters', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Add Chapter'), array('controller' => 'stories', 'action' => 'edit', $this->request->data['Story']['id'], 'chapters', 'add' )); ?></li>
+		<li><?php echo $this->Form->postLink(__('Delete Story'), array('action' => 'delete', $this->Form->value('Story.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Story.id'))); ?></li>
 	</ul>
 </div>

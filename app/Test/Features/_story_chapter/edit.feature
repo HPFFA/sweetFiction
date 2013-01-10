@@ -16,7 +16,7 @@ Feature: Edit a chapter of a story
 
     Scenario: Access the edit page of a chapter
         Given I am logged in as "Peach" with "test"
-        And I am on "/stories/view/1"
+        And I am on "/stories/edit/1"
         And I follow "Edit" within "#story_chapter_2"
         Then I should be on "/stories/edit/1/chapters/edit/2"
         And I should see an "#story_form" element

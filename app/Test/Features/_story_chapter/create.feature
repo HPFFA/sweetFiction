@@ -14,7 +14,7 @@ Feature: Add chapter to existing story
 
     Scenario: Access the create chapter page
         Given I am logged in as "Peach" with "test"
-        And I am on "/stories/view/1"
+        And I am on "/stories/edit/1"
         And I follow "Add Chapter"
         Then I should be on "/stories/edit/1/chapters/add"
         And I should see an "#story_form" element
