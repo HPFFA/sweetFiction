@@ -3,7 +3,6 @@
 	<fieldset id="story_form">
 		<legend><?php echo __('Story'); ?></legend>
 		<?php
-			debug($this);
 			echo $this->Form->input('Story.completed', array('type' => 'checkbox'));
 		?>
 	</fieldset>

@@ -27,7 +27,20 @@ Feature: Deletion of stories
             | title              |
             | Predefined chapter |
 
-    Scenario: Deny deletion of other story
+    Scenario: Deny deletion of a story for guests
+        When I send a POST request to "/stories/delete/1" with:
+            | id |
+            | 1  |
+        Then I should not see "Story deleted"
+        Then I should see "You are not authorized to access that location."
+        And there should be a "Story":
+            | title            |
+            | Predefined story |
+        And there should be a "StoryChapter":
+            | title              |
+            | Predefined chapter |
+
+    Scenario: Deny deletion of a story by non-owners
         Given there is a "User":
             | id | name  | email         | password | confirmation |
             | 2  | Luigi | l@example.com | test     | test         |

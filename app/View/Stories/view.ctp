@@ -48,8 +48,10 @@
 			foreach ($story['StoryChapter'] as $storyChapter): ?>
 			<tr id="story_chapter_<?php echo $storyChapter['id']; ?>">
 				<td><?php echo $storyChapter['chapter_number']; ?></td>
-				<td><?php echo $this->Html->link($storyChapter['title'], array('controller' => 'story_chapters', 'action' => 'view', $storyChapter['id'])); ?></td>
-				<td><?php echo $this->Html->link(__('Edit'), array('controller' => 'stories', 'action' => 'edit', $story['Story']['id'], 'chapters', 'edit', $storyChapter['id'])); ?></td>
+				<td><?php echo $this->Html->link($storyChapter['title'], array('controller' => 'stories', 'action' => 'view', $story['Story']['id'], 'chapters', 'view', $storyChapter['id'])); ?></td>
+				<td><?php echo $this->Html->link(__('Edit'), array('controller' => 'stories', 'action' => 'edit', $story['Story']['id'], 'chapters', 'edit', $storyChapter['id'])); ?>&nbsp;
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'stories', 'action' => 'edit', $story['Story']['id'], 'chapters', 'delete', $storyChapter['id']), null, __('Are you sure you want to delete # %s with its story?', $storyChapter['id'])); ?>
+
 			</tr>
 		<?php endforeach; ?>
 	</table>

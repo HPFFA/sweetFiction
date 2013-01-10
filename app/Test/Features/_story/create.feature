@@ -38,7 +38,7 @@ Feature: Create stories
         And the "#story_prologue" element should contain "Something to say before the story starts ..."
         And the "#story_epilogue" element should contain "Something to say after the story ends ..."
         When I follow "The first chapter" within "#story_chapter_1"
-        Then I should be on "/story_chapters/view/1"
+        Then I should be on "/stories/view/1/chapters/view/1"
         And the "#story_title" element should contain "The first story"
         And the "#chapter_title" element should contain "The first chapter"
         And the "#chapter_number" element should contain "1"

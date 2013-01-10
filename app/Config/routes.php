@@ -37,25 +37,49 @@
         array(
             'controller' => 'pages', 
             'action' => 'display'));
-
-    Router::connect('/stories/edit/:id/chapters/add', 
+    
+    Router::connect('/stories/edit/:story_id/chapters/add', 
+        array('controller' => 'stories','action' => 'add_chapter'),
         array(
-            'controller' => 'story_chapters',
-            'action' => 'add',
-        ),
-        array(
-            'pass' => array('id'),
-            'id' => '[0-9]+'
+            'pass' => array('story_id'),
+            'story_id' => '[0-9]+'
     ));
 
-    Router::connect('/stories/edit/:id/chapters/:action/:chapter_id',
+    Router::connect('/stories/edit/:story_id/chapters/edit/:chapter_id', 
+        array('controller' => 'stories','action' => 'edit_chapter'),
+        array(
+            'pass' => array('story_id', 'chapter_id'),
+            'story_id' => '[0-9]+',
+            'chapter_id' => '[0-9]+'
+    ));
+
+    Router::connect('/stories/edit/:story_id/chapters/delete/:chapter_id', 
+        array('controller' => 'stories','action' => 'delete_chapter', '[method]' => 'POST'),
+        array(
+            'pass' => array('story_id', 'chapter_id'),
+            'story_id' => '[0-9]+',
+            'chapter_id' => '[0-9]+'
+    ));
+
+    Router::connect('/stories/view/:story_id/chapters/view/:chapter_id', 
+        array('controller' => 'stories','action' => 'view_chapter'),
+        array(
+            'pass' => array('story_id', 'chapter_id'),
+            'story_id' => '[0-9]+',
+            'chapter_id' => '[0-9]+'
+    ));
+/*
+    Router::connect('/stories/edit/:story_id/chapters/:action/:chapter_id',
         array(
             'controller' => 'story_chapters'),
         array(
-            'pass' => array('id', 'chapter_id'),
-            'id' => '[0-9]+',
+            'pass' => array('story_id', 'chapter_id'),
+            'story_id' => '[0-9]+',
             'chapter_id' => '[0-9]+'
     ));
+    */
+
+    
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 
  * how to customize the loading of plugin routes.
