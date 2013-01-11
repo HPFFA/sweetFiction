@@ -1,9 +1,11 @@
 <div class="users index">
     <h2><?php echo __('Users'); ?></h2>
+        <div class="sorting">
+        <h4><?php echo __('Sorting'); ?></h4>
+        <span><?php echo $this->Paginator->sort('name'); ?></span>
+    </div>
+
     <table cellpadding="0" cellspacing="0">
-        <tr>
-            <th><?php echo $this->Paginator->sort('name'); ?></th>
-        </tr>
         <?php foreach ($users as $user): ?>
             <tr id="list_user_<?php echo $user['User']['id']; ?>">
                 <td>
