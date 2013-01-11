@@ -35,10 +35,11 @@ Feature: Edit a chapter of a story
         Then I should be on "/stories/view/1"
         And the "#story_completed" element should contain "Completed"
         When I follow "Changed chapter" within "#story_chapter_2"
-        And the "#story_title" element should contain "Predefined story"
+        And the ".story_title" element should contain "Predefined story"
         And the "#chapter_title" element should contain "Changed chapter"
         And the "#chapter_number" element should contain "2"
-        And the "#chapter_author" element should contain "Peach"
+        #And the "#chapter_author" element should contain "Peach" # hidden because author of chapter are identical with story
+        And I should not see a "#chapter_author" element
         And the "#chapter_remarks" element should contain "Remarks changed"
         And the "#chapter_prologue" element should contain "Prologue changed"
         And the "#chapter_epilogue" element should contain "Epilogue changed"
@@ -78,10 +79,11 @@ Feature: Edit a chapter of a story
         Then I should be on "/stories/view/2"
         And I should not see a "#story_completed" element
         When I follow "Changed chapter" within "#story_chapter_4"
-        And the "#story_title" element should contain "Another story"
+        And the ".story_title" element should contain "Another story"
         And the "#chapter_title" element should contain "Changed chapter"
         And the "#chapter_number" element should contain "1"
-        And the "#chapter_author" element should contain "Peach"
+        #And the "#chapter_author" element should contain "Peach" # hidden because author of chapter are identical with story
+        And I should not see a "#chapter_author" element
         And the "#chapter_text" element should contain "..."
         And there should be 1 "StoryChapter":
             | story_id |

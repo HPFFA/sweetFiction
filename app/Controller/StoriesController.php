@@ -57,6 +57,8 @@ class StoriesController extends AppController {
 			throw new NotFoundException(__('Invalid story'));
 		}
 		$this->set('story', $this->Story->read(null, $id));
+		$this->set('storyChapters', $this->StoryChapter->find(
+			'all', array('conditions' => array('story_id' => $id))));
 	}
 
 /**
@@ -66,13 +68,19 @@ class StoriesController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view_chapter($id = null, $chapter_id) {
-		//$this->Story->id = $id;
+	public function view_chapter($story_id = null, $chapter_id = null) {
+		$this->Story->id = $story_id;
 		$this->StoryChapter->id = $chapter_id;
-		if (!$this->StoryChapter->exists()) {
+		if (!$this->StoryChapter->exists() && !$this->Story->exists()) {
 			throw new NotFoundException(__('Invalid chapter'));
 		}
+		$this->set('story', $this->Story->read(null, $story_id));
 		$this->set('storyChapter', $this->StoryChapter->read(null, $chapter_id));
+		$this->set('storyChapterNeighbours', $this->StoryChapter->find('neighbors', array(
+			'conditions' => array('story_id' => $story_id),
+		    'order' => 'chapter_number DESC',
+		    'fields' => array('chapter_number', 'id', 'title')
+	    )));
 	}
 
 /**

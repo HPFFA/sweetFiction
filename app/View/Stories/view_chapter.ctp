@@ -1,12 +1,20 @@
 <div class="storyChapters view">
-<h2 id="story_title"><?php echo $this->Html->link($storyChapter['Story']['title'], array('controller' => 'stories', 'action' => 'view', $storyChapter['Story']['id'])); ?></h2> 
-<h3><span id="chapter_number"><?php echo h($storyChapter['StoryChapter']['chapter_number']); ?></span>. <span id="chapter_title"><?php echo h($storyChapter['StoryChapter']['title']); ?></span></h3>
+	<h2><?php 
+	        $title = '<span class="story_title">'.$this->Html->link($story['Story']['title'], array('controller' => 'stories', 'action' => 'view', $story['Story']['id'])).'</span>';
+	        $author = '<span class="story_author">'.$this->Html->link($story['User']['name'], array('controller' => 'users', 'action' => 'view', $story['User']['id'])).'</span>';
+	        echo __('%s by %s', $title, $author);
+	    ?>
+	</h2>
+	<h3>
+	<span id="chapter_number"><?php echo $storyChapter['StoryChapter']['chapter_number']; ?></span>. <span id="chapter_title"><?php echo h($storyChapter['StoryChapter']['title']); ?></span></h3>
 	<dl>
-		<dt><?php echo __('User'); ?></dt>
-		<dd id="chapter_author">
-			<?php echo $this->Html->link($storyChapter['User']['name'], array('controller' => 'users', 'action' => 'view', $storyChapter['User']['id'])); ?>
-			&nbsp;
-		</dd>
+		<?php if ($story['Story']['user_id'] != $storyChapter['StoryChapter']['user_id']): ?>
+			<dt><?php echo __('User'); ?></dt>
+			<dd id="chapter_author">
+				<?php echo $this->Html->link($storyChapter['User']['name'], array('controller' => 'users', 'action' => 'view', $storyChapter['User']['id'])); ?>
+				&nbsp;
+			</dd>
+		<?php endif; ?>
 		<dt><?php echo __('Remarks'); ?></dt>
 		<dd id="chapter_remarks">
 			<?php echo h($storyChapter['StoryChapter']['remarks']); ?>
@@ -35,5 +43,15 @@
 		<li><?php echo $this->Html->link(__('Edit Story Chapter'), array('action' => 'edit', $storyChapter['StoryChapter']['story_id'], 'chapters', 'edit', $storyChapter['StoryChapter']['id'])); ?> </li>
 		
 		<li><?php echo $this->Html->link(__('List Story Chapters'), array('action' => 'index', $storyChapter['StoryChapter']['story_id'], 'chapters', 'index')); ?> </li>
+		<?php 
+			$prev = $storyChapterNeighbours['prev'];
+			if (!empty($prev)): ?>
+			<li><?php echo $this->Html->link($prev['StoryChapter']['chapter_number'].'. '.h($prev['StoryChapter']['title']), array('controller' => 'stories', 'action' => 'view', $story['Story']['id'], 'chapters', 'view', $prev['StoryChapter']['id'])); ?> </li>	
+		<?php endif; 
+			$next = $storyChapterNeighbours['next']; 
+			if (!empty($next)): ?>
+			<li><?php echo $this->Html->link($next['StoryChapter']['chapter_number'].'. '.h($next['StoryChapter']['title']), array('controller' => 'stories', 'action' => 'view', $storyChapter['StoryChapter']['story_id'], 'chapters', 'view', $next['StoryChapter']['id'])); ?> </li>
+		<?php endif; ?>
+		
 	</ul>
 </div>

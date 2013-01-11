@@ -47,14 +47,20 @@
 			<th></th>
 			<th><?php echo __('Title'); ?></th>
 		</tr>
-		<?php
-			$i = 0;
-			foreach ($story['StoryChapter'] as $storyChapter): ?>
-			<tr class="story_chapter" id="story_chapter_<?php echo $storyChapter['id']; ?>">
-				<td><?php echo $storyChapter['chapter_number']; ?></td>
-				<td><?php echo $this->Html->link($storyChapter['title'], array('controller' => 'stories', 'action' => 'view', $story['Story']['id'], 'chapters', 'view', $storyChapter['id'])); ?></td>
+		<?php foreach ($storyChapters as $storyChapter): ?>
+			<tr class="story_chapter" id="story_chapter_<?php echo $storyChapter['StoryChapter']['id'];?>">
+				<td><?php echo $storyChapter['StoryChapter']['chapter_number']; ?></td>
+				<td>
+					<?php
+						echo $this->element('Story/chapter_description', array(
+						'story' => $story['Story'],
+						'chapter' => $storyChapter['StoryChapter'],
+						'user' => $storyChapter['User'])); 
+					?>
+				</td>
 			</tr>
 		<?php endforeach; ?>
+		
 	</table>
 </div>
 <?php if ($this->Auth->user('id') == $story['Story']['user_id']): ?>

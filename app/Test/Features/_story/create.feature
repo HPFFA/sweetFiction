@@ -39,10 +39,11 @@ Feature: Create stories
         And the "#story_epilogue" element should contain "Something to say after the story ends ..."
         When I follow "The first chapter" within "#story_chapter_1"
         Then I should be on "/stories/view/1/chapters/view/1"
-        And the "#story_title" element should contain "The first story"
+        And the ".story_title" element should contain "The first story"
         And the "#chapter_title" element should contain "The first chapter"
         And the "#chapter_number" element should contain "1"
-        And the "#chapter_author" element should contain "Peach"
+        #And the "#chapter_author" element should contain "Peach" # is hidden because of identical author with story
+        And I should not see a "#chapter_author" element
         And the "#chapter_remarks" element should contain "Some great remarks ..."
         And the "#chapter_prologue" element should contain "Something to say before the chapter starts ..."
         And the "#chapter_epilogue" element should contain "Something to say after the chapter ends ..."

@@ -8,6 +8,7 @@ App::uses('AppModel', 'Model');
  */
 class StoryChapter extends AppModel {
 
+	public $actAs = array('Containable');
 /**
  * Use table
  *

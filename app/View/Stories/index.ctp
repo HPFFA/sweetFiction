@@ -9,24 +9,15 @@
 	</div>
 
 	<?php foreach ($stories as $story): 
-		$html_story_id = 'story_'.$story['Story']['id'];
-		?>
+		$html_story_id = 'story_'.$story['Story']['id']; ?>
 		<div class="story_description" id="<?php echo $html_story_id; ?>">
-			<div>
-				<?php 
-					$title = '<span class="story_title">'.$this->Html->link($story['Story']['title'], array('action' => 'view', $story['Story']['id'])).'</span>';
-					$author = '<span class="story_author">'.$this->Html->link($story['User']['name'], array('controller' => 'users', 'action' => 'view', $story['User']['id'])).'</span>';
-					echo __('%s by %s', $title, $author);
-				?>
-				<span class="small_font">(<?php echo h($story['Story']['updated']); ?>)</span>
-				<?php if ($story['Story']['completed']): ?>
-					<span class="completed"><?php echo __('Completed'); ?></span>
-				<?php endif; ?>
-			</div>
-			<span class="story_summary"><?php echo h($story['Story']['summary']); ?></span>
+			<?php 
+				echo $this->element('Story/description', array(
+					'story' => $story['Story'], 
+					'user' => $story['User'])); 
+			?>
 		</div>
 	<?php endforeach; ?>
-	</table>
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
