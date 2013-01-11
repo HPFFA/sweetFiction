@@ -12,22 +12,28 @@
 				<?php echo __("Completed"); ?>
 				&nbsp;
 			</dd>
+		<?php endif;
+			if (!empty($story['Story']['summary'])): ?>
+			<dt><?php echo __('Summary'); ?></dt>
+			<dd id="story_summary">
+				<?php echo h($story['Story']['summary']); ?>
+				&nbsp;
+			</dd>
+		<?php endif; 
+			if (!empty($story['Story']['prologue'])): ?>
+			<dt><?php echo __('Prologue'); ?></dt>
+			<dd id="story_prologue">
+				<?php echo h($story['Story']['prologue']); ?>
+				&nbsp;
+			</dd>
+		<?php endif;
+			if (!empty($story['Story']['prologue'])): ?>
+			<dt><?php echo __('Epilogue'); ?></dt>
+			<dd id="story_epilogue">
+				<?php echo h($story['Story']['epilogue']); ?>
+				&nbsp;
+			</dd>
 		<?php endif; ?>
-		<dt><?php echo __('Summary'); ?></dt>
-		<dd id="story_summary">
-			<?php echo h($story['Story']['summary']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Prologue'); ?></dt>
-		<dd id="story_prologue">
-			<?php echo h($story['Story']['prologue']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Epilogue'); ?></dt>
-		<dd id="story_epilogue">
-			<?php echo h($story['Story']['epilogue']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Updated'); ?></dt>
 		<dd id="story_updated">
 			<?php echo h($story['Story']['updated']); ?>
@@ -44,7 +50,7 @@
 		<?php
 			$i = 0;
 			foreach ($story['StoryChapter'] as $storyChapter): ?>
-			<tr id="story_chapter_<?php echo $storyChapter['id']; ?>">
+			<tr class="story_chapter" id="story_chapter_<?php echo $storyChapter['id']; ?>">
 				<td><?php echo $storyChapter['chapter_number']; ?></td>
 				<td><?php echo $this->Html->link($storyChapter['title'], array('controller' => 'stories', 'action' => 'view', $story['Story']['id'], 'chapters', 'view', $storyChapter['id'])); ?></td>
 			</tr>

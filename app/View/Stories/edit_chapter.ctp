@@ -7,7 +7,7 @@
 		?>
 	</fieldset>
 	<fieldset id="chapter_form">
-		<legend><?php echo __('Add Story Chapter'); ?></legend>
+		<legend><?php echo __('Story Chapter'); ?></legend>
 	<?php
 		echo $this->Form->input('title');
 		echo $this->Form->input('remarks');
@@ -23,10 +23,6 @@
 	<ul>
 
 		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('StoryChapter.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('StoryChapter.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Story Chapters'), array('action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Stories'), array('controller' => 'stories', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Story'), array('controller' => 'stories', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Story Chapters'), array('action' => 'index', $this->Form->value('StoryChapter.story_id'), 'chapters', 'index')); ?></li>
 	</ul>
 </div>

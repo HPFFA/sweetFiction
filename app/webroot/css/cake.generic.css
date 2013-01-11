@@ -129,6 +129,18 @@ div.actions h3 {
 	color:#777;
 }
 
+div.sorting {
+	margin-bottom: 1em;
+	padding: 1em;
+	border: 1px solid #666;
+}
+
+div.sorting a.asc:after {
+	content: ' ⇣';
+}
+div.sorting  a.desc:after {
+	content: ' ⇡';
+}
 
 /** Tables **/
 table {
@@ -559,6 +571,22 @@ input[type=submit]:active,
 	clear: both;
 	display: block;
 }
+
+.story_description {
+	padding: 1em;
+	border-bottom: 1px dashed #666;
+}
+
+.small_font {
+	font-size: 75%;
+}
+
+
+
+
+
+
+
 
 /** Debugging **/
 pre {

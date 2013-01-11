@@ -48,5 +48,10 @@ $steps->Then('/^the "([^"]*)" field within "([^"]*)" should contain "([^"]*)"$/'
     }
 });
 
+$steps->Then('/^I should see the link "([^"]*)"$/', function($world, $link) {
+   $link = $world->getSession()->getPage()->findLink($world->fixStepArgument($link));
+   assertNotEquals($link, null);
+});
+
 
 ?>

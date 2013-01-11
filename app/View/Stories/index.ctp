@@ -1,41 +1,31 @@
 <div class="stories index">
 	<h2><?php echo __('Stories'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('title'); ?></th>
-			<th><?php echo $this->Paginator->sort('summary'); ?></th>
-			<th><?php echo $this->Paginator->sort('prologue'); ?></th>
-			<th><?php echo $this->Paginator->sort('epilogue'); ?></th>
-			<th><?php echo $this->Paginator->sort('completed'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th><?php echo $this->Paginator->sort('updated'); ?></th>
-			<th><?php echo $this->Paginator->sort('deleted'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php
-	foreach ($stories as $story): ?>
-	<tr>
-		<td><?php echo h($story['Story']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($story['User']['name'], array('controller' => 'users', 'action' => 'view', $story['User']['id'])); ?>
-		</td>
-		<td><?php echo $this->Html->link(h($story['Story']['title']), array('action' => 'view', $story['Story']['id'])); ?>&nbsp;</td>
-		<td><?php echo h($story['Story']['summary']); ?>&nbsp;</td>
-		<td><?php echo h($story['Story']['prologue']); ?>&nbsp;</td>
-		<td><?php echo h($story['Story']['epilogue']); ?>&nbsp;</td>
-		<td><?php echo h($story['Story']['completed']); ?>&nbsp;</td>
-		<td><?php echo h($story['Story']['created']); ?>&nbsp;</td>
-		<td><?php echo h($story['Story']['updated']); ?>&nbsp;</td>
-		<td><?php echo h($story['Story']['deleted']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $story['Story']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $story['Story']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $story['Story']['id']), null, __('Are you sure you want to delete # %s?', $story['Story']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
+	<div class="sorting">
+		<h4><?php echo __('Sorting'); ?></h4>
+		<span><?php echo $this->Paginator->sort('title'); ?></span>&nbsp;
+		<span><?php echo $this->Paginator->sort('user_id'); ?></span>&nbsp;
+		<span><?php echo $this->Paginator->sort('completed'); ?></span>&nbsp;
+		<span><?php echo $this->Paginator->sort('updated'); ?></span>
+	</div>
+
+	<?php foreach ($stories as $story): 
+		$html_story_id = 'story_'.$story['Story']['id'];
+		?>
+		<div class="story_description" id="<?php echo $html_story_id; ?>">
+			<div>
+				<?php 
+					$title = '<span class="story_title">'.$this->Html->link($story['Story']['title'], array('action' => 'view', $story['Story']['id'])).'</span>';
+					$author = '<span class="story_author">'.$this->Html->link($story['User']['name'], array('controller' => 'users', 'action' => 'view', $story['User']['id'])).'</span>';
+					echo __('%s by %s', $title, $author);
+				?>
+				<span class="small_font">(<?php echo h($story['Story']['updated']); ?>)</span>
+				<?php if ($story['Story']['completed']): ?>
+					<span class="completed"><?php echo __('Completed'); ?></span>
+				<?php endif; ?>
+			</div>
+			<span class="story_summary"><?php echo h($story['Story']['summary']); ?></span>
+		</div>
+	<?php endforeach; ?>
 	</table>
 	<p>
 	<?php
@@ -51,14 +41,4 @@
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Story'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Story Chapters'), array('controller' => 'story_chapters', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Story Chapter'), array('controller' => 'story_chapters', 'action' => 'add')); ?> </li>
-	</ul>
 </div>
