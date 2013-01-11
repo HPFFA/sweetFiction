@@ -57,9 +57,11 @@
 		<?php endforeach; ?>
 	</table>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Story'), array('action' => 'edit', $story['Story']['id'])); ?> </li>
-	</ul>
-</div>
+<?php if ($this->Auth->user('id') == $story['Story']['user_id']): ?>
+	<div class="actions">
+		<h3><?php echo __('Actions'); ?></h3>
+		<ul>
+			<li><?php echo $this->Html->link(__('Edit Story'), array('action' => 'edit', $story['Story']['id'])); ?> </li>
+		</ul>
+	</div>
+<?php endif; ?>

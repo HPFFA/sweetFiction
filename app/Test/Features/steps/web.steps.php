@@ -48,10 +48,14 @@ $steps->Then('/^the "([^"]*)" field within "([^"]*)" should contain "([^"]*)"$/'
     }
 });
 
-$steps->Then('/^I should see the link "([^"]*)"$/', function($world, $link) {
-   $link = $world->getSession()->getPage()->findLink($world->fixStepArgument($link));
-   assertNotEquals($link, null);
+$steps->Then('/^I should see the link "([^"]*)"$/', function($world, $linkName) {
+   $link = $world->getSession()->getPage()->findLink($world->fixStepArgument($linkName));
+   assertNotEquals($link, null, "Expected to find the link '".$linkName."' but found none");
 });
 
+$steps->Then('/^I should not see the link "([^"]*)"$/', function($world, $linkName) {
+   $link = $world->getSession()->getPage()->findLink($world->fixStepArgument($linkName));
+   assertEquals($link, null, "Unexpected occurrence of link '".$linkName."'");
+});
 
 ?>

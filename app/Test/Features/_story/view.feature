@@ -33,10 +33,26 @@ Feature: View stories
             | User      | /stories/index/sort:user_id/direction:asc   |
             | Updated   | /stories/index/sort:updated/direction:asc   |
             | Completed | /stories/index/sort:completed/direction:asc |
-    @wip
+
     Scenario: View a story as owner
-        Given I am on "/stories/view/1"
+        Given I am logged in as "Peach" with "test"
+        And I am on "/stories/view/1"
         Then I should see the link "Edit Story"
+        And the "#story_title" element should contain "Peach's first story"
+        And the "#story_author" element should contain "Peach"
+        And I should see 2 ".story_chapter" elements
+
+    Scenario: View a story as guest
+        Given I am on "/stories/view/1"
+        Then I should not see the link "Edit Story"
+        And the "#story_title" element should contain "Peach's first story"
+        And the "#story_author" element should contain "Peach"
+        And I should see 2 ".story_chapter" elements
+
+    Scenario: View a story normal user
+        Given I am logged in as "Luigi" with "test"
+        And I am on "/stories/view/1"
+        Then I should not see the link "Edit Story"
         And the "#story_title" element should contain "Peach's first story"
         And the "#story_author" element should contain "Peach"
         And I should see 2 ".story_chapter" elements
