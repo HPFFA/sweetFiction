@@ -29,8 +29,13 @@ class StoriesController extends AppController {
 	private function ensureValidChapterAccess($story_id, $chapter_id) {
 		$this->Story->id = $story_id;
 		$this->StoryChapter->id = $chapter_id;
-		if (!$this->StoryChapter->exists() 
-			|| $story_id != $this->StoryChapter->read('story_id', $chapter_id)['StoryChapter']['story_id']) {
+		$invalidChapter = !$this->StoryChapter->exists() ;
+		if (!$invalidChapter)
+		{
+			$storyChapter = $this->StoryChapter->read('story_id', $chapter_id);
+			$invalidChapter = $storyChapter['StoryChapter']['story_id'];
+		}
+		if ($invalidChapter) {
 			throw new NotFoundException(__('Invalid chapter'));
 		}
 	}
