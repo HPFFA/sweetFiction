@@ -60,7 +60,25 @@
             &nbsp;
         </dd>
     </dl>
+    <?php if (!empty($user['Story'])): ?>
+    <h3 ><?php echo __('Stories'); ?></h3>
+    <div class="stories">
+        <?php foreach ($user['Story'] as $story): ?>
+            <div>
+                <span class="story_title">
+                    <?php echo$this->Html->link($story['title'], array('controller' => 'stories', 'action' => 'view', $story['id'])); ?>
+                </span>
+                <span class="small_font">(<?php echo h($story['created']); ?>)</span>
+                <?php if ($story['completed']): ?>
+                    <span class="completed"><?php echo __('Completed'); ?></span>
+                <?php endif; ?>
+            </div>
+            <span class="story_summary"><?php echo h($story['summary']); ?></span>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
 </div>
+
 <?php if ($this->Auth->user('id') == $user['User']['id']): ?>
     <div class="actions">
         <h3><?php echo __('Actions'); ?></h3>

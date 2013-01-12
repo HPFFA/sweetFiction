@@ -46,3 +46,16 @@ Feature: Viewing the registered users
         Then I should not see "Edit"
         When I am on "/users/view/1"
         Then I should see "Edit"
+
+    Scenario: View an user profile of a user with stories
+        Given there is a "Story":
+            | id | user_id | title                    | summary                                           | completed |
+            | 1  | 1       | Peach's first story |                                                        | 0         |
+        And there is a "StoryChapter":
+            | id | user_id | story_id | title             | text              | chapter_number |
+            | 1  | 1       | 1        | First chapter     | ...               | 1              |
+        And I am on "/users/view/1"
+        Then I should see an ".stories" element
+        And the ".stories" element should contain "Peach's first story"
+        When I follow "Peach's first story"
+        Then I should be on "/stories/view/1"
