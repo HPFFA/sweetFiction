@@ -16,6 +16,10 @@ $steps->Given('/^I follow "([^"]*)" within "([^"]*)"$/', function($world, $link,
     $world->getReducedScopeOf($scope)->clickLink($world->fixStepArgument($link));
 });
 
+$steps->Given('/^I click "([^"]*)" within "([^"]*)"$/', function($world, $link, $scope) {
+    $world->getReducedScopeOf($scope)->clickLink($world->fixStepArgument($link));
+});
+
 $steps->Given('/^I confirm my action$/', function($world) {
     $world->getSession()->getDriver()->getWebDriverSession()->accept_alert();
 });
@@ -48,6 +52,11 @@ $steps->Then('/^the "([^"]*)" field within "([^"]*)" should contain "([^"]*)"$/'
     }
 });
 
+$steps->Then('/^I should see the field "([^"]*)" within "([^"]*)"$/', function($world, $fieldName, $scope) {
+   $field = $world->getReducedScopeOf($scope, true)->findField($world->fixStepArgument($fieldName));
+   assertNotEquals($field, null, "Expected to find the field '".$fieldName."' but found none");
+});
+
 $steps->Then('/^I should see the link "([^"]*)"$/', function($world, $linkName) {
    $link = $world->getSession()->getPage()->findLink($world->fixStepArgument($linkName));
    assertNotEquals($link, null, "Expected to find the link '".$linkName."' but found none");
@@ -56,6 +65,14 @@ $steps->Then('/^I should see the link "([^"]*)"$/', function($world, $linkName) 
 $steps->Then('/^I should not see the link "([^"]*)"$/', function($world, $linkName) {
    $link = $world->getSession()->getPage()->findLink($world->fixStepArgument($linkName));
    assertEquals($link, null, "Unexpected occurrence of link '".$linkName."'");
+});
+
+$steps->Given('/^the "([^"]*)" link within "([^"]*)" should point to "([^"]*)"$/', function($world, $element, $scope, $target) {
+    $url = $world->getSession()->getDriver()->getCurrentUrl();
+    $world->getReducedScopeOf($scope)->clickLink($world->fixStepArgument($element));
+    $world->assertSession()->addressEquals($world->locatePath($target));
+    $world->visit($url);
+
 });
 
 ?>

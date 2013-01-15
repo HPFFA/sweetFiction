@@ -51,6 +51,7 @@ $application_title = "Sweetfiction";
             <div id="navigation">
                 <?php echo $this->Html->link(__('Users'), array('controller' => 'users', 'action' => 'index')); ?>
                 <?php echo $this->Html->link(__('Stories'), array('controller' => 'stories', 'action' => 'index')); ?>
+                <?php echo $this->Html->link(__('Reviews'), array('controller' => 'reviews', 'action' => 'index')); ?>
                 <?php if ($this->Auth->currentUser() == null): ?>
                     <?php echo $this->Html->link(__('Login'), array('controller' => 'authentication', 'action' => 'login')); ?>
                     <?php echo $this->Html->link(__('Register'), array('controller' => 'authentication', 'action' => 'register')); ?>

@@ -8,6 +8,7 @@ use Behat\Behat\Context\Step\Given,
 use Behat\CommonContexts\MinkRedirectContext,
     Behat\CommonContexts\MinkExtraContext,
     Behat\CommonContexts\WebApiContext;
+use Behat\Mink\Exception\ElementNotFoundException;
 
 if (file_exists(__DIR__ . '/../support/bootstrap.php')) {
     require_once __DIR__ . '/../support/bootstrap.php';

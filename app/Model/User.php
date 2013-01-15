@@ -110,7 +110,17 @@ class User extends AppModel {
         'StoryChapter' => array(
             'className' => 'StoryChapter',
             'foreignKey' => 'user_id'
-        )
+        ),
+        'StoryReview' => array(
+            'className' => 'Review',
+            'foreignKey' => 'user_id',
+            'conditions' => array('StoryReview.reference_type' => 'story'),
+        ),
+        'StoryChapterReview' => array(
+            'className' => 'Review',
+            'foreignKey' => 'user_id',
+            'conditions' => array('StoryChapterReview.reference_type' => 'story_chapter'),
+        ),
     );
 
 /**

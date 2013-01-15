@@ -319,26 +319,23 @@ form div.submit {
 }
 label {
 	display: block;
-	font-size: 110%;
+	font-size: 90%;
 	margin-bottom:3px;
 }
 input, textarea {
 	clear: both;
-	font-size: 140%;
 	font-family: "frutiger linotype", "lucida grande", "verdana", sans-serif;
 	padding: 1%;
 	width:98%;
 }
 select {
 	clear: both;
-	font-size: 120%;
 	vertical-align: text-bottom;
 }
 select[multiple=multiple] {
 	width: 100%;
 }
 option {
-	font-size: 120%;
 	padding: 0 3px;
 }
 input[type=checkbox] {
@@ -363,7 +360,7 @@ input[type=radio] {
 }
 input[type=submit] {
 	display: inline;
-	font-size: 110%;
+	font-size: 90%;
 	width: auto;
 }
 form .submit input[type=submit] {
@@ -582,8 +579,32 @@ input[type=submit]:active,
 	font-size: 75%;
 }
 
+.review {
+	padding: 0.5em;
+	margin-top: 0.5em;
+	margin-left: 0.5em;
+	border-right: 1px solid #666;
+	border-bottom: 1px solid #666;
+	border-left: 1px solid #dfdfdf;
+}
 
+.review .metadata {
+	text-align: right;
+}
 
+.review .date {
+	font-size: 75%
+}
+
+.review .button {
+
+}
+
+.hidden {
+	display: none;
+}
+
+/*************************************************************************************************/
 
 
 

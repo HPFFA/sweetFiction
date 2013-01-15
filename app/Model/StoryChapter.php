@@ -36,7 +36,12 @@ class StoryChapter extends AppModel {
 		'Story' => array(
 			'className' => 'Story',
 			'foreignKey' => 'story_id',
-		)
+		),
+        'Review' => array(
+            'className' => 'Review',
+            'foreignKey' => 'user_id',
+            'conditions' => array('Review.reference_type' => 'story_chapter'),
+        ),
 	);
 
 

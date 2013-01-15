@@ -7,8 +7,7 @@ App::uses('AppController', 'Controller');
  */
 class StoriesController extends AppController {
 
-
-    public $uses = array('Story', 'StoryChapter');
+    public $uses = array('Story', 'StoryChapter', 'Review');
 
     public function beforeFilter(){
         parent::beforeFilter();
@@ -33,7 +32,7 @@ class StoriesController extends AppController {
 		if (!$invalidChapter)
 		{
 			$storyChapter = $this->StoryChapter->read('story_id', $chapter_id);
-			$invalidChapter = $storyChapter['StoryChapter']['story_id'];
+			$invalidChapter = $storyChapter['StoryChapter']['story_id'] != $story_id;
 		}
 		if ($invalidChapter) {
 			throw new NotFoundException(__('Invalid chapter'));
@@ -64,6 +63,10 @@ class StoriesController extends AppController {
 		$this->set('story', $this->Story->read(null, $id));
 		$this->set('storyChapters', $this->StoryChapter->find(
 			'all', array('conditions' => array('story_id' => $id))));
+		$this->set('reviews', $this->Story->Review->find(
+			'all', array('conditions' => array('Review.reference_id' => $id))));
+		// $this->set('reviews', $this->Review->generateTreeList(
+		// 	array('Review.reference_id' => $id), null, null, '&nbsp;'));
 	}
 
 /**

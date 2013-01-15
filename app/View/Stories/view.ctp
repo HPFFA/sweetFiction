@@ -40,7 +40,7 @@
 			&nbsp;
 		</dd>
 	</dl>
-
+	
 	<h3 ><?php echo __('Chapters'); ?></h3>
 	<table cellpadding = "0" cellspacing = "0">
 		<tr>
@@ -62,7 +62,10 @@
 		<?php endforeach; ?>
 		
 	</table>
+	<h3><?php echo __("Reviews"); ?></h3>
+	<?php echo $this->element("Review/review_tree", array('reviews' => $reviews)); ?>
 </div>
+
 <?php if ($this->Auth->user('id') == $story['Story']['user_id']): ?>
 	<div class="actions">
 		<h3><?php echo __('Actions'); ?></h3>
