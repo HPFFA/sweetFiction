@@ -75,4 +75,10 @@ $steps->Given('/^the "([^"]*)" link within "([^"]*)" should point to "([^"]*)"$/
 
 });
 
+$steps->Then('/^I should not see an "([^"]*)" field$/', function($world, $fieldName) {
+    $field = $world->getSession()->getPage()->findField($world->fixStepArgument($fieldName));
+    assertEquals($field, null, "Expected to find no field '".$fieldName."' but found one");
+});
+
+
 ?>

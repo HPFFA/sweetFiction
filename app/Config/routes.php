@@ -68,18 +68,15 @@
             'story_id' => '[0-9]+',
             'chapter_id' => '[0-9]+'
     ));
-/*
-    Router::connect('/stories/edit/:story_id/chapters/:action/:chapter_id',
-        array(
-            'controller' => 'story_chapters'),
-        array(
-            'pass' => array('story_id', 'chapter_id'),
-            'story_id' => '[0-9]+',
-            'chapter_id' => '[0-9]+'
-    ));
-    */
 
-    
+    Router::connect('/reviews/add/:parent_id/:reference_type/:reference_id',
+        array('controller' => 'reviews', 'action' => 'add'),
+        array(
+            'pass' => array('parent_id', 'reference_type', 'reference_id'),
+            'reference_type' => '[a-zA-Z][a-zA-Z_]*[a-zA-Z]+',
+            'reference_id' => '[0-9]+',
+            'parent_id' => '[0-9]+',
+    ));
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 
  * how to customize the loading of plugin routes.

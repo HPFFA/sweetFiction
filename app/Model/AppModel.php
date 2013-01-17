@@ -31,4 +31,16 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+
+    public $findMethods = array('exists' =>  true);
+
+    protected function _findExists($state, $query, $results = array()) {
+        if ($state == 'before') {
+            $query['limit'] = 1;
+            return $query;
+        }
+        if ($state == 'after') {
+            return sizeof($results) > 0;
+        }
+    }
 }

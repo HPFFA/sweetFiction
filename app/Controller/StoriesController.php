@@ -65,8 +65,7 @@ class StoriesController extends AppController {
 			'all', array('conditions' => array('story_id' => $id))));
 		$this->set('reviews', $this->Story->Review->find(
 			'all', array('conditions' => array('Review.reference_id' => $id))));
-		// $this->set('reviews', $this->Review->generateTreeList(
-		// 	array('Review.reference_id' => $id), null, null, '&nbsp;'));
+		
 	}
 
 /**
