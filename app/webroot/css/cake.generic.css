@@ -582,7 +582,6 @@ input[type=submit]:active,
 .review {
 	padding: 0.5em;
 	margin-top: 0.5em;
-	margin-left: 0.5em;
 	border-right: 1px solid #666;
 	border-bottom: 1px solid #666;
 	border-left: 1px solid #dfdfdf;
@@ -596,12 +595,23 @@ input[type=submit]:active,
 	font-size: 75%
 }
 
-.review .button {
-
+.review_form .beam_button {
+	font-size: 75%;
+	width: auto;
+	text-align: center;
 }
-
-.hidden {
-	display: none;
+.review_form .beam_button {
+	background:#DDDDDD;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#F4F4F4), to(#DDDDDD));
+	background-image: -webkit-linear-gradient(top, #F4F4F4, #DDDDDD);
+	background-image: -moz-linear-gradient(top, #F4F4F4, #DDDDDD);
+	border-color: #2d6324;
+	color: #fff;
+	text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0px;
+	padding: 8px 10px;
+}
+.review_form :hover .beam_button {
+	background: #5BA150;
 }
 
 /*************************************************************************************************/
