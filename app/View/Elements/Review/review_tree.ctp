@@ -23,6 +23,10 @@
     {
         $root_reviews = $reviews;
     }
+    if (!isset($first_time))
+    {
+        $first_time = true;
+    }
 ?>
 <div class="reviews">
     <?php
@@ -33,10 +37,12 @@
         if ($showForm)
         {
             echo $this->element("Review/review_form", array(
+                    'first_time' => $first_time,
                     'show' => $show, 
                     'parent' => $parent,
                     'reference_type' => $reference_type,
                     'reference_id' => $reference_id));
+            $first_time = false;
         }
         
         
@@ -76,6 +82,7 @@
                     }
                 }
                 echo $this->element("Review/review_tree", array(
+                    'first_time' => $first_time,
                     'reviews' => $child_reviews, 
                     'root_reviews' => $root_reviews,
                     'parent' => $review,

@@ -5,7 +5,7 @@
     // optional:
     //  show
     //  parent
-    if ($parent == null):
+    if ($first_time):
         echo $this->Html->script('jquery-1.8.3.js'); 
     ?>
     <script>
