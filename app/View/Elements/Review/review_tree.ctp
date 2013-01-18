@@ -4,27 +4,50 @@
     //  reference_id
     //  reference_type
     // optional:
-    //  parent_id
+    //  parent
+    //  is_author
+    if (!isset($is_author))
+    {
+        $is_author = false;
+    }
     if (!isset($show)) 
     {
         $show = false;
     }
-    if (!isset($parent_id))
+    if (!isset($parent))
     {
-        $parent_id = 0;
+        $parent = null;
     }
 ?>
 <div class="reviews">
-    <?php 
-        echo $this->element("Review/review_form", array(
-                'show' => $show, 
-                'parent_id' => $parent_id,
-                'reference_type' => $reference_type,
-                'reference_id' => $reference_id));
+    <?php
+
+        $showForm = !$is_author;
+        //debug($showForm);
+        $showForm &= !isset($review) || ($review['Review']['user_id'] != $this->Auth->user('id'));
+        //debug($showForm);
+        $showForm &= $parent == null || ($parent['Review']['user_id'] != $this->Auth->user('id'));
+        //debug($showForm);
+        if ($showForm)
+        {
+            echo $this->element("Review/review_form", array(
+                    'show' => $show, 
+                    'parent' => $parent,
+                    'reference_type' => $reference_type,
+                    'reference_id' => $reference_id));
+        }
+        
+        
+        $parent_id = $parent == null ? 0 : $parent['Review']['id'];
+
         foreach ($reviews as $review):
-            if ($review['Review']['parent_id'] != $parent_id) continue;
-                
-            $review_id = $review['Review']['id']; ?>
+            if ($review['Review']['parent_id'] != $parent_id)
+            {
+                continue;  
+            }
+
+            $review_id = $review['Review']['id']; 
+    ?>
         <div class="review" id="review_<?php echo $review_id; ?>">
             <div  class="text">
                 <?php echo h($review['Review']['text']); ?>
@@ -51,7 +74,7 @@
                 }
                 echo $this->element("Review/review_tree", array(
                     'reviews' => $childReviews, 
-                    'parent_id' => $review_id,
+                    'parent' => $review,
                     'reference_id' => $reference_id,
                     'reference_type' => $reference_type));
              ?>
