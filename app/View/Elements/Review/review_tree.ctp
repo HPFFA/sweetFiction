@@ -6,6 +6,7 @@
     // optional:
     //  parent
     //  is_author
+    //  root_reviews
     if (!isset($is_author))
     {
         $is_author = false;
@@ -18,16 +19,17 @@
     {
         $parent = null;
     }
+    if (!isset($root_reviews))
+    {
+        $root_reviews = $reviews;
+    }
 ?>
 <div class="reviews">
     <?php
-
         $showForm = !$is_author;
-        //debug($showForm);
         $showForm &= !isset($review) || ($review['Review']['user_id'] != $this->Auth->user('id'));
-        //debug($showForm);
         $showForm &= $parent == null || ($parent['Review']['user_id'] != $this->Auth->user('id'));
-        //debug($showForm);
+        
         if ($showForm)
         {
             echo $this->element("Review/review_form", array(
@@ -41,6 +43,7 @@
         $parent_id = $parent == null ? 0 : $parent['Review']['id'];
 
         foreach ($reviews as $review):
+
             if ($review['Review']['parent_id'] != $parent_id)
             {
                 continue;  
@@ -64,16 +67,17 @@
                 <span class="metadata date">(<?php echo h($review['Review']['created']); ?>)</span>
             </div>
             <?php 
-                $childReviews = array();
-                foreach ($reviews as $potentialChildReview)
+                $child_reviews = array();
+                foreach ($root_reviews as $potentialChildReview)
                 {
-                    if ($potentialChildReview['Review']['parent_id'] == $review_id)
+                    if ($potentialChildReview['Review']['parent_id'] == $review['Review']['id'])
                     {
-                        $childReviews[] = $potentialChildReview;
+                        $child_reviews[] = $potentialChildReview;
                     }
                 }
                 echo $this->element("Review/review_tree", array(
-                    'reviews' => $childReviews, 
+                    'reviews' => $child_reviews, 
+                    'root_reviews' => $root_reviews,
                     'parent' => $review,
                     'reference_id' => $reference_id,
                     'reference_type' => $reference_type));
