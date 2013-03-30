@@ -63,7 +63,9 @@
 		
 	</table>
 	<h3><?php echo __("Reviews"); ?></h3>
-	<?php echo $this->element("Review/review_tree", array(
+	<?php 
+		//debug($this);
+		echo $this->element("Review/review_tree", array(
 			'reviews' => $reviews, 
 			'is_author' => $this->Auth->user('id') == $story['Story']['user_id'],
 			'reference_id' => $story['Story']['id'],

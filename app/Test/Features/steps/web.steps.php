@@ -62,6 +62,11 @@ $steps->Then('/^I should see the link "([^"]*)"$/', function($world, $linkName) 
    assertNotEquals($link, null, "Expected to find the link '".$linkName."' but found none");
 });
 
+$steps->Then('/^I should see the link "([^"]*)" within "([^"]*)"$/', function($world, $linkName, $scope) {
+    $link = $world->getReducedScopeOf($scope)->findLink($world->fixStepArgument($linkName));
+    assertNotEquals($link, null, "Expected to find the link '".$linkName."' but found none");
+});
+
 $steps->Then('/^I should not see the link "([^"]*)"$/', function($world, $linkName) {
    $link = $world->getSession()->getPage()->findLink($world->fixStepArgument($linkName));
    assertEquals($link, null, "Unexpected occurrence of link '".$linkName."'");

@@ -29,19 +29,32 @@ Feature: Edit exiting reviews of a story
         When I am on "/stories/view/1"
         Then I should not see the link "Edit" within "#review_1 > .metadata"
         And the "#review_2 .author" element should contain "Peach"
-        And the "Edit" link within "#review_2 > .metadata" should point to "/reviews/edit/2"
+        And I should see the link "Edit" within "#review_2 > .metadata"
         And I should not see the link "Edit" within "#review_3 > .metadata"
 
-    @wip
     Scenario: The review author can edit the review text
         And I am logged in as "Peach" with "test"
         When I am on "/stories/view/1"
         Then I should not see the link "Edit" within "#review_1 > .metadata"
         And I follow "Edit" within "#review_2 > .metadata"
         Then I should see the field "Text" within "#review_2"
-        When I fill in "Text" with "Changed content"
-        And I press "Submit"
+        When I fill in "Text" within "#review_2_edit_form" with "Changed content"
+        And I press "Submit" within "#review_2_edit_form"
         Then I should be on "/stories/view/1"
         And the "#review_2 .text" element should contain "Changed content"
 
+    Scenario: No guest can edit a review
+        When I send a POST request to "stories/reviews/1/edit/1" with:
+            | data[Review][user_name] | data[Review][text] |
+            | irrelevant              | ...                |
+        Then I should see "You are not authorized to access that location."
 
+    Scenario: No user can edit a review of another user
+        Given there is a "User":
+            | id | name  | email         | password | confirmation |
+            | 2  | Luigi | l@example.com | test     | test         |
+        And I am logged in as "Luigi" with "test"
+        When I send a POST request to "stories/reviews/1/edit/1" with:
+            | data[Review][user_name] | data[Review][text] |
+            | irrelevant              | ...                |
+        Then the response status code should be 403

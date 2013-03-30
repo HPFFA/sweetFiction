@@ -5,7 +5,7 @@ App::uses('AppController', 'Controller');
  *
  * @property Review $Review
  */
-class ReviewsController extends AppController {
+abstract class ReviewsController extends AppController {
 
 	public function beforeFilter(){
         parent::beforeFilter();
@@ -89,7 +89,7 @@ class ReviewsController extends AppController {
 
 	private function completeReviewData() {
 		$this->request->data['Review']['parent_id'] = $this->request->params['parent_id'];
-		$this->request->data['Review']['reference_id'] = $this->request->params['reference_id'];
+		$this->request->data['Review']['reference_id'] = $this->request->params['id'];
 		$this->request->data['Review']['reference_type'] = $this->request->params['reference_type'];
 		if ($this->Auth->user() != null)
 		{

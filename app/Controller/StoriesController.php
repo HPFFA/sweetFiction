@@ -7,11 +7,13 @@ App::uses('AppController', 'Controller');
  */
 class StoriesController extends AppController {
 
-    public $uses = array('Story', 'StoryChapter', 'Review');
+	public $components = array('Review');
+    public $uses = array('Story'/*, 'StoryChapter'*/);
+    public $helpers = array('Form', 'Html',/* 'Js',*/ 'Review');
 
     public function beforeFilter(){
         parent::beforeFilter();
-        $this->Auth->allow('index', 'view', 'view_chapter');
+        $this->Auth->allow('index', 'view', 'view_chapter', 'add_review');
     }
 
 	function isAuthorized() {
@@ -27,11 +29,11 @@ class StoriesController extends AppController {
 	
 	private function ensureValidChapterAccess($story_id, $chapter_id) {
 		$this->Story->id = $story_id;
-		$this->StoryChapter->id = $chapter_id;
-		$invalidChapter = !$this->StoryChapter->exists() ;
+		$this->Story->StoryChapter->id = $chapter_id;
+		$invalidChapter = !$this->Story->StoryChapter->exists() ;
 		if (!$invalidChapter)
 		{
-			$storyChapter = $this->StoryChapter->read('story_id', $chapter_id);
+			$storyChapter = $this->Story->StoryChapter->read('story_id', $chapter_id);
 			$invalidChapter = $storyChapter['StoryChapter']['story_id'] != $story_id;
 		}
 		if ($invalidChapter) {
@@ -60,12 +62,15 @@ class StoriesController extends AppController {
 		if (!$this->Story->exists()) {
 			throw new NotFoundException(__('Invalid story'));
 		}
+		$this->setVariablesForView($id);
+	}
+
+	private function setVariablesForView($id) {
+		$this->Story->id = $id;
 		$this->set('story', $this->Story->read(null, $id));
-		$this->set('storyChapters', $this->StoryChapter->find(
-			'all', array('conditions' => array('story_id' => $id))));
-		$this->set('reviews', $this->Story->Review->find(
-			'all', array('conditions' => array('Review.reference_id' => $id))));
-		
+		$this->set('storyChapters', $this->Story->StoryChapter->find(
+		 	'all', array('conditions' => array('story_id' => $id))));
+		$this->set('reviews', $this->Review->findIn($this->Story->Review, $id));		
 	}
 
 /**
@@ -77,13 +82,13 @@ class StoriesController extends AppController {
  */
 	public function view_chapter($story_id = null, $chapter_id = null) {
 		$this->Story->id = $story_id;
-		$this->StoryChapter->id = $chapter_id;
-		if (!$this->StoryChapter->exists() && !$this->Story->exists()) {
+		$this->Story->StoryChapter->id = $chapter_id;
+		if (!$this->Story->StoryChapter->exists() && !$this->Story->exists()) {
 			throw new NotFoundException(__('Invalid chapter'));
 		}
 		$this->set('story', $this->Story->read(null, $story_id));
-		$this->set('storyChapter', $this->StoryChapter->read(null, $chapter_id));
-		$this->set('storyChapterNeighbours', $this->StoryChapter->find('neighbors', array(
+		$this->set('storyChapter', $this->Story->StoryChapter->read(null, $chapter_id));
+		$this->set('storyChapterNeighbours', $this->Story->StoryChapter->find('neighbors', array(
 			'conditions' => array('story_id' => $story_id),
 		    'order' => 'chapter_number DESC',
 		    'fields' => array('chapter_number', 'id', 'title')
@@ -112,10 +117,29 @@ class StoriesController extends AppController {
 		}
 	}
 
+	public function add_review($id, $parent_id = null) {
+		if ($this->Review->create($this->Story->Review, $this->request, 'story')) {
+           $this->redirect(array('controller' => 'stories', 'action' => 'view', $id));
+		} else 	{
+			$this->setVariablesForView($id);
+			$this->render('view');
+		}
+	}
+
+
+	public function edit_review($id, $review_id) {
+		$this->Story->StoryChapter;
+		if ($this->Review->edit($this->Story->Review, $this->request, $review_id)) {
+           $this->redirect(array('controller' => 'stories', 'action' => 'view', $id));
+		} else {
+			$this->setVariablesForView($id);
+			$this->render('view');
+		}
+	}
 
 	private function getHighestChapterOrderFor($story_id)
 	{
-		return $this->StoryChapter->find('first', array(
+		return $this->Story->StoryChapter->find('first', array(
     				'conditions' => array('story_id' => $story_id), 
     				'fields' => array('MAX(chapter_number) AS chapter_number')));
 	}
@@ -129,12 +153,12 @@ class StoriesController extends AppController {
 		$user_id = $this->Auth->user('id');
 		if ($this->request->is('post')) {
 			$highest_chapter_number = $this->getHighestChapterOrderFor($story_id);
-			$this->StoryChapter->create();
+			$this->Story->StoryChapter->create();
 			$this->request->data['Story']['id'] = $story_id;
 			$this->request->data['StoryChapter']['story_id'] = $story_id;
 			$this->request->data['StoryChapter']['user_id'] = $user_id;
 			$this->request->data['StoryChapter']['chapter_number'] = $highest_chapter_number[0]['chapter_number'] + 1;
-			if ($this->StoryChapter->saveAssociated($this->request->data)) {
+			if ($this->Story->StoryChapter->saveAssociated($this->request->data)) {
 				$this->Session->setFlash(__('The chapter has been saved'));
 				$this->redirect(array('controller' => 'stories', 'action' => 'view', $story_id));
 			} else {
@@ -176,7 +200,7 @@ class StoriesController extends AppController {
 	public function edit_chapter($story_id = null, $chapter_id = null) {
 		$this->ensureValidChapterAccess($story_id, $chapter_id);
 		$this->Story->id = $story_id;
-		$this->StoryChapter->id = $chapter_id;
+		$this->Story->StoryChapter->id = $chapter_id;
 		if ($this->request->is('post') || $this->request->is('put')) {
 			$this->request->data['Story']['id'] = $story_id;
 			$this->request->data['StoryChapter']['id'] = $chapter_id;
@@ -185,14 +209,14 @@ class StoriesController extends AppController {
 				// Cake swallows the field in case it is unchecked - so we must "restore" the value explicitly
 				$this->request->data['Story']['completed'] = 0;
 			}
-			if ($this->StoryChapter->saveAssociated($this->request->data)) {
+			if ($this->Story->StoryChapter->saveAssociated($this->request->data)) {
 				$this->Session->setFlash(__('The chapter has been saved'));
 				$this->redirect(array('controller' => 'stories', 'action' => 'view', $story_id));
 			} else {
 				$this->Session->setFlash(__('The chapter could not be saved. Please, try again.'));
 			}
 		} else {
-			$this->request->data = $this->StoryChapter->read(null, $chapter_id);
+			$this->request->data = $this->Story->StoryChapter->read(null, $chapter_id);
 		}
 	}
 /**
@@ -234,7 +258,7 @@ class StoriesController extends AppController {
 		$this->ensureValidChapterAccess($story_id, $chapter_id);
 
 		$this->Story->id = $story_id;
-		$this->StoryChapter->id = $chapter_id;
+		$this->Story->StoryChapter->id = $chapter_id;
 
 		if ($this->Story->StoryChapter->find('count') == 1)
 		{
@@ -242,7 +266,7 @@ class StoriesController extends AppController {
 				$this->Session->setFlash(__('Story with last chapter deleted'));
 				$this->redirect(array('controller' => 'stories', 'action' => 'index'));
 			}
-		} else if ($this->StoryChapter->delete()) {
+		} else if ($this->Story->StoryChapter->delete()) {
 			$this->Session->setFlash(__('Chapter deleted'));
 			$this->redirect(array('controller' => 'stories', 'action' => 'edit', $story_id));
 		}

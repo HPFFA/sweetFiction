@@ -34,6 +34,8 @@ $application_title = "Sweetfiction";
         echo $this->fetch('meta');
         echo $this->fetch('css');
         echo $this->fetch('script');
+        echo $this->Html->script('jquery-1.8.3.js'); 
+
     ?>
 </head>
 <body>
