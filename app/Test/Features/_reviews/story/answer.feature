@@ -46,7 +46,6 @@ Feature: Answering existing reviews
         But I should not see a "#review_2_reply" element
         And I should see a "#review_3_reply" element
 
-    @wip
     Scenario Outline: Answering to a given review as user
         Given I am logged in as "<user>" with "test"
         Given I am on "/stories/view/1"

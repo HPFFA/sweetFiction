@@ -122,6 +122,35 @@ class ReviewsController extends AppController {
  * @param string $id
  * @return void
  */
+	public function edit_story_review($id = null) {
+		$this->Review->id = $id;
+		if (!$this->Review->exists()) {
+			throw new NotFoundException(__('Invalid review'));
+		}
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->Review->save($this->request->data)) {
+				$this->Session->setFlash(__('The review has been saved'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The review could not be saved. Please, try again.'));
+			}
+		} else {
+			$this->request->data = $this->Review->read(null, $id);
+		}
+		$parentReviews = $this->Review->ParentReview->find('list');
+		$users = $this->Review->User->find('list');
+		$stories = $this->Review->Story->find('list');
+		$storyChapters = $this->Review->StoryChapter->find('list');
+		$this->set(compact('parentReviews', 'users', 'stories', 'storyChapters'));
+	}
+
+/**
+ * edit method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
 	public function edit($id = null) {
 		$this->Review->id = $id;
 		if (!$this->Review->exists()) {

@@ -67,6 +67,11 @@ $steps->Then('/^I should not see the link "([^"]*)"$/', function($world, $linkNa
    assertEquals($link, null, "Unexpected occurrence of link '".$linkName."'");
 });
 
+$steps->Then('/^I should not see the link "([^"]*)" within "([^"]*)"$/', function($world, $linkName, $scope) {
+   $link = $world->getReducedScopeOf($scope)->findLink($world->fixStepArgument($linkName));
+   assertEquals($link, null, "Unexpected occurrence of link '".$linkName."'");
+});
+
 $steps->Given('/^the "([^"]*)" link within "([^"]*)" should point to "([^"]*)"$/', function($world, $element, $scope, $target) {
     $url = $world->getSession()->getDriver()->getCurrentUrl();
     $world->getReducedScopeOf($scope)->clickLink($world->fixStepArgument($element));

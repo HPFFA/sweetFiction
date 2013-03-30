@@ -9,11 +9,11 @@
         echo $this->Html->script('jquery-1.8.3.js'); 
     ?>
     <script>
-        var initiliazed = false;
+        var review_reply_initialized = false;
         $(window).load(function(){
-            if (!initiliazed)
+            if (!review_reply_initialized)
             {
-                initiliazed = true;
+                review_reply_initialized = true;
                 $(".review_reply").click(function () {
                     if ($(this).parent().siblings(" form").is(":visible"))
                     {
@@ -29,7 +29,6 @@
         });
     </script>
 <?php endif; ?>
-
 <div class="review_form" id="review_<?php echo $parent != null ? $parent['Review']['id'] : 0  ?>_reply" >
     <div class="beam_button">
         <a  href="#" class="button review_reply"><?php echo (!$show ?  __("Review") : __("Hide")); ?></a>
