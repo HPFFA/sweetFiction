@@ -32,7 +32,7 @@ class AuthenticationController extends AppController {
     public function tryToLogin(CakeRequest $request) {
         if ($this->Auth->login()) {
             if ($request->data['Session']['keep_logged_in'] == '1') {
-                $this->enableCookieLogin($this->user());
+                $this->enableCookieLogin($this->Auth->user());
             }
             $this->Auth->flash(__('Welcome %s', $this->Auth->user('name')));
             $this->redirect($this->Auth->redirect());
