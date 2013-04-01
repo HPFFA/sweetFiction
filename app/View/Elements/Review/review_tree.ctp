@@ -78,7 +78,7 @@
             </script>
             <div class="review" id="review_<?php echo $review_id; ?>">
                 <div  class="text">
-                    <?php echo h($review['Review']['text']); ?>
+                    <?php echo ($review['Review']['text']); ?>
                 </div>
                 <div class="metadata author">
                     <?php 

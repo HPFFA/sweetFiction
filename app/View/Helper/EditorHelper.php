@@ -55,9 +55,21 @@ class EditorHelper extends AppHelper {
         //$options['class'][] = 'ckeditor';
         $output .= $field = $this->Form->input($fieldName, $options);
         //debug($this->getId($field));
-        $output .= '<script type="text/javascript">'.
-                        '$(document).on("ready", function() { window["CKEDITOR"].replace( "'.$this->getId($field).'" ); });'.
-                    '</script>';
+        $output .= $this->Html->scriptBlock(
+            "$(document).on('ready', function() { window['CKEDITOR'].replace('".$this->getId($field)."', {
+                    toolbar: [
+                        { name: 'clipboard',   items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+                        { name: 'links',       items : [ 'Link','Unlink' ] },
+                        { name: 'insert',      items : [ 'SpecialChar' ] },
+                        { name: 'editing',     items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
+                        { name: 'tools',       items : [ 'Maximize', '-', 'Source' ] },
+                        '/',
+                        { name: 'styles',      items : [ 'Format','Font','FontSize' ] },
+                        { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
+                        { name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
+                    ],
+                }); 
+            });");
         return $output;
     }
 

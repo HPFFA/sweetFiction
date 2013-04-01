@@ -19,4 +19,3 @@ Feature: Run simply
             | Stories  | /stories                 |
             | Login    | /authentication/login    |
             | Register | /authentication/register |
-            | Reviews  | /reviews                 |
