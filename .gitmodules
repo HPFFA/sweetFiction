@@ -1,0 +1,3 @@
+[submodule "app/webroot/js/ckeditor"]
+	path = app/webroot/js/ckeditor
+	url = git://github.com/ckeditor/ckeditor-releases.git

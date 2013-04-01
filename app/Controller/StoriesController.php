@@ -9,7 +9,7 @@ class StoriesController extends AppController {
 
 	public $components = array('Review');
     public $uses = array('Story'/*, 'StoryChapter'*/);
-    public $helpers = array('Form', 'Html',/* 'Js',*/ 'Review');
+    public $helpers = array('Form', 'Html',/* 'Js',*/ 'Review', 'Editor');
 
     public function beforeFilter(){
         parent::beforeFilter();

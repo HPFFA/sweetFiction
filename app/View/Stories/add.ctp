@@ -4,9 +4,9 @@
 		<legend><?php echo __('Story'); ?></legend>
 		<?php
 			echo $this->Form->input('title');
-			echo $this->Form->input('summary');
-			echo $this->Form->input('prologue');
-			echo $this->Form->input('epilogue');
+			echo $this->Editor->input('summary');
+			echo $this->Editor->input('prologue');
+			echo $this->Editor->input('epilogue');
 			echo $this->Form->input('completed');
 		?>
 	</fieldset>
@@ -14,10 +14,10 @@
 		<legend><?php echo __('Chapter'); ?></legend>
 		<?php
 			echo $this->Form->input('StoryChapter.0.title');
-			echo $this->Form->input('StoryChapter.0.remarks');
-			echo $this->Form->input('StoryChapter.0.prologue');
-			echo $this->Form->input('StoryChapter.0.text');
-			echo $this->Form->input('StoryChapter.0.epilogue');
+			echo $this->Editor->input('StoryChapter.0.remarks');
+			echo $this->Editor->input('StoryChapter.0.prologue');
+			echo $this->Editor->input('StoryChapter.0.text');
+			echo $this->Editor->input('StoryChapter.0.epilogue');
 		?>
 	</fieldset>
 	<?php echo $this->Form->end(__('Submit')); ?>

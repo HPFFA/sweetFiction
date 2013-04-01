@@ -51,7 +51,6 @@ class ReviewHelper extends Helper {
         if (array_key_exists('Review', $this->_View->request->data)) {
             $this->review = $this->_View->request->data['Review'];
         }
-
         $this->unsetErrorsForForm();
     }
 
@@ -134,16 +133,28 @@ class ReviewHelper extends Helper {
                 $review['Review']['id']);
     }
 
+    private function setErrorsForRendering(){
+        $this->_View->request->data['Review'] = $this->review;
+        $this->_View->validationErrors['Review'] = $this->reviewValidationErrors;
+    }
+
+    private function unsetErrorsForRendering(){
+        $this->_View->validationErrors['Review'] = array();
+        $this->_View->request->data['Review'] = array();    
+    }
+
     public function setErrorsForForm($review) {
+        //debug($this->hasNewReviewErrors($review));
+        //debug($this->hasExistingReviewErrors($review));
         if ($this->hasErrors() && ($this->hasNewReviewErrors($review) || $this->hasExistingReviewErrors($review)))
         {
-            $this->_View->request->data['Review'] = $this->review;
-            $this->_View->validationErrors['Review'] = $this->reviewValidationErrors;
+            $this->setErrorsForRendering();
+        } else {
+            $this->unsetErrorsForRendering();
         }
     }
 
     public function unsetErrorsForForm() {
-        $this->_View->validationErrors['Review'] = array();
-        $this->_View->request->data['Review'] = array();
+        $this->unsetErrorsForRendering();
     }
 }

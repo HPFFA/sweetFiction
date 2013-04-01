@@ -94,12 +94,14 @@
                             <a href="#" class="button review_edit"><?php echo __("Edit") ?></a>
                         <?php endif; ?>
                     </span>
-                    <?php 
+                    <?php if ($review['Review']['user_id'] != 0 && $this->Auth->user('id') == $review['Review']['user_id'])
+                    {
                         echo $this->element("Review/review_form", array(
                                 'reference_id' => $reference_id,
                                 'parent' => $parent,
                                 'review' => $review
                         ));
+                    }
                     ?>
                 </div>
                 <?php 
