@@ -52,24 +52,9 @@ class EditorHelper extends AppHelper {
 
     public function input($fieldName, $options = array()) {
         $output = $this->addEditor($fieldName, $options);
-        //$options['class'][] = 'ckeditor';
         $output .= $field = $this->Form->input($fieldName, $options);
-        //debug($this->getId($field));
         $output .= $this->Html->scriptBlock(
-            "$(document).on('ready', function() { window['CKEDITOR'].replace('".$this->getId($field)."', {
-                    toolbar: [
-                        { name: 'clipboard',   items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
-                        { name: 'links',       items : [ 'Link','Unlink' ] },
-                        { name: 'insert',      items : [ 'SpecialChar' ] },
-                        { name: 'editing',     items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
-                        { name: 'tools',       items : [ 'Maximize', '-', 'Source' ] },
-                        '/',
-                        { name: 'styles',      items : [ 'Format','Font','FontSize' ] },
-                        { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },
-                        { name: 'paragraph',   items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ] },
-                    ],
-                }); 
-            });");
+            "$(document).on('ready', function() { window['CKEDITOR'].replace('".$this->getId($field)."', { customConfig: '".$this->webroot."js/editor.configuration.js' }); });");
         return $output;
     }
 
