@@ -4,9 +4,9 @@
 		<legend><?php echo __('Edit Story'); ?></legend>
 	<?php
 		echo $this->Form->input('title');
-		echo $this->Form->input('summary');
-		echo $this->Form->input('prologue');
-		echo $this->Form->input('epilogue');
+		echo $this->Editor->input('summary');
+		echo $this->Editor->input('prologue');
+		echo $this->Editor->input('epilogue');
 		echo $this->Form->input('completed');
 	?>
 	</fieldset>

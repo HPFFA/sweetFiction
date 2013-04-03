@@ -10,10 +10,10 @@
 		<legend><?php echo __('Story Chapter'); ?></legend>
 	<?php
 		echo $this->Form->input('title');
-		echo $this->Form->input('remarks');
-		echo $this->Form->input('prologue');
-		echo $this->Form->input('text');
-		echo $this->Form->input('epilogue');
+		echo $this->Editor->input('remarks');
+		echo $this->Editor->input('prologue');
+		echo $this->Editor->input('text');
+		echo $this->Editor->input('epilogue');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

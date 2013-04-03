@@ -25,7 +25,7 @@
                 array('dateFormat' => 'DMY',
                     'minYear' => 1900,
                     'maxYear' => date('Y')));
-            echo $this->Form->input('UserProfile.biography');
+            echo $this->Editor->input('UserProfile.biography');
         ?>
     </fieldset>
     <fieldset>

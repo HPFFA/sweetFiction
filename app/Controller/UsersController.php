@@ -8,6 +8,7 @@ App::uses('AppController', 'Controller');
 class UsersController extends AppController {
 
     public $uses = array('User', 'Group');
+    public $helper = array('Editor');
 
     public function beforeFilter(){
         parent::beforeFilter();
