@@ -26,7 +26,10 @@
             echo $this->Form->input('user_name', array('value' => $user_name));
         }
         $parent_id = $parent == null ? '0' : $parent['Review']['id'];
-        $review_id = empty($this->request->data['Review']) ?  '0' : $this->request->data['Review']['id'];
+        $review_id = 0;
+        if (!empty($this->request->data['Review']) && array_key_exists('id', $this->request->data['Review'])) {
+            $this->request->data['Review']['id'];
+        }
 
         echo $this->Editor->input('text', array('value' => $text, 'id' => 'ReviewText_'.$parent_id.'_'.$review_id));
         

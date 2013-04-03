@@ -47,8 +47,9 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
+		<?php if ($this->Auth->user() != null): ?>
 		<li><?php echo $this->Html->link(__('Edit Story Chapter'), array('action' => 'edit', $storyChapter['StoryChapter']['story_id'], $storyChapter['StoryChapter']['id'])); ?> </li>
-		
+		<?php endif ?>
 		<li><?php echo $this->Html->link(__('List Story Chapters'), array('action' => 'index', $storyChapter['StoryChapter']['story_id'], 'chapters', 'index')); ?> </li>
 		<?php 
 			$prev = $storyChapterNeighbours['prev'];

@@ -132,35 +132,7 @@ class StoriesController extends AppController {
             $this->request->data = $this->Story->read(null, $id);
         }
     }
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-    public function edit_chapter($story_id = null, $chapter_id = null) {
-        $this->ensureValidChapterAccess($story_id, $chapter_id);
-        $this->Story->id = $story_id;
-        $this->Story->StoryChapter->id = $chapter_id;
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $this->request->data['Story']['id'] = $story_id;
-            $this->request->data['StoryChapter']['id'] = $chapter_id;
-            if (!array_key_exists('completed', $this->request->data['Story']))
-            {
-                // Cake swallows the field in case it is unchecked - so we must "restore" the value explicitly
-                $this->request->data['Story']['completed'] = 0;
-            }
-            if ($this->Story->StoryChapter->saveAssociated($this->request->data)) {
-                $this->Session->setFlash(__('The chapter has been saved'));
-                $this->redirect(array('controller' => 'stories', 'action' => 'view', $story_id));
-            } else {
-                $this->Session->setFlash(__('The chapter could not be saved. Please, try again.'));
-            }
-        } else {
-            $this->request->data = $this->Story->StoryChapter->read(null, $chapter_id);
-        }
-    }
+
 /**
  * delete method
  *
@@ -182,37 +154,6 @@ class StoriesController extends AppController {
             $this->redirect(array('action' => 'index'));
         }
         $this->Session->setFlash(__('Story was not deleted'));
-        $this->redirect(array('action' => 'index'));
-    }
-
-    /**
- * delete method
- *
- * @throws MethodNotAllowedException
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-    public function delete_chapter($story_id = null, $chapter_id = null) {
-        if (!$this->request->is('post')) {
-            throw new MethodNotAllowedException();
-        }
-        $this->ensureValidChapterAccess($story_id, $chapter_id);
-
-        $this->Story->id = $story_id;
-        $this->Story->StoryChapter->id = $chapter_id;
-
-        if ($this->Story->StoryChapter->find('count') == 1)
-        {
-            if ($this->Story->delete()) {
-                $this->Session->setFlash(__('Story with last chapter deleted'));
-                $this->redirect(array('controller' => 'stories', 'action' => 'index'));
-            }
-        } else if ($this->Story->StoryChapter->delete()) {
-            $this->Session->setFlash(__('Chapter deleted'));
-            $this->redirect(array('controller' => 'stories', 'action' => 'edit', $story_id));
-        }
-        $this->Session->setFlash(__('Chapter was not deleted'));
         $this->redirect(array('action' => 'index'));
     }
 }

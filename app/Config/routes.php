@@ -38,16 +38,16 @@
             'controller' => 'pages', 
             'action' => 'display'));
     
-    Router::connect('/stories/reviews/:reference_id/add/:parent_id',
-        array('controller' => 'stories', 'action' => 'add_review'),
+    Router::connect('/:controller/reviews/:reference_id/add/:parent_id',
+        array('controller' => ':controller', 'action' => 'add_review'),
         array(
-            'pass' => array('reference_id'),
+            'pass' => array('reference_id', 'parent_id'),
             'reference_id' => '[0-9]+',
             'parent_id' => '[0-9]+',
     ));
 
-    Router::connect('/stories/reviews/:reference_id/edit/:review_id',
-        array('controller' => 'stories', 'action' => 'edit_review'),
+    Router::connect('/:controller/reviews/:reference_id/edit/:review_id',
+        array('controller' => ':controller', 'action' => 'edit_review'),
         array(
             'pass' => array('reference_id', 'review_id'),
             'reference_id' => '[0-9]+',

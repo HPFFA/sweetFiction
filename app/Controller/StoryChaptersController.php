@@ -72,36 +72,41 @@ class StoryChaptersController extends AppController {
 	    $this->set('reviews', $this->Review->findFor($this->StoryChapter, $chapter_id));
 	}
 
-	private function setVariablesForView($id) {
-		$this->Story->id = $id;
-		$this->set('story', $this->Story->read(null, $id));
-		$this->set('storyChapters', $this->Story->StoryChapter->find(
-		 	'all', array('conditions' => array('story_id' => $id))));
-		$this->set('reviews', $this->Review->findFor($this->Story, $id));
-	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view_chapter($story_id = null, $chapter_id = null) {
-		
-	}
-
+    public function add_review($chapter_id, $parent_id = 0) {
+    	$this->StoryChapter->id = $chapter_id;
+        if ($this->Review->create($this->StoryChapter->Review, $this->request, 'story_chapter')) {
+            $this->redirect(array('controller' => 'story_chapters', 'action' => 'view', $this->StoryChapter->field('story_id'), $chapter_id));
+		} else {
+			$this->set('story', $this->StoryChapter->Story->read(null, $this->StoryChapter->field('story_id')));
+			$this->set('storyChapter', $this->StoryChapter->read(null, $chapter_id));
+			$this->set('storyChapterNeighbours', $this->StoryChapter->find('neighbors', array(
+				'conditions' => array('story_id' => $this->StoryChapter->field('story_id')),
+			    'order' => 'chapter_number DESC',
+			    'fields' => array('chapter_number', 'id', 'title')
+		    )));
+			$this->set('reviews', $this->Review->findFor($this->StoryChapter, $chapter_id));
+            $this->render('view');
+        }
+    }
 /**
  * add method
  *
  * @return void
  */
-	public function edit_review($id, $review_id) {
-		$this->Story->StoryChapter;
-		if ($this->Review->edit($this->Story->Review, $this->request, $review_id)) {
-           $this->redirect(array('controller' => 'stories', 'action' => 'view', $id));
+	public function edit_review($chapter_id, $review_id) {
+		$this->StoryChapter->id = $chapter_id;
+		if ($this->Review->edit($this->StoryChapter->Review, $this->request, $review_id)) {
+            $this->redirect(array('controller' => 'story_chapters', 'action' => 'view', $this->StoryChapter->field('story_id'), $chapter_id));
 		} else {
-			$this->setVariablesForView($id);
+			$this->set('story', $this->StoryChapter->Story);
+			$this->set('storyChapters', $this->StoryChapter->read(null, $chapter_id));
+			$this->set('storyChapterNeighbours', $this->StoryChapter->find('neighbors', array(
+				'conditions' => array('story_id' => $story_id),
+			    'order' => 'chapter_number DESC',
+			    'fields' => array('chapter_number', 'id', 'title')
+		    )));
+			$this->set('reviews', $this->Review->findFor($this->StoryChapter, $chapter_id));
 			$this->render('view');
 		}
 	}
@@ -157,7 +162,7 @@ class StoryChaptersController extends AppController {
 			}
 			if ($this->StoryChapter->saveAssociated($this->request->data)) {
 				$this->Session->setFlash(__('The chapter has been saved'));
-				$this->redirect(array('controller' => 'stories', 'action' => 'view', $story_id));
+				$this->redirect(array('controller' => 'story_chapters', 'action' => 'view', $story_id, $chapter_id));
 			} else {
 				$this->Session->setFlash(__('The chapter could not be saved. Please, try again.'));
 			}

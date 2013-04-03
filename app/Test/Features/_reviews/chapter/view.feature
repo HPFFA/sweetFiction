@@ -1,4 +1,4 @@
-@review @test
+@review
 Feature: View exiting reviews of a story
 
     Background:
@@ -21,12 +21,12 @@ Feature: View exiting reviews of a story
             | 2  | 1         | 1            | story_chapter  | 1       |           | First chapter 1.1  |
             | 3  | 0         | 1            | story_chapter  | 0       | Guest     | First chapter 2    |
             | 4  | 0         | 2            | story_chapter  | 0       | Guest     | Other chapter      |
-        When I am on "/stories/view/1/chapters/view/1"
+        When I am on "/story_chapters/view/1/1"
         Then the "#review_1 .author" element should contain "Anonymous"
-        And the "#review_1 .text" element should contain "First story 1"
+        And the "#review_1 .text" element should contain "First chapter 1"
         And the "#review_2 .author" element should contain "Peach"
         And the "Peach" link within "#review_2 .author" should point to "/users/view/1"
-        And the "#review_2 .text" element should contain "First story 1.1"
+        And the "#review_2 .text" element should contain "First chapter 1.1"
         And the "#review_3 .author" element should contain "Guest"
-        And the "#review_3 .text" element should contain "First story 2"
+        And the "#review_3 .text" element should contain "First chapter 2"
         And I should not see "Other story"

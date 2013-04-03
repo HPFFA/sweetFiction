@@ -1,4 +1,4 @@
-@review @test
+@review
 Feature: Answering existing reviews
 
     Background:
@@ -21,7 +21,7 @@ Feature: Answering existing reviews
             | 4  | 0         | 2            | story_chapter  | 0       | Guest     | Other chapter      |
 
     Scenario: Seeing the possible answering forms for guest users
-        Given I am on "/stories/view/1/chapters/view/1"
+        Given I am on "/story_chapters/view/1/1"
         Then I should see 4 ".review_form" elements
         And I should see a "#review_0_reply" element
         And I should see a "#review_1_reply" element
@@ -29,18 +29,18 @@ Feature: Answering existing reviews
         And I should see a "#review_3_reply" element
 
     Scenario: Answering to a given review as guest
-        Given I am on "/stories/view/1/chapters/view/1"
+        Given I am on "/story_chapters/view/1/1"
         When I fill in "User Name" within "#review_1_reply" with "Responder"
         And I fill in "Text" within "#review_1_reply" with "The newly added review"
         And I press "Submit" within "#review_1_reply"
-        Then I should be on "/stories/view/1/chapters/view/1"
+        Then I should be on "/story_chapters/view/1/1"
         Then I should see a "#review_5" element
         And the "#review_5 .author" element should contain "Responder"
         And the "#review_5 .text" element should contain "The newly added review"
 
     Scenario: Seeing the possible answering forms as not-author - no possiblity for doppel posts
         Given I am logged in as "Luigi" with "test"
-        And I am on "/stories/view/1/chapters/view/1"
+        And I am on "/story_chapters/view/1/1"
         Then I should see 3 ".review_form" elements
         And I should see a "#review_0_reply" element
         And I should see a "#review_1_reply" element
@@ -49,13 +49,13 @@ Feature: Answering existing reviews
 
     Scenario Outline: Answering to a given review as user
         Given I am logged in as "<user>" with "test"
-        Given I am on "/stories/view/1/chapters/view/1"
+        Given I am on "/story_chapters/view/1/1"
         And I fill in "Text" within "#review_<parent_id>_reply" with "The newly added review"
         And I press "Submit" within "#review_<parent_id>_reply"
-        Then I should be on "/stories/view/1/chapters/view/1"
+        Then I should be on "/story_chapters/view/1/1"
         And there should be a "Review":
             | user_id   | reference_type | reference_id | parent_id   | text                   |
-            | <user_id> | story          | 1            | <parent_id> | The newly added review |
+            | <user_id> | story_chapter  | 1            | <parent_id> | The newly added review |
         Then I should see a "#review_5" element
         And the "#review_<parent_id> #review_5 .author" element should contain "<user>"
         And the "#review_<parent_id> #review_5 .text" element should contain "The newly added review"
@@ -67,7 +67,7 @@ Feature: Answering existing reviews
 
     Scenario: Seeing the possible answering forms as author
         Given I am logged in as "Peach" with "test"
-        And I am on "/stories/view/1/chapters/view/1"
+        And I am on "/story_chapters/view/1/1"
         Then I should see 3 ".review_form" elements
         And I should not see a "#review_0_reply" element
         And I should see a "#review_1_reply" element
