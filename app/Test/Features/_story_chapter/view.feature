@@ -21,7 +21,7 @@ Feature: View chapters
     Scenario: Access a chapter
         Given I am on "/stories/view/1"
         When I follow "Second chapter" within "#story_chapter_2"
-        Then I should be on "/stories/view/1/chapters/view/2"
+        Then I should be on "/story_chapters/view/1/2"
         And the ".story_title" element should contain "Peach's first story"
         And the "#chapter_title" element should contain "Second chapter"
         And the "#chapter_text" element should contain "Some text to show"
@@ -29,10 +29,12 @@ Feature: View chapters
         And I should see the link "3. Third chapter"
 
     Scenario: Navigate through chapters of a story
-        When I am on "/stories/view/1/chapters/view/2"
-        When I follow "1. First chapter"
-        Then I should be on "/stories/view/1/chapters/view/1"
+        When I am on "/story_chapters/view/1/1"
+        Then I should see "1. First chapter"
         When I follow "2. Second chapter"
-        Then I should be on "/stories/view/1/chapters/view/2"
-        When I am on "/stories/view/1/chapters/view/4"
+        Then I should be on "/story_chapters/view/1/2"
+        When I follow "3. Third chapter"
+        Then I should be on "/story_chapters/view/1/3"
+        When I follow "4. Forth chapter"
+        Then I am on "/story_chapters/view/1/4"
         Then I should see the link "3. Third chapter"

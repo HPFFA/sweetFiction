@@ -16,13 +16,13 @@ Feature: Add chapter to existing story
         Given I am logged in as "Peach" with "test"
         And I am on "/stories/edit/1"
         And I follow "Add Chapter"
-        Then I should be on "/stories/edit/1/chapters/add"
+        Then I should be on "/story_chapters/add/1"
         And I should see an "#story_form" element
         And I should see an "#chapter_form" element
 
     Scenario: Add a chapter to a story
         Given I am logged in as "Peach" with "test"
-        And I am on "/stories/edit/1/chapters/add"
+        And I am on "/story_chapters/add/1"
         When I check "Completed"
         And I fill in "Title" with "The second chapter"
         And I fill in "Remarks" with "Newly created"
@@ -45,11 +45,11 @@ Feature: Add chapter to existing story
 
     Scenario: Denial of creating an incomplete chapter
         Given I am logged in as "Peach" with "test"
-        And I am on "/stories/edit/1/chapters/add"
+        And I am on "/story_chapters/add/1"
         When I check "Completed"
         And I fill in "Remarks" with "..."
         And I press "Submit"
-        Then I should be on "/stories/edit/1/chapters/add"
+        Then I should be on "/story_chapters/add/1"
         And I should see "The chapter could not be saved. Please, try again."
         And the ".error-message" element should contain "The text cannot be empty."
         And the "Remarks" field within "#chapter_form" should contain "..."
@@ -58,9 +58,9 @@ Feature: Add chapter to existing story
             | ...     |
 
     Scenario: Denial of creating chapters for guests
-        And I am on "/stories/edit/1/chapters/add"
+        And I am on "/story_chapters/add/1"
         Then I should see "You are not authorized to access that location."
-        When I send a POST request to "/stories/edit/1/chapters/add" with:
+        When I send a POST request to "/story_chapters/add/1" with:
             | some_data  |
             | irrelevant |
         Then I should see "You are not authorized to access that location."
@@ -72,8 +72,8 @@ Feature: Add chapter to existing story
             | id | name  | email         | password | confirmation |
             | 2  | Luigi | l@example.com | test     | test         |
         And I am logged in as "Luigi" with "test"
-        Then I should not be allowed to go to "/stories/edit/1/chapters/add"
-        When I send a POST request to "/stories/edit/1/chapters/add" with:
+        Then I should not be allowed to go to "/story_chapters/add/1"
+        When I send a POST request to "/story_chapters/add/1" with:
             | some_data  |
             | irrelevant |
         Then the response status code should be 403

@@ -38,50 +38,19 @@
             'controller' => 'pages', 
             'action' => 'display'));
     
-    Router::connect('/stories/edit/:story_id/chapters/add', 
-        array('controller' => 'stories','action' => 'add_chapter'),
-        array(
-            'pass' => array('story_id'),
-            'story_id' => '[0-9]+'
-    ));
-
-    Router::connect('/stories/edit/:story_id/chapters/edit/:chapter_id', 
-        array('controller' => 'stories','action' => 'edit_chapter'),
-        array(
-            'pass' => array('story_id', 'chapter_id'),
-            'story_id' => '[0-9]+',
-            'chapter_id' => '[0-9]+'
-    ));
-
-    Router::connect('/stories/edit/:story_id/chapters/delete/:chapter_id', 
-        array('controller' => 'stories','action' => 'delete_chapter', '[method]' => 'POST'),
-        array(
-            'pass' => array('story_id', 'chapter_id'),
-            'story_id' => '[0-9]+',
-            'chapter_id' => '[0-9]+'
-    ));
-
-    Router::connect('/stories/view/:story_id/chapters/view/:chapter_id', 
-        array('controller' => 'stories','action' => 'view_chapter'),
-        array(
-            'pass' => array('story_id', 'chapter_id'),
-            'story_id' => '[0-9]+',
-            'chapter_id' => '[0-9]+'
-    ));
-
-    Router::connect('/stories/reviews/:id/add/:parent_id',
+    Router::connect('/stories/reviews/:reference_id/add/:parent_id',
         array('controller' => 'stories', 'action' => 'add_review'),
         array(
-            'pass' => array('id'),
-            'id' => '[0-9]+',
+            'pass' => array('reference_id'),
+            'reference_id' => '[0-9]+',
             'parent_id' => '[0-9]+',
     ));
 
-    Router::connect('/stories/reviews/:id/edit/:review_id',
+    Router::connect('/stories/reviews/:reference_id/edit/:review_id',
         array('controller' => 'stories', 'action' => 'edit_review'),
         array(
-            'pass' => array('id', 'review_id'),
-            'id' => '[0-9]+',
+            'pass' => array('reference_id', 'review_id'),
+            'reference_id' => '[0-9]+',
             'review_id' => '[0-9]+',
     ));
 /**

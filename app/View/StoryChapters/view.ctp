@@ -36,21 +36,28 @@
 			&nbsp;
 		</dd>
 	</dl>
+	<h3><?php echo __("Reviews"); ?></h3>
+	<?php 
+		echo $this->element("Review/review_tree", array(
+			'reviews' => $reviews, 
+			'is_author' => $this->Auth->user('id') == $story['Story']['user_id'],
+			'reference_id' => $storyChapter['StoryChapter']['id'],
+			'reference_type' => 'story_chapter')); ?>	
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Story Chapter'), array('action' => 'edit', $storyChapter['StoryChapter']['story_id'], 'chapters', 'edit', $storyChapter['StoryChapter']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Edit Story Chapter'), array('action' => 'edit', $storyChapter['StoryChapter']['story_id'], $storyChapter['StoryChapter']['id'])); ?> </li>
 		
 		<li><?php echo $this->Html->link(__('List Story Chapters'), array('action' => 'index', $storyChapter['StoryChapter']['story_id'], 'chapters', 'index')); ?> </li>
 		<?php 
 			$prev = $storyChapterNeighbours['prev'];
 			if (!empty($prev)): ?>
-			<li><?php echo $this->Html->link($prev['StoryChapter']['chapter_number'].'. '.h($prev['StoryChapter']['title']), array('controller' => 'stories', 'action' => 'view', $story['Story']['id'], 'chapters', 'view', $prev['StoryChapter']['id'])); ?> </li>	
+			<li><?php echo $this->Html->link($prev['StoryChapter']['chapter_number'].'. '.h($prev['StoryChapter']['title']), array('controller' => 'story_chapters', 'action' => 'view', $story['Story']['id'], $prev['StoryChapter']['id'])); ?> </li>	
 		<?php endif; 
 			$next = $storyChapterNeighbours['next']; 
 			if (!empty($next)): ?>
-			<li><?php echo $this->Html->link($next['StoryChapter']['chapter_number'].'. '.h($next['StoryChapter']['title']), array('controller' => 'stories', 'action' => 'view', $storyChapter['StoryChapter']['story_id'], 'chapters', 'view', $next['StoryChapter']['id'])); ?> </li>
+			<li><?php echo $this->Html->link($next['StoryChapter']['chapter_number'].'. '.h($next['StoryChapter']['title']), array('controller' => 'story_chapters', 'action' => 'view', $storyChapter['StoryChapter']['story_id'], $next['StoryChapter']['id'])); ?> </li>
 		<?php endif; ?>
 		
 	</ul>

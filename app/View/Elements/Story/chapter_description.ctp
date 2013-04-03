@@ -4,7 +4,7 @@
 ?>
 <div>
     <?php 
-        $title = '<span class="chapter_title">'.$this->Html->link($chapter['title'], array('controller' => 'stories', 'action' => 'view', $story['id'], 'chapters', 'view', $chapter['id'])).'</span>';
+        $title = '<span class="chapter_title">'.$this->Html->link($chapter['title'], array('controller' => 'story_chapters', 'action' => 'view', $story['id'], $chapter['id'])).'</span>';
         if ($chapter['user_id'] != $story['user_id'])
         {
             $author = '<span class="chapter_author">'.$this->Html->link($user['name'], array('controller' => 'users', 'action' => 'view', $user['id'])).'</span>';

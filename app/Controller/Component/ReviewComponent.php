@@ -10,13 +10,16 @@ class ReviewComponent extends Component {
         parent::initialize($controller);
     }
 
-    public function findIn($model, $id) {
-        return $model->find('all', array('conditions' => array('Review.reference_id' => $id)));
+    public function findFor($parent_model, $id) {
+        return $parent_model->Review->find('all', 
+                array('conditions' => array_merge(
+                    array('Review.reference_id' => $id), 
+                    $parent_model->hasMany['Review']['conditions'])));
     }
     
     private function completeReviewData(&$request, $reference_type) {
         $request->data['Review']['parent_id'] = $request->params['parent_id'];
-        $request->data['Review']['reference_id'] = $request->params['id'];
+        $request->data['Review']['reference_id'] = $request->params['reference_id'];
         $request->data['Review']['reference_type'] = $reference_type;
         if ($this->Auth->user() != null)
         {

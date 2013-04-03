@@ -37,9 +37,12 @@ class StoryChapter extends AppModel {
 			'className' => 'Story',
 			'foreignKey' => 'story_id',
 		),
+    );
+
+    public $hasMany = array(
         'Review' => array(
             'className' => 'Review',
-            'foreignKey' => 'user_id',
+            'foreignKey' => 'id',
             'conditions' => array('Review.reference_type' => 'story_chapter'),
         ),
 	);

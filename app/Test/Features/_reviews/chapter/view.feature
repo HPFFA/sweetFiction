@@ -1,4 +1,4 @@
-@review @story
+@review @test
 Feature: View exiting reviews of a story
 
     Background:
@@ -16,12 +16,12 @@ Feature: View exiting reviews of a story
 
     Scenario: View the review tree of a story
         Given there is a "Review":
-            | id | parent_id | reference_id | reference_type | user_id | user_name | text             |
-            | 1  | 0         | 1            | story          | 0       | Anonymous | First story 1    |
-            | 2  | 1         | 1            | story          | 1       |           | First story 1.1  |
-            | 3  | 0         | 1            | story          | 0       | Guest     | First story 2    |
-            | 4  | 0         | 2            | story          | 0       | Guest     | Other story      |
-        When I am on "/stories/view/1"
+            | id | parent_id | reference_id | reference_type | user_id | user_name | text               |
+            | 1  | 0         | 1            | story_chapter  | 0       | Anonymous | First chapter 1    |
+            | 2  | 1         | 1            | story_chapter  | 1       |           | First chapter 1.1  |
+            | 3  | 0         | 1            | story_chapter  | 0       | Guest     | First chapter 2    |
+            | 4  | 0         | 2            | story_chapter  | 0       | Guest     | Other chapter      |
+        When I am on "/stories/view/1/chapters/view/1"
         Then the "#review_1 .author" element should contain "Anonymous"
         And the "#review_1 .text" element should contain "First story 1"
         And the "#review_2 .author" element should contain "Peach"

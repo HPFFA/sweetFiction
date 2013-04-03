@@ -40,7 +40,7 @@ class Review extends AppModel {
 			'foreignKey' => 'reference_id',
 			'conditions' => array('Review.reference_type' => 'story')),
 		'StoryChapter' => array(
-			'className' => 'Story',
+			'className' => 'StoryChapter',
 			'foreignKey' => 'reference_id',
 			'conditions' => array('Review.reference_type' => 'story_chapter')
 		)

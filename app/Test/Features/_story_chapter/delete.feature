@@ -45,7 +45,7 @@ Feature: Deletion of chapters
         And there should be no "StoryChapter"
 
     Scenario: Deny deletion of a story for guests
-        When I send a POST request to "/stories/edit/1/chapters/delete/1" with:
+        When I send a POST request to "/story_chapters/delete/1/1" with:
             | id |
             | 1  |
         Then I should not see "Chapter deleted"
@@ -63,7 +63,7 @@ Feature: Deletion of chapters
             | id | name  | email         | password | confirmation |
             | 2  | Luigi | l@example.com | test     | test         |
         When I am logged in as "Luigi" with "test"
-        When I send a POST request to "/stories/edit/1/chapters/delete/1" with:
+        When I send a POST request to "/story_chapters/delete/1/1" with:
             | id |
             | 1  |
         Then I should not see "Chapter deleted"
