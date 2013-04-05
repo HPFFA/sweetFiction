@@ -21,6 +21,7 @@
  */
 
 App::uses('Model', 'Model');
+App::uses('Utility', 'CakeTime');
 
 /**
  * Application model for Cake.
@@ -42,5 +43,19 @@ class AppModel extends Model {
         if ($state == 'after') {
             return sizeof($results) > 0;
         }
+    }
+
+    private function isNew(){
+        return !(array_key_exists('id', $this->data) && $this->exists($this->data['id']));
+    }
+
+    public function beforeSave($options = array()) {
+        $current_time = date('Y-m-d H:m:s', time());
+        if ($this->isNew())
+        {
+            $this->data[$this->name]['created'] = $current_time;
+        }
+        $this->data[$this->name]['updated'] = $current_time;
+        return parent::beforeSave($options);
     }
 }

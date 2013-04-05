@@ -176,6 +176,6 @@ class User extends AppModel {
             unset($data['password']);
             unset($data['confirmation']);
         }
-        return true;
+        return parent::beforeSave($options);
     }
 }

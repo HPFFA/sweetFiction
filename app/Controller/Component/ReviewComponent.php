@@ -29,6 +29,7 @@ class ReviewComponent extends Component {
 
     public function create(Review $model, $request, $reference_type) {
         $saved = false;
+        debug($request->data);
         if ($request->is('post')) {
             $model->create();
             $this->completeReviewData($request, $reference_type);

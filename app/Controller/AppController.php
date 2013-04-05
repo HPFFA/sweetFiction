@@ -21,8 +21,8 @@
  */
 
 App::uses('Controller', 'Controller');
+App::uses('Sanitize', 'Utility');
 App::uses('Model', 'User');
-
 /**
  * Application Controller
  *
@@ -79,12 +79,27 @@ class AppController extends Controller {
 
 
     public function beforeFilter(){
-        //$this->set('auth', $this->Auth);
+        $this->ensureSecureData();
         $this->tryToResume();
-        //$this->Authentication->allow('index',  'display', 'view');
         $this->Auth->allow('*');
     }
 
+    private function ensureSecureData()  {
+        $this->request->data = $this->filterRequest($this->request->data);
+    }
+
+    private function filterRequest($data) {
+        if (is_array($data)) {
+            foreach ($data as $key => $value) {
+                $data[$key] = $this->filterRequest($value);
+            }
+        }
+        else {
+            $data = Sanitize::stripScripts($data);
+            $data = Sanitize::clean($data, array('dollar', 'carriage', 'backslash', 'unicode', 'sql'));
+        }
+        return $data;
+    }
 
 
     public function enableCookieLogin($user) {
