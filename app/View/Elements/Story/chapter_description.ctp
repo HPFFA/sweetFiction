@@ -20,4 +20,4 @@
         <span class="completed"><?php echo __('Completed'); ?></span>
     <?php endif; ?>
 </div>
-<span class="story_summary"><?php echo h($story['summary']); ?></span>
+<span class="story_summary"><?php echo ($story['summary']); ?></span>

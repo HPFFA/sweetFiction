@@ -16,21 +16,21 @@
 			if (!empty($story['Story']['summary'])): ?>
 			<dt><?php echo __('Summary'); ?></dt>
 			<dd id="story_summary">
-				<?php echo h($story['Story']['summary']); ?>
+				<?php echo ($story['Story']['summary']); ?>
 				&nbsp;
 			</dd>
 		<?php endif; 
 			if (!empty($story['Story']['prologue'])): ?>
 			<dt><?php echo __('Prologue'); ?></dt>
 			<dd id="story_prologue">
-				<?php echo h($story['Story']['prologue']); ?>
+				<?php echo ($story['Story']['prologue']); ?>
 				&nbsp;
 			</dd>
 		<?php endif;
 			if (!empty($story['Story']['prologue'])): ?>
 			<dt><?php echo __('Epilogue'); ?></dt>
 			<dd id="story_epilogue">
-				<?php echo h($story['Story']['epilogue']); ?>
+				<?php echo ($story['Story']['epilogue']); ?>
 				&nbsp;
 			</dd>
 		<?php endif; ?>

@@ -17,22 +17,22 @@
 		<?php endif; ?>
 		<dt><?php echo __('Remarks'); ?></dt>
 		<dd id="chapter_remarks">
-			<?php echo h($storyChapter['StoryChapter']['remarks']); ?>
+			<?php echo ($storyChapter['StoryChapter']['remarks']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Prologue'); ?></dt>
 		<dd id="chapter_prologue">
-			<?php echo h($storyChapter['StoryChapter']['prologue']); ?>
+			<?php echo ($storyChapter['StoryChapter']['prologue']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Text'); ?></dt>
 		<dd id="chapter_text">
-			<?php echo h($storyChapter['StoryChapter']['text']); ?>
+			<?php echo ($storyChapter['StoryChapter']['text']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Epilogue'); ?></dt>
 		<dd id="chapter_epilogue">
-			<?php echo h($storyChapter['StoryChapter']['epilogue']); ?>
+			<?php echo ($storyChapter['StoryChapter']['epilogue']); ?>
 			&nbsp;
 		</dd>
 	</dl>
@@ -60,6 +60,5 @@
 			if (!empty($next)): ?>
 			<li><?php echo $this->Html->link($next['StoryChapter']['chapter_number'].'. '.h($next['StoryChapter']['title']), array('controller' => 'story_chapters', 'action' => 'view', $storyChapter['StoryChapter']['story_id'], $next['StoryChapter']['id'])); ?> </li>
 		<?php endif; ?>
-		
 	</ul>
 </div>

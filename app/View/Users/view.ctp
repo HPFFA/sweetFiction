@@ -21,7 +21,7 @@
         </dd>
         <dt><?php echo __('Biography'); ?></dt>
         <dd  id="user_biography">
-            <?php echo h($user['UserProfile']['biography']); ?>
+            <?php echo ($user['UserProfile']['biography']); ?>
             &nbsp;
         </dd>
         <dt><?php echo __('Homepage'); ?></dt>
