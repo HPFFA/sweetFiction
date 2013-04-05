@@ -73,7 +73,7 @@ Feature: User want to add reviews to stories
             | user_id | text |
             | 2       | ...  |
 
-    Scenario: Filter of malicious code from guests
+    Scenario: Filter of malicious code
         Given I am on "/story_chapters/view/1/1"
         When I fill in "User Name" within ".review_form" with "Attacker"
         And I fill in "Text" within ".review_form" with "<script>text_attack(){}</script><a onclick='text_attack()'>Attack</a>"
