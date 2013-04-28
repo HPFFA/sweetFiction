@@ -7,7 +7,7 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
-    public $uses = array('User', 'Group');
+    public $uses = array('User', 'Role');
     public $helper = array('Editor');
 
     public function beforeFilter(){
@@ -75,8 +75,8 @@ class UsersController extends AppController {
             $this->request->data = $this->User->read(null, $id);
         }
         unset($this->request->data['User']['password']);
-        $groups = $this->Group->find('list');
-        $this->set(compact('groups'));
+        $roles = $this->Role->find('list');
+        $this->set(compact('roles'));
     }
 
     /**
@@ -93,11 +93,12 @@ class UsersController extends AppController {
         }
         $user = $this->User->read(null, $id);
         $this->set('user', $user);
-        $groups = array();
-        foreach ($user['GroupAssociations'] as $association){
-            $groups[] = $this->Group->read(null, $association['group_id']);
+        //debug($user);
+        $roles = array();
+        foreach ($user['Roles'] as $association){
+            $roles[] = $this->Role->read(null, $association['role_id']);
         }
-        $this->set('groups', $groups);
+        $this->set('roles', $roles);
 
     }
 

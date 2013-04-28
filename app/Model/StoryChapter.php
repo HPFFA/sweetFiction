@@ -47,6 +47,13 @@ class StoryChapter extends AppModel {
         ),
 	);
 
+    public $hasOne = array(
+        'Editorial' => array(
+            'className' => 'Editorial',
+            'foreignKey' => 'story_chapter_id'
+        )
+    );
+
 
 /**
  * Validation rules

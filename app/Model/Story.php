@@ -53,6 +53,10 @@ class Story extends AppModel {
             'foreignKey' => 'id',
             'conditions' => array('Review.reference_type' => 'story'),
         ),
+        'Editorial' => array(
+            'className' => 'Editorial',
+            'foreignKey' => 'story_id'
+        )
 	);
 
 /**

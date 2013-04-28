@@ -58,7 +58,7 @@ class AppController extends Controller {
         ),
     );
 
-    public $uses = array('User');
+    public $uses = array('User', 'Role');
 
     public $helper = array('Auth');
 
@@ -96,7 +96,7 @@ class AppController extends Controller {
         }
         else {
             $data = Sanitize::stripScripts($data);
-            $data = Sanitize::clean($data, array('dollar', 'carriage', 'backslash', 'unicode', 'sql'));
+            //$data = Sanitize::clean($data, array('dollar', 'carriage', 'backslash', 'unicode', 'sql'));
         }
         return $data;
     }
@@ -134,4 +134,20 @@ class AppController extends Controller {
         return false;
     }
 
+    protected function isGroupMember($user_id, $role_name) {
+        $user = $this->User->read(null, $this->Auth->user('id'));
+        $role = $this->Role->find('first', array('conditions' => array('Role.name' => $role_name)));
+        foreach ($user['Roles'] as $user_role) {
+            if ($user_role['role_id'] == $role['Role']['id'])
+                return true;
+        }
+        return false;
+    }
+
+    private function currentUser() {
+        if ($this->Auth->user() != null){
+            return $this->User->read($this->Auth->user('id'));
+        }
+        return null;
+    }
 }

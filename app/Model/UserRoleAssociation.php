@@ -5,19 +5,19 @@ App::uses('AppModel', 'Model');
  *
  * @property User $Users
  */
-class UserGroupAssociation extends AppModel {
+class UserRoleAssociation extends AppModel {
 
 /**
  * Use table
  *
  * @var mixed False or table name
  */
-    public $useTable = 'user_group_association';
+    public $useTable = 'user_role_association';
 
     public $belongsTo = array(
-        'Group' => array(
-            'className' => 'Group',
-            'foreignKey' => 'group_id'
+        'Role' => array(
+            'className' => 'Role',
+            'foreignKey' => 'role_id'
         ),
         'User' => array(
             'className' => 'User',

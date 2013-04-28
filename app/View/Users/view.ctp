@@ -1,10 +1,13 @@
 <div class="user view">
     <h2><?php  echo $user['User']['name'];  ?></h2>
     <dl>
-        <dt><?php echo __('Groups'); ?></dt>
+        <dt><?php echo __('Roles'); ?></dt>
         <dd>
-            <?php foreach ($groups as $group): ?>
-                <?php echo $this->Html->link($group['Group']['name'], array('controller' => 'groups', 'action' => 'view', $group['Group']['id'])); ?></td>
+            <?php foreach ($roles as $role): ?>
+                <?php
+                    //echo $this->Html->link($role['Role']['name'], array('controller' => 'roles', 'action' => 'view', $role['Role']['id'])); 
+                    echo $role['Role']['name'];
+                ?></td>
                 &nbsp;
             <?php endforeach; ?>
             &nbsp;

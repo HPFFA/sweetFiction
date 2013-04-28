@@ -40,30 +40,29 @@ $application_title = "Sweetfiction";
 </head>
 <body>
     <div id="container">
+        <div id="top_menu">
+            <?php echo $this->element('Menu/top_menu'); ?>
+        </div>
         <div id="header">
-            <h1><?php
-                $username = __('Guest');
-                if ($this->Auth->currentUser())
-                {
-                    $username = $this->Auth->currentUser('name');
-                }
-                echo __('Welcome %s', $username); ?></h1>
+            <h1><?php echo __('SweetFiction'); ?></h1>
         </div>
         <div id="content">
-            <div id="navigation">
-                <?php echo $this->Html->link(__('Users'), array('controller' => 'users', 'action' => 'index')); ?>
-                <?php echo $this->Html->link(__('Stories'), array('controller' => 'stories', 'action' => 'index')); ?>
-                <?php if ($this->Auth->currentUser() == null): ?>
-                    <?php echo $this->Html->link(__('Login'), array('controller' => 'authentication', 'action' => 'login')); ?>
-                    <?php echo $this->Html->link(__('Register'), array('controller' => 'authentication', 'action' => 'register')); ?>
-                <?php else: ?>
-                    <?php echo $this->Html->link(__('Profile'), array('controller' => 'users', 'action' => 'view', $this->Auth->currentUser('id'))); ?>
-                    <?php echo $this->Html->link(__('Logout'), array('controller' => 'authentication', 'action' => 'logout')); ?>
-                <?php endif; ?>
-            </div>
+            <?php echo $this->element('Menu/main_menu'); ?>
             <?php echo $this->Session->flash(); ?>
             <?php echo $this->Session->flash('auth'); ?>
-            <?php echo $this->fetch('content'); ?>
+            <div id="center_content">
+                <?php echo $this->fetch('content'); ?>
+            </div>
+            <div id="right_content">
+                <div id="chat">
+                    <h3>Chat</h3>
+                    CHATSYSTEM (ON ALL PAGES)
+                </div>
+                <div id="recent_stories">
+                    <h3><?php echo __('Recent Stories') ?></h3>
+                    <?php echo $this->element('Blocks/recent_stories') ?>
+                </dvi>
+            </div>
         </div>
         <div id="footer">
             <?php echo $this->Html->link(

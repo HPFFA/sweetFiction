@@ -2,9 +2,15 @@
 Feature: Authentication of users
 
     Background:
-        Given there is a "User":
-            | name  | email         | password | confirmation |
-            | Peach | p@example.com | test     | test         |
+        Given there is a "Role"
+            | id | name |
+            | 1  | user |
+        And there is a "UserRoleAssociation"
+            | role_id | user_id |
+            | 1       | 1       |
+        And there is a "User":
+            | name  | email         | password | confirmation | role |
+            | Peach | p@example.com | test     | test         | 1    |
 
     Scenario: Go to register page
         Given I am on "/"
@@ -20,8 +26,8 @@ Feature: Authentication of users
         And I press "Submit"
         Then the "#authMessage" element should contain "The author has been registered"
         And there should be a "User":
-            | name  | email         |
-            | Luigi | l@example.com |
+            | name  | email         | role |
+            | Luigi | l@example.com | 1    |
         And I should be on "/"
 
     Scenario Outline: Denial of registering an user with wrong credentials

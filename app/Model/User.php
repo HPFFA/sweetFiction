@@ -94,13 +94,13 @@ class User extends AppModel {
     }
 
 /**
- * hasMany associations
+ * hasAndBelongsToMany associations
  *
  * @var array
  */
     public $hasMany = array(
-        'GroupAssociations' => array(
-            'className' => 'UserGroupAssociation',
+        'Roles' => array(
+            'className' => 'UserRoleAssociation',
             'foreignKey' => 'user_id',
         ),
         'Story' => array(
@@ -121,6 +121,10 @@ class User extends AppModel {
             'foreignKey' => 'user_id',
             'conditions' => array('StoryChapterReview.reference_type' => 'story_chapter'),
         ),
+        'Editorial' => array(
+            'className' => 'Editorial',
+            'foreignKey' => 'user_id'
+        )
     );
 
 /**

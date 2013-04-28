@@ -8,7 +8,23 @@ class AppSchema extends CakeSchema {
 	public function after($event = array()) {
 	}
 
-	public $group = array(
+	public $editorial = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
+		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null),
+		'story_id' => array('type' => 'integer', 'null' => false, 'default' => null),
+		'story_chapter_id' => array('type' => 'integer', 'null' => false, 'default' => null),
+		'editor_id' => array('type' => 'integer', 'null' => false, 'default' => null),
+		'created' => array('type' => 'timestamp', 'null' => false, 'default' => 'CURRENT_TIMESTAMP'),
+		'updated' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'completed' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'accepted' => array('type' => 'boolean', 'null' => false, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
+
+	public $role = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
@@ -27,6 +43,7 @@ class AppSchema extends CakeSchema {
 		'created' => array('type' => 'timestamp', 'null' => false, 'default' => 'CURRENT_TIMESTAMP'),
 		'updated' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'published' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'title' => array('column' => 'title', 'unique' => 0),
@@ -47,6 +64,7 @@ class AppSchema extends CakeSchema {
 		'created' => array('type' => 'timestamp', 'null' => false, 'default' => 'CURRENT_TIMESTAMP'),
 		'updated' => array('type' => 'timestamp', 'null' => false, 'default' => '0000-00-00 00:00:00'),
 		'deleted' => array('type' => 'timestamp', 'null' => false, 'default' => '0000-00-00 00:00:00'),
+		'published' => array('type' => 'timestamp', 'null' => false, 'default' => '0000-00-00 00:00:00'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'story' => array('column' => 'story_id', 'unique' => 0),
@@ -107,8 +125,8 @@ class AppSchema extends CakeSchema {
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
-	public $user_group_association = array(
-		'group_id' => array('type' => 'integer', 'null' => false, 'default' => null),
+	public $user_role_association = array(
+		'role_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'indexes' => array(
 			

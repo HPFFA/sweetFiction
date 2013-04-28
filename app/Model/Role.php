@@ -5,14 +5,14 @@ App::uses('AppModel', 'Model');
  *
  * @property User $Users
  */
-class Group extends AppModel {
+class Role extends AppModel {
 
 /**
  * Use table
  *
  * @var mixed False or table name
  */
-    public $useTable = 'group';
+    public $useTable = 'role';
 
 /**
  * Display field
@@ -47,9 +47,9 @@ class Group extends AppModel {
  * @var array
  */
     public $hasMany = array(
-        'UserAssociations' => array(
-            'className' => 'UserGroupAssociation',
-            'foreignKey' => 'group_id',
+        'Users' => array(
+            'className' => 'UserRoleAssociation',
+            'foreignKey' => 'role_id',
         )
     );
 

@@ -26,7 +26,6 @@ class StoriesController extends AppController {
         }
         return true;
     }
-
 /**
  * index method
  *
@@ -34,6 +33,8 @@ class StoriesController extends AppController {
  */
     public function index() {
         $this->Story->recursive = 0;
+        if ($this->request->is('requested')) 
+            return $this->paginate();
         $this->set('stories', $this->paginate());
     }
 

@@ -98,6 +98,21 @@ p {
 	background: #003d4c;
 	text-decoration: underline;
 }
+
+#top_menu {
+	background: #fff;
+	clear: both;
+	color: #333;
+	padding: 10px 20px 10px 20px;
+	overflow: auto;
+}
+
+#user_menu {
+	float: right;
+}
+#welcome_message {
+	float: left;
+}
 #content{
 	background: #fff;
 	clear: both;
@@ -105,6 +120,16 @@ p {
 	padding: 10px 20px 40px 20px;
 	overflow: auto;
 }
+
+#center_content {
+	float: left;
+	width: 79%;
+}
+#right_content {
+	float: right;
+	width: 20%;
+}
+
 #footer {
 	clear: both;
 	padding: 6px 10px;
@@ -134,6 +159,10 @@ div.sorting {
 	margin-bottom: 1em;
 	padding: 1em;
 	border: 1px solid #666;
+}
+
+div.sorting fieldset {
+	display: inline-block;
 }
 
 div.sorting a.asc:after {
@@ -280,7 +309,7 @@ fieldset {
 }
 fieldset legend {
 	color: #e32;
-	font-size: 160%;
+	font-size: 120%;
 	font-weight: bold;
 }
 fieldset fieldset {
@@ -288,7 +317,7 @@ fieldset fieldset {
 	padding: 10px 0 0;
 }
 fieldset fieldset legend {
-	font-size: 120%;
+	font-size: 110%;
 	font-weight: normal;
 }
 fieldset fieldset div {

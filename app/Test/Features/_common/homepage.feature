@@ -3,19 +3,8 @@ Feature: Run simply
 
     Scenario: Visiting the homepage
         Given I am on "/"
-        Then I should see "Login"
-        And I should see "Register"
-        And I should see "Users"
-        And I should see "Stories"
-
-    Scenario Outline: Test all links on the homepage
-        Given I am on "/"
-        And I follow "<link>"
-        Then I should be on "<page>"
-
-        Examples:
-            | link     | page                     |
-            | Users    | /users                   |
-            | Stories  | /stories                 |
-            | Login    | /authentication/login    |
-            | Register | /authentication/register |
+        Then the "Login" link within "#user_menu" should point to "/authentication/login"
+        Then the "Register" link within "#user_menu" should point to "/authentication/register"
+        Then the "Home" link within "#navigation" should point to "/pages/home"
+        Then the "Users" link within "#navigation" should point to "/users"
+        Then the "Stories" link within "#navigation" should point to "/stories"

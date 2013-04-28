@@ -3,6 +3,14 @@ SweetFiction
 
 This is our attempt to provide a Open Source Fanfiction CMS. Since it is build onto CakePHP, it provides the app/ directory and additionally a test suite in tests/ for BDD using Behat.
 
+Development notes
+----------------
+Currently the following Roles must exist in the database:
+| id | name      |
+| 1  | user      |
+| 2  | editorial |
+
+
 Some Links for developing
 ----------------
 
