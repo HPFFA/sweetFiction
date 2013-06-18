@@ -57,7 +57,7 @@ class StoriesController extends AppController {
         $this->Story->id = $id;
         $this->set('story', $this->Story->read(null, $id));
         $this->set('storyChapters', $this->Story->StoryChapter->find(
-            'all', array('conditions' => array('story_id' => $id))));
+            'all', array('conditions' => array('StoryChapter.story_id' => $id))));
         $this->set('reviews', $this->Review->findFor($this->Story, $id));
     }
 
@@ -91,7 +91,6 @@ class StoriesController extends AppController {
             $this->render('view');
         }
     }
-
 
     public function edit_review($id, $review_id) {
         $this->Story->StoryChapter;

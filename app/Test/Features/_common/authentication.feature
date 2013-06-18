@@ -2,10 +2,10 @@
 Feature: Authentication of users
 
     Background:
-        Given there is a "Role"
+        Given there is a "Role":
             | id | name |
             | 1  | user |
-        And there is a "UserRoleAssociation"
+        And there is a "UserRoleAssociation":
             | role_id | user_id |
             | 1       | 1       |
         And there is a "User":
@@ -28,7 +28,7 @@ Feature: Authentication of users
         And there should be a "User":
             | name  | email         | role |
             | Luigi | l@example.com | 1    |
-        And I should be on "/"
+        And I should be on "/pages/home"
 
     Scenario Outline: Denial of registering an user with wrong credentials
         Given I am on "/authentication/register"

@@ -40,12 +40,12 @@ Feature: Viewing the registered users
             | #user_real_name   | Luigi C.                      |
             | #user_birthday    | 1987-07-02                    |
             | #user_biography   | Nothing to say here ...       |
-        And I should not see "Edit"
+        And I should not see the link "Edit"
         Given I am logged in as "Peach" with "test"
         And I am on "/users/view/2"
-        Then I should not see "Edit"
+        Then I should not see the link "Edit"
         When I am on "/users/view/1"
-        Then I should see "Edit"
+        Then I should see the link "Edit"
 
     Scenario: View an user profile of a user with stories
         Given there is a "Story":

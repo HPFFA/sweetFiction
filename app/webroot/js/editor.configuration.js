@@ -4,7 +4,7 @@ CKEDITOR.editorConfig = function( config ) {
          { name: 'links',       items : [ 'Link','Unlink' ] },
          { name: 'insert',      items : [ 'SpecialChar' ] },
          { name: 'editing',     items : [ 'Find','Replace','-','SelectAll','-','SpellChecker', 'Scayt' ] },
-         { name: 'tools',       items : [ 'Maximize', '-', 'Source' ] },
+         { name: 'tools',       items : [ 'Maximize', 'Source' ] },
          '/',
          { name: 'styles',      items : [ 'Format','Font','FontSize' ] },
          { name: 'basicstyles', items : [ 'Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat' ] },

@@ -65,7 +65,7 @@ class StoryChaptersController extends AppController {
 		$this->set('story', $this->StoryChapter->Story->read(null, $story_id));
 		$this->set('storyChapter', $this->StoryChapter->read(null, $chapter_id));
 		$this->set('storyChapterNeighbours', $this->StoryChapter->find('neighbors', array(
-			'conditions' => array('story_id' => $story_id),
+			'conditions' => array('StoryChapter.story_id' => $story_id),
 		    'order' => 'chapter_number DESC',
 		    'fields' => array('chapter_number', 'id', 'title')
 	    )));
@@ -81,7 +81,7 @@ class StoryChaptersController extends AppController {
 			$this->set('story', $this->StoryChapter->Story->read(null, $this->StoryChapter->field('story_id')));
 			$this->set('storyChapter', $this->StoryChapter->read(null, $chapter_id));
 			$this->set('storyChapterNeighbours', $this->StoryChapter->find('neighbors', array(
-				'conditions' => array('story_id' => $this->StoryChapter->field('story_id')),
+				'conditions' => array('StoryChapter.story_id' => $this->StoryChapter->field('story_id')),
 			    'order' => 'chapter_number DESC',
 			    'fields' => array('chapter_number', 'id', 'title')
 		    )));
@@ -102,7 +102,7 @@ class StoryChaptersController extends AppController {
 			$this->set('story', $this->StoryChapter->Story);
 			$this->set('storyChapters', $this->StoryChapter->read(null, $chapter_id));
 			$this->set('storyChapterNeighbours', $this->StoryChapter->find('neighbors', array(
-				'conditions' => array('story_id' => $story_id),
+				'conditions' => array('StoryChapter.story_id' => $story_id),
 			    'order' => 'chapter_number DESC',
 			    'fields' => array('chapter_number', 'id', 'title')
 		    )));
@@ -114,7 +114,7 @@ class StoryChaptersController extends AppController {
 	private function getHighestChapterOrderFor($story_id)
 	{
 		return $this->StoryChapter->find('first', array(
-    				'conditions' => array('story_id' => $story_id), 
+    				'conditions' => array('StoryChapter.story_id' => $story_id), 
     				'fields' => array('MAX(chapter_number) AS chapter_number')));
 	}
 

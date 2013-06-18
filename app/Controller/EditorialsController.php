@@ -13,8 +13,6 @@ class EditorialsController extends AppController {
      public $paginate = array(
         'Editorial' => array(
             'conditions' => array('Editorial.completed' => null), 
-            //'order' => array('StoryChapter.chapter_number'),
-            //'group' => array('Editorial.story_id')
         )
     );
 
