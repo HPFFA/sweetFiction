@@ -47,3 +47,11 @@ Feature: As editor I want to view unpublished stories
         And the "E-Gadd" link within "#story_1 .editor" should point to "/users/view/2"
         And the "E-Gadd's first story" link within "#story_2" should point to "/editorials/view/story/2"
         And the "Mario" link within "#story_2 .editor" should point to "/users/view/3"
+
+    @wip
+    Scenario: Inspect story within editorial
+        Given I am logged in as "E-Gadd" with "test"
+        And I am on "/editorials"
+        When I follow "Peach's first story" within "#story_1"
+        Then I should be on "/editorials/view/story/1"
+        And the "#center_content" element should contain "Peach's first story"

@@ -27,7 +27,7 @@
 				&nbsp;
 			</dd>
 		<?php endif;
-			if (!empty($story['Story']['prologue'])): ?>
+			if (!empty($story['Story']['epilogue'])): ?>
 			<dt><?php echo __('Epilogue'); ?></dt>
 			<dd id="story_epilogue">
 				<?php echo ($story['Story']['epilogue']); ?>

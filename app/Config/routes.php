@@ -53,6 +53,19 @@
             'reference_id' => '[0-9]+',
             'review_id' => '[0-9]+',
     ));
+
+    Router::connect("/editorials/view/story/:story_id",
+        array('controller' => "editorials", 'action' => 'view_story'),
+        array(
+            'pass' => array('story_id'),
+            'story_id' => '[0-9]+'
+    ));
+    Router::connect("/editorials/edit/story/:story_id",
+        array('controller' => "editorials", 'action' => 'edit_story'),
+        array(
+            'pass' => array('story_id'),
+            'story_id' => '[0-9]+'
+    ));
 /**
  * Load all plugin routes.  See the CakePlugin documentation on 
  * how to customize the loading of plugin routes.
